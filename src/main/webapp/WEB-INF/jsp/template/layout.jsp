@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div id="wrap">
-		<header class="bg-success">
+		<header class="bg-info">
 			<div class="small d-flex justify-content-end">
 				<div><a>회원가입</a></div>
 				<span class="pr-1 pl-1">|</span>
@@ -27,7 +27,7 @@
 				<div><a>고객센터</a></div>
 			</div>
 			<div>
-				<div>당근마켓</div>
+				<div><img alt="당근마켓 로고" src="/static/img/logo_003.png" width="120px"></div>
 				<ul class="nav">
 					<li class="nav-list"><a href="#" class="nav-item">중고거래</a></li>
 					<li class="nav-list"><a href="#" class="nav-item">동네가게</a></li>
@@ -81,19 +81,17 @@
 				</div>
 			</div>
 			<div class="small text-secondary d-flex justify-content-center border-top pt-4">
-				<div>
+				<div class="col-5 ml-4">
 					<b>대표</b> 김용현, 황도연 | <b>사업자번호</b> 375-87-00088<br>
 					<b>직업정보제공사업 신고번호</b> 2016-서울서초-0051<br>
 					<b>주소</b> 서울특별시 구로구 디지털로 30길 28, 609호 (당근서비스)<br>
 					<b>전화</b> 1544-9796 | <b>고객문의</b> cs@daangnservice.com
 				</div>
-				<div>
-					<div>
-						<img alt="페이스북" src="https://cdn-icons-png.flaticon.com/512/2175/2175193.png" width="25px">
-						<img alt="인스타그램" src="" width="25px">
-						<img alt="유튜브" src="" width="25px">
-						<img alt="네이버 블로그" src="" width="25px">
-					</div>
+				<div class="col-3">
+					<a href="https://www.facebook.com/daangn" target="_blank" class="pr-2 pl-2"><img alt="페이스북" src="/static/img/facebook.png" width="25px"></a>
+					<a href="https://www.instagram.com/daangnmarket/" target="_blank" class="pr-2 pl-2"><img alt="인스타그램" src="/static/img/instagram.png" width="25px"></a>
+					<a href="https://www.youtube.com/channel/UC8tsBsQBuF7QybxgLmStihA" target="_blank" class="pr-2 pl-2"><img alt="유튜브" src="/static/img/youtube.png" width="25px"></a>
+					<a href="https://blog.naver.com/daangn" target="_blank" class="pr-2 pl-2"><img alt="네이버 블로그" src="/static/img/blog.png" width="25px"></a>
 				</div>
 			</div>
 		</footer>
