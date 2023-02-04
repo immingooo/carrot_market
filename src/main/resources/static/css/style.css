@@ -1,9 +1,15 @@
 @charset "UTF-8";
 #wrap{width:1200px; height:1000px; margin:auto;}
-header {min-height:80px;}
+header {min-height:80px; position:sticky; top:0; background-color: #fff; z-index: 100;}
 #contents {min-height:800px;}
+.section-box {min-height:800px; width:980px;}
 footer {min-height:500px;}
 
-a, a:hover {color: black;}
+footer a, a:hover {color: black;}
 li {list-style:none;}
 .footer-box {width: 147px; height:47px; background-color:#F2F3F6; border-radius:10px;}
+
+.nav-font-size {font-size: 18px; color: black;}
+
+.used-parent-box {gap: 40px 58px;}
+.sold-out-box {background-color: #FF7E36; border-radius: 10px;}
