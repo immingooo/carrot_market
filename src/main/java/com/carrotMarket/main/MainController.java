@@ -14,4 +14,10 @@ public class MainController {
 		model.addAttribute("viewName", "main/main");
 		return "template/layout";
 	}
+	
+	@GetMapping("/search_view")
+	public String searchView(Model model) {
+		model.addAttribute("viewName", "main/search");
+		return "template/layout";
+	}
 }

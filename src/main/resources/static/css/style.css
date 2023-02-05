@@ -2,7 +2,7 @@
 #wrap{width:1200px; height:1000px; margin:auto;}
 header {min-height:80px; position:sticky; top:0; background-color: #fff; z-index: 100;}
 #contents {min-height:800px;}
-.section-box {min-height:800px; width:980px;}
+.main-box {min-height:800px; width:980px;}
 footer {min-height:500px;}
 
 footer a, a:hover {color: black;}
@@ -13,3 +13,7 @@ li {list-style:none;}
 
 .used-parent-box {gap: 40px 58px;}
 .sold-out-box {background-color: #FF7E36; border-radius: 10px;}
+
+.search-box {min-height:800px; width:800px; border-radius: 10px;}
+.text-orange {color:#FF7E36;}
+.hot-used-parent-box {gap: 40px 50px;}

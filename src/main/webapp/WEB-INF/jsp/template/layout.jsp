@@ -24,7 +24,7 @@
 		</header>
 		
 		<%-- section --%>
-		<section id="contents" class="d-flex justify-content-center">
+		<section id="contents">
 			<jsp:include page="../${viewName}.jsp" />
 		</section>
 		
