@@ -17,3 +17,6 @@ li {list-style:none;}
 .search-box {min-height:800px; width:800px; border-radius: 10px;}
 .text-orange {color:#FF7E36;}
 .hot-used-parent-box {gap: 40px 50px;}
+
+.bg-orange {background-color:#FF7E36;}
+.profile-img {border-radius: 40%;}
