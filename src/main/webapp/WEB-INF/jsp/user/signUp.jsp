@@ -29,16 +29,23 @@
 					<div id="idCheckLength" class="small text-danger pt-1 d-none">아이디를 4자 이상 입력해주세요.</div>
 					<div id="idCheckDuplicated" class="small text-danger pt-1 d-none">사용중인 아이디입니다.</div>
 					<div id="idCheckOk" class="small text-success pt-1 d-none">사용 가능한 아이디입니다.</div>
+					<div id="idCheckType" class="small text-danger pt-1 d-none">아이디 형식이 틀렸습니다.</div>
 				</div>
 			</div>
-				
-			<div class="d-flex justify-content-between pb-3">
-				<label for="password"><h6 class="font-weight-bold mt-2">비밀번호</h6></label>
-				<input type="password" id="password" name="password" class="form-control col-9" placeholder="비밀번호를 입력해주세요">
-			</div>
-			<div class="d-flex justify-content-between pb-3">
-				<label for="confirmPassword"><h6 class="font-weight-bold mt-2">비밀번호 확인</h6></label>
-				<input type="password" id="confirmPassword" class="form-control col-9" placeholder="비밀번호를 한번 더 입력해주세요">
+			
+			<div class="pb-3">
+				<div class="d-flex justify-content-between pb-3">
+					<label for="password"><h6 class="font-weight-bold mt-2">비밀번호</h6></label>
+					<input type="password" id="password" name="password" class="form-control col-9" placeholder="비밀번호를 입력해주세요">
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="confirmPassword"><h6 class="font-weight-bold mt-2">비밀번호 확인</h6></label>
+					<input type="password" id="confirmPassword" class="form-control col-9" placeholder="비밀번호를 한번 더 입력해주세요">
+				</div>
+				<div class="d-flex">
+					<div class="col-3"></div>
+					<div id="confirmPasswordCheck" class="small text-danger pt-1 d-none">동일한 비밀번호를 입력하세요.</div>
+				</div>
 			</div>
 			
 			<div class="pb-3">
@@ -60,20 +67,74 @@
 			<div class="d-flex justify-content-between pb-3">
 				<label for="address"><h6 class="font-weight-bold mt-2">주소</h6></label>
 				<div class="d-flex justify-content-between col-9 p-0">
-					<input type="text" id="sample5_address" name="address" class="form-control col-8" placeholder="주소" readonly>
-					<input type="button" onclick="sample5_execDaumPostcode()" class="btn" value="주소 검색"><br>
+					<input type="text" id="address_kakao" name="address" class="form-control col-12" readonly>
+					<!-- <input type="button" onclick="sample5_execDaumPostcode()" class="btn" value="주소 검색"><br> -->
 				</div>
 			</div>
-			<div id="map" style="width:300px;height:300px;margin-top:10px;"></div>
+			<!-- <div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div> -->
 			
 			<button type="submit" class="btn bg-orange text-light w-100 font-weight-bold">가입하기</button>
 		</form>
 	</div>
 </div>
 
+
+
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	$(document).ready(function() {
+		// 아이디 4자 이상
+		$('#loginId').keyup(function() {
+			$('#idCheckDuplicated').addClass('d-none');
+			$('#idCheckOk').addClass('d-none');
+			$('#idCheckType').addClass('d-none');
+			$('#idCheckLength').addClass('d-none');
+			var content = $(this).val();
+			if (content.length > 3) {
+				//$('#idCheckLength').addClass('d-none');
+				
+				let pattern = new RegExp("^[a-zA-Z][0-9a-zA-Z]{3,}$") // 글자 수 변경하기
+				//console.log(content)
+				if (pattern.test(content)) { // 정규식에 맞는다면
+					$('#idCheckOk').removeClass('d-none');
+				} else {
+					$('#idCheckLength').addClass('d-none');
+					$('#idCheckType').removeClass('d-none');
+				}
+			} else { // do-while문
+				$('#idCheckLength').removeClass('d-none');
+			}
+		});
+		
+		
+		// 닉네임 2자 이상
+		$('#nickname').keyup(function() {
+			$('#nicknameCheckDuplicated').addClass('d-none');
+			$('#nicknameCheckOk').addClass('d-none');
+			$('#nicknameCheckLength').removeClass('d-none');
+			var content = $(this).val();
+			if (content.length > 1) {
+				$('#nicknameCheckLength').addClass('d-none');
+				//alert("최대 3자까지 입력 가능합니다.");
+				//$(this).val(content.substring(0, 3));
+			}
+		});
+		
+		// 실시간으로 비밀번호 일치하는지
+		/* $('#confirmPassword').keyup(function() {
+			$('#confirmPasswordCheck').removeClass('d-none');
+			let password = $("#password").val().trim();
+			for (let i = 0; i < confirmPassword.length; i++) {
+				
+			}
+			if (password confirmPassword) {
+				$('#confirmPasswordCheck').addClass('d-none');
+				//alert("최대 3자까지 입력 가능합니다.");
+				//$(this).val(content.substring(0, 3));
+			}
+		}); */
+		
 		// 아이디 중복검사
 		$("#loginIdCheckBtn").on('click', function() {
 			//alert("1111");
@@ -144,6 +205,16 @@
 			});
 		});
 		
+		// 주소 API
+	    $('#address_kakao').on("click", function(){ //주소입력칸을 클릭하면
+	        //카카오 지도 발생
+	        new daum.Postcode({
+	            oncomplete: function(data) { //선택시 입력값 세팅
+	                document.getElementById("address_kakao").value = data.address; // 주소 넣기
+	            }
+	        }).open();
+	    });
+		
 		// 회원가입 버튼클릭
 		$("#signUpForm").on('submit', function(e){
 			//alert("111");
@@ -154,7 +225,7 @@
 			let password = $("#password").val().trim();
 			let confirmPassword = $("#confirmPassword").val().trim();
 			let nickname = $("#nickname").val().trim();
-			let address = $("#address").val().trim();
+			let address = $("#address").val();
 			
 			if (loginId == "") {
 				alert("아이디를 입력해주세요");
@@ -181,6 +252,16 @@
 				return false;
 			}
 			
+			if ($('#idCheckOk').hasClass('d-none')) {
+				alert('아이디 중복확인을 다시 해주세요.');
+				return false;
+			}
+			
+			if ($('#nicknameCheckOk').hasClass('d-none')) {
+				alert('아이디 중복확인을 다시 해주세요.');
+				return false;
+			}
+			
 			let url = $(this).attr('action');
 			let params = $(this).serialize();
 			console.log(url);
@@ -196,8 +277,5 @@
 				}
 			});
 		});
-		
-		// 주소 API
-		
 	});
 </script>
