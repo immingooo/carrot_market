@@ -9,4 +9,43 @@
  		FROM
  			`user`
  	</select>
+ 	
+ 	<select id="existLoginId" parameterType="string" resultType="boolean">
+ 		SELECT
+ 			COUNT(1)
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+ 	</select>
+ 	
+ 	<select id="existNickname" parameterType="string" resultType="boolean">
+ 		SELECT
+ 			COUNT(*)
+ 		FROM
+ 			`user`
+ 		WHERE
+ 			`nickname` = #{nickname}
+ 	</select>
+ 	
+ 	<insert id="insertUser" parameterType="map">
+ 		INSERT INTO `user`
+ 		(
+ 			`loginId`
+			,`password`
+			,`nickname`
+			,`address`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{loginId}
+ 			, #{password}
+ 			, #{nickname}
+ 			, #{address}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
  </mapper>

@@ -3,7 +3,7 @@
 
 <%-- 비로그인 --%>
 <div class="small d-flex justify-content-end pt-2">
-	<div><a href="#" style="text-decoration:none; color:black">회원가입</a></div>
+	<div><a href="/user/sign_up_view" style="text-decoration:none; color:black">회원가입</a></div>
 	<span class="pr-1 pl-1">|</span>
 	<div><a href="#" style="text-decoration:none; color:black">로그인</a></div>
 	<span class="pr-1 pl-1">|</span>
@@ -20,7 +20,7 @@
 <div class="d-flex justify-content-between pr-4 pl-4 pt-2 pb-3 top-fixed">
 	<%-- 로고 --%>
 	<div class="d-flex align-items-center pl-4">
-		<a href="#"><img alt="당근마켓 로고" src="/static/img/logo_003.png" width="120px"></a>
+		<a href="/main/main_view"><img alt="당근마켓 로고" src="/static/img/logo_003.png" width="120px"></a>
 	</div>
 	
 	<%-- 메뉴 --%>

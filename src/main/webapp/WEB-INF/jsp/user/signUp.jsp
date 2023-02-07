@@ -59,14 +59,19 @@
 			
 			<div class="d-flex justify-content-between pb-3">
 				<label for="address"><h6 class="font-weight-bold mt-2">주소</h6></label>
-				<input type="text" id="address" name="address" class="form-control col-9">
+				<div class="d-flex justify-content-between col-9 p-0">
+					<input type="text" id="sample5_address" name="address" class="form-control col-8" placeholder="주소" readonly>
+					<input type="button" onclick="sample5_execDaumPostcode()" class="btn" value="주소 검색"><br>
+				</div>
 			</div>
+			<div id="map" style="width:300px;height:300px;margin-top:10px;"></div>
 			
 			<button type="submit" class="btn bg-orange text-light w-100 font-weight-bold">가입하기</button>
 		</form>
 	</div>
 </div>
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	$(document).ready(function() {
 		// 아이디 중복검사
@@ -94,16 +99,52 @@
 						} else { // 사용가능할 때
 							$("#idCheckOk").removeClass('d-none');
 						}
-					} else (data.code == 500) {
+					} else if (data.code == 500) {
 						alert(data.errorMessage);
 					}
 				}
 				, error(e) {
-					alert("중복확인에 실패했습니다.");
+					alert("아이디 중복확인에 실패했습니다.");
 				}
 			});
 		});
 		
+		// 닉네임 중복검사
+		$('#nicknameCheckBtn').on('click', function() {
+			//alert('1111');
+			$('#nicknameCheckLength').addClass('d-none');
+			$('#nicknameCheckDuplicated').addClass('d-none');
+			$('#nicknameCheckOk').addClass('d-none');
+			
+			let nickname = $("#nickname").val().trim();
+			if (nickname.length < 2) {
+				$('#nicknameCheckLength').removeClass('d-none');
+				return;
+			}
+			
+			$.ajax({
+				type:"get"
+				, url:"/user/is_duplicated_nickname"
+				, data:{"nickname":nickname}
+			
+				, success(data) {
+					if (data.code == 1) {
+						if (data.result) { // 중복일 때
+							$('#nicknameCheckDuplicated').removeClass('d-none');
+						} else { // 중복 아닐 때
+							$('#nicknameCheckOk').removeClass('d-none');
+						}
+					} else if (data.code == 500) {
+						alert(data.errorMessage);
+					}
+				}
+				, error(e) {
+					alert("닉네임 중복확인에 실패했습니다.");
+				}
+			});
+		});
+		
+		// 회원가입 버튼클릭
 		$("#signUpForm").on('submit', function(e){
 			//alert("111");
 			e.preventDefault();
@@ -140,7 +181,23 @@
 				return false;
 			}
 			
+			let url = $(this).attr('action');
+			let params = $(this).serialize();
+			console.log(url);
+			console.log(params);
 			
+			$.post(url,params)
+			.done(function(data) {
+				if (data.code == 1) {
+					alert("회원가입을 축하드립니다!");
+					//location.href="/user/sign_in_view";
+				} else {
+					alert(data.errorMessage);
+				}
+			});
 		});
+		
+		// 주소 API
+		
 	});
 </script>
