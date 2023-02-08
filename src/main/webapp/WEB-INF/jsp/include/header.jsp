@@ -1,21 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%-- 비로그인 --%>
-<div class="small d-flex justify-content-end pt-2">
+<c:if test="${empty userId}">
+<div class="small d-flex justify-content-end pt-2 pb-2">
 	<div><a href="/user/sign_up_view" style="text-decoration:none; color:black">회원가입</a></div>
 	<span class="pr-1 pl-1">|</span>
 	<div><a href="/user/sign_in_view" style="text-decoration:none; color:black">로그인</a></div>
 	<span class="pr-1 pl-1">|</span>
 	<div><a href="#" style="text-decoration:none; color:black">고객센터</a></div>
 </div>
+</c:if>
 <%-- 로그인 --%>
-<!-- <div class="d-flex justify-content-end pt-2">
-	<span class="pr-3"><a href="#" style="text-decoration:none; color:black">ㅇㅇ님</a></span>
+<c:if test="${not empty userId}">
+<div class="d-flex justify-content-end pt-2">
+    <div class="dropdown">
+	<a class="pr-3 dropbtn dropdown-toggle" href="#" style="text-decoration:none; color:black">
+	${userNickname}님
+	</a>
+	<div class="dropdown-content">
+	  <a href="#">내 정보</a>
+	  <a href="/user/sign_out">로그아웃</a>
+	</div>
+	</div>
+    
 	<a href="#"><img alt="관심목록 아이콘" src="https://cdn-icons-png.flaticon.com/512/2589/2589197.png" width="30px" class="mr-2"></a>
 	<a href="#"><img alt="채팅목록 아이콘" src="https://cdn-icons-png.flaticon.com/512/2076/2076218.png" width="30px" class="mr-2"></a>
 	<a href="#"><img alt="알림 아이콘" src="https://cdn-icons-png.flaticon.com/512/709/709846.png" width="30px"></a>
-</div> -->
+</div>
+</c:if>
 
 <div class="d-flex justify-content-between pr-4 pl-4 pt-2 pb-3 top-fixed">
 	<%-- 로고 --%>

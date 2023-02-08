@@ -61,7 +61,7 @@
 					<div id="nicknameCheckLength" class="small text-danger pt-1 d-none">닉네임을 2자 이상 입력해주세요.</div>
 					<div id="nicknameCheckDuplicated" class="small text-danger pt-1 d-none">사용중인 닉네임입니다.</div>
 					<div id="nicknameCheckOk" class="small text-success pt-1 d-none">사용 가능한 닉네임입니다.</div>
-					<div id="nicknameCheckType" class="small text-success pt-1 d-none">닉네임은 띄어쓰기 없이 한글, 영문, 숫자만 가능해요.</div>
+					<div id="nicknameCheckType" class="small text-danger pt-1 d-none">닉네임은 띄어쓰기 없이 한글, 영문, 숫자만 가능해요.</div>
 				</div>
 			</div>
 			
@@ -293,7 +293,7 @@
 			.done(function(data) {
 				if (data.code == 1) {
 					alert("회원가입을 축하드립니다!");
-					//location.href="/user/sign_in_view";
+					location.href="/user/sign_in_view";
 				} else {
 					alert(data.errorMessage);
 				}
