@@ -1,7 +1,7 @@
 @charset "UTF-8";
 #wrap{width:1200px; height:1000px; margin:auto;}
 header {min-height:80px; position:sticky; top:0; background-color: #fff; z-index: 100;}
-#contents {min-height:800px;}
+#contents {min-height:400px;}
 .main-box {min-height:800px; width:980px;}
 footer {min-height:500px;}
 

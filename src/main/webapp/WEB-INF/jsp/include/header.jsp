@@ -5,7 +5,7 @@
 <div class="small d-flex justify-content-end pt-2">
 	<div><a href="/user/sign_up_view" style="text-decoration:none; color:black">회원가입</a></div>
 	<span class="pr-1 pl-1">|</span>
-	<div><a href="#" style="text-decoration:none; color:black">로그인</a></div>
+	<div><a href="/user/sign_in_view" style="text-decoration:none; color:black">로그인</a></div>
 	<span class="pr-1 pl-1">|</span>
 	<div><a href="#" style="text-decoration:none; color:black">고객센터</a></div>
 </div>

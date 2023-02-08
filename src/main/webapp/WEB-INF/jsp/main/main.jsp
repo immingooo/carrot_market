@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center pt-4">
 	<div class="main-box h-100 mb-5">
 		<div class="d-flex justify-content-center">
 			<h2 class="font-weight-bold m-0 mt-2">중고거래 매물</h2>
