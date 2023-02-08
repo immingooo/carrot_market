@@ -21,15 +21,15 @@
 					<label for="loginId"><h6 class="font-weight-bold mt-2">아이디</h6></label>
 					<div class="d-flex justify-content-between col-9 p-0">
 						<input type="text" id="loginId" name="loginId" class="form-control col-8" placeholder="아이디를 입력해주세요">
-						<button type="button" id="loginIdCheckBtn" class="btn bg-orange text-light">중복확인</button>
+						<button type="button" id="loginIdCheckBtn" class="btn bg-orange font-weight-bold">중복확인</button>
 					</div>
 				</div>
 				<div class="d-flex">
 					<div class="col-3"></div>
 					<div id="idCheckLength" class="small text-danger pt-1 d-none">아이디를 4자 이상 입력해주세요.</div>
-					<div id="idCheckDuplicated" class="small text-danger pt-1 d-none">사용중인 아이디입니다.</div>
+					<div id="idCheckDuplicated" class="small text-danger pt-1 d-none">사용불가능한 아이디입니다.</div>
 					<div id="idCheckOk" class="small text-success pt-1 d-none">사용 가능한 아이디입니다.</div>
-					<div id="idCheckType" class="small text-danger pt-1 d-none">아이디 형식이 틀렸습니다.</div>
+					<div id="idCheckType" class="small text-danger pt-1 d-none">4자 이상 8자 이하의 영문 혹은 영문과 숫자를 조합</div>
 				</div>
 			</div>
 			
@@ -53,7 +53,7 @@
 					<label for="nickname"><h6 class="font-weight-bold mt-2">닉네임</h6></label>
 					<div class="d-flex justify-content-between col-9 p-0">
 						<input type="text" id="nickname" name="nickname" class="form-control col-8" placeholder="닉네임을 입력해주세요">
-						<button type="button" id="nicknameCheckBtn" class="btn bg-orange text-light">중복확인</button>
+						<button type="button" id="nicknameCheckBtn" class="btn bg-orange font-weight-bold">중복확인</button>
 					</div>
 				</div>
 				<div class="d-flex">
@@ -61,6 +61,7 @@
 					<div id="nicknameCheckLength" class="small text-danger pt-1 d-none">닉네임을 2자 이상 입력해주세요.</div>
 					<div id="nicknameCheckDuplicated" class="small text-danger pt-1 d-none">사용중인 닉네임입니다.</div>
 					<div id="nicknameCheckOk" class="small text-success pt-1 d-none">사용 가능한 닉네임입니다.</div>
+					<div id="nicknameCheckType" class="small text-success pt-1 d-none">닉네임은 띄어쓰기 없이 한글, 영문, 숫자만 가능해요.</div>
 				</div>
 			</div>
 			
@@ -73,7 +74,7 @@
 			</div>
 			<!-- <div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div> -->
 			
-			<button type="submit" class="btn bg-orange text-light w-100 font-weight-bold">가입하기</button>
+			<button type="submit" class="btn btn-orange text-light w-100 font-weight-bold">가입하기</button>
 		</form>
 	</div>
 </div>
@@ -84,26 +85,34 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	$(document).ready(function() {
-		// 아이디 4자 이상
-		$('#loginId').keyup(function() {
+		// 아이디 정규식(실시간 감지)
+		$('#loginId').on("input", function(e) {
 			$('#idCheckDuplicated').addClass('d-none');
 			$('#idCheckOk').addClass('d-none');
 			$('#idCheckType').addClass('d-none');
 			$('#idCheckLength').addClass('d-none');
+			
 			var content = $(this).val();
-			if (content.length > 3) {
-				//$('#idCheckLength').addClass('d-none');
-				
-				let pattern = new RegExp("^[a-zA-Z][0-9a-zA-Z]{3,}$") // 글자 수 변경하기
-				//console.log(content)
-				if (pattern.test(content)) { // 정규식에 맞는다면
-					$('#idCheckOk').removeClass('d-none');
-				} else {
-					$('#idCheckLength').addClass('d-none');
+			
+			// 스페이스바, 한글 막기
+			if (!(e.keyCode >= 37 && e.keyCode <= 40)) {
+				$(this).val(content.replace(/[^a-z._0-9^-]/gi, ''));
+			}
+			
+			if (content.length < 9) { // 4 ~ 8자
+				// 정규식 확인
+				let pattern = /^[a-z]+[a-z0-9]{3,7}$/g; // 4 ~ 8자
+				if (!(pattern.test(content))) { // 정규식에 맞지않는다면
 					$('#idCheckType').removeClass('d-none');
 				}
-			} else { // do-while문
-				$('#idCheckLength').removeClass('d-none');
+			} else { // 9 ~ 
+				// 입력막기
+				content = content.slice(0,8);
+		        $(this).val(content);
+		        let pattern = /^[a-z]+[a-z0-9]{3,7}$/g; // 4 ~ 8자
+				if (!(pattern.test(content))) { // 정규식에 맞지않는다면
+					$('#idCheckType').removeClass('d-none');
+				}
 			}
 		});
 		
@@ -112,13 +121,24 @@
 		$('#nickname').keyup(function() {
 			$('#nicknameCheckDuplicated').addClass('d-none');
 			$('#nicknameCheckOk').addClass('d-none');
-			$('#nicknameCheckLength').removeClass('d-none');
+			$('#nicknameCheckLength').addClass('d-none');
+			$('#nicknameCheckType').addClass('d-none');
+			
 			var content = $(this).val();
-			if (content.length > 1) {
-				$('#nicknameCheckLength').addClass('d-none');
-				//alert("최대 3자까지 입력 가능합니다.");
-				//$(this).val(content.substring(0, 3));
+			if (content.length > 1) { // 2자 이상일 때
+				//let pattern = /^[a-zA-Zㄱ-힣][a-zA-Zㄱ-힣]*$/; // 한글, 영문
+				let pattern = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/; // 한글, 영문, 숫자
+				if (!(pattern.test(content))) { // 정규식에 맞지않는다면
+					$('#nicknameCheckType').removeClass('d-none');
+					$('#nicknameCheckBtn').attr('disabled', 'disabled');
+				} else { // 정규식에 맞을 때
+					$('#nicknameCheckBtn').removeAttr("disabled");
+				}
+			} else {
+				$('#nicknameCheckBtn').attr('disabled', 'disabled');
+				$('#nicknameCheckLength').removeClass('d-none');
 			}
+			
 		});
 		
 		// 실시간으로 비밀번호 일치하는지
@@ -141,6 +161,7 @@
 			$('#idCheckLength').addClass('d-none');
 			$('#idCheckDuplicated').addClass('d-none');
 			$('#idCheckOk').addClass('d-none');
+			$('#idCheckType').addClass('d-none');
 			
 			let loginId = $("#loginId").val().trim();
 			if (loginId.length < 4) {
@@ -176,6 +197,7 @@
 			$('#nicknameCheckLength').addClass('d-none');
 			$('#nicknameCheckDuplicated').addClass('d-none');
 			$('#nicknameCheckOk').addClass('d-none');
+			$('#nicknameCheckType').addClass('d-none');
 			
 			let nickname = $("#nickname").val().trim();
 			if (nickname.length < 2) {
@@ -258,7 +280,7 @@
 			}
 			
 			if ($('#nicknameCheckOk').hasClass('d-none')) {
-				alert('아이디 중복확인을 다시 해주세요.');
+				alert('닉네임 중복확인을 다시 해주세요.');
 				return false;
 			}
 			
