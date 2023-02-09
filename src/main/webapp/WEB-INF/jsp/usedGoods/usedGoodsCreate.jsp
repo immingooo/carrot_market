@@ -14,10 +14,10 @@
 					</div>
 					<div class="d-flex justify-content-between">
 						<select class="form-control" id="category" name="category">
-							<option value="1">카테고리</option>
-							<option value="2">디지털기기</option>
-							<option value="3">생활가전</option>
-							<option value="4">가구/인테리어</option>
+							<option>카테고리</option>
+							<option>디지털기기</option>
+							<option>생활가전</option>
+							<option>가구/인테리어</option>
 							<option>생활/주방</option>
 							<option>유아동</option>
 							<option>유아도서</option>
@@ -41,7 +41,7 @@
 			
 			<div class="pb-3">
 				<div>
-					<input type="text" id="price" name="price" class="form-control" placeholder="가격">
+					<input type="text" id="price" name="price" class="form-control" placeholder="가격" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 				</div>
 			</div>
 			
@@ -79,11 +79,12 @@
 			let content = $('#content').val();
 			let place = $('#place').val();
 			
+			
 			if (title == '') {
 				alert("제목을 입력해주세요");
 				return false;
 			}
-			if (category == '') {
+			if (category == "카테고리") {
 				alert("카테고리를 선택해주세요");
 				return false;
 			}

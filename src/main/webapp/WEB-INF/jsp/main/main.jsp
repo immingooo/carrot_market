@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="d-flex justify-content-center pt-4">
 	<div class="main-box h-100 mb-5">
 		<div class="d-flex justify-content-center">
 			<h2 class="font-weight-bold m-0 mt-2">중고거래 매물</h2>
 		</div>
+		<c:if test="${not empty userId}">
+		<div class="d-flex justify-content-end">
+			<a href="/used_goods/used_goods_create_view" class="btn btn-orange" style="text-decoration:none; color:white;">글쓰기</a>
+		</div>
+		</c:if>
 		<div>
 			<%-- 카테고리 --%>
 			<div class="d-flex justify-content-between mt-4 mb-5">
