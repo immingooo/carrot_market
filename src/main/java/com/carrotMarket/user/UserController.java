@@ -31,4 +31,22 @@ public class UserController {
 		
 		return "redirect:/main/main_view";
 	}
+	
+	@GetMapping("/user_info_view")
+	public String userInfoView(Model model) {
+		model.addAttribute("viewName", "user/userInfo");
+		return "template/layout";
+	}
+	
+	@GetMapping("/user_profile_view")
+	public String userProfileView(Model model) {
+		model.addAttribute("viewName", "user/userProfile");
+		return "template/layout";
+	}
+	
+	@GetMapping("/user_profile_update_view")
+	public String userProfileUpdateView(Model model) {
+		model.addAttribute("viewName", "user/userProfileUpdate");
+		return "template/layout";
+	}
 }

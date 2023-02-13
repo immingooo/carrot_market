@@ -92,7 +92,7 @@
 		// 파일 선택 이벤트
 		$('input[name=file]').on('change', function(e) {
 			
-			//div 내용 비워주기
+			//이미지 미리보기 내용 비워주기
 			$('#preview').empty();
 			
 			var files = e.target.files;
@@ -106,6 +106,16 @@
 			}
 		
 			// 확장자 유효성 확인 - 파일이 여러개여서 반복문 돌려야 함
+			for (let i = 0; i < filesArr.length; i++) {
+				//console.log(filesArr[i].name);
+				let ext = filesArr[i].name.split(".").pop().toLowerCase()
+				if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) { 
+					alert("이미지 파일만 업로드 할 수 있습니다.");
+					$('#file').val(""); // 잘못된 파일을 비운다.
+					return;
+				}
+			}
+			
 			preview(filesArr);
 	      
 			filesArr.forEach(function(f) { 
@@ -169,9 +179,11 @@
 			formData.append("content", content);
 			formData.append("place", place);
 			
-			for (let i = 0; i < inputFileList.length; i++) {
-			　　　　formData.append("images", inputFileList[i]);  // 배열에서 이미지들을 꺼내 폼 객체에 담는다.
-			　　}
+			if (inputFileList != null) { // 이미지 파일이 선택된 경우에만 담기
+				for (let i = 0; i < inputFileList.length; i++) {
+				　　　　formData.append("images", inputFileList[i]);  // 배열에서 이미지들을 꺼내 폼 객체에 담는다.
+				　　}
+			}
 			
 			$.ajax({
 			　　　　type:'post'
@@ -182,10 +194,16 @@
 			　　　　, contentType: false   // 업로드를 위한 필수 파라미터
 			    
 			　　　　, success: function(data) {
-			　　　　　　alert(data);
+			　　　　　　if (data.code == 1) {
+							alert("글 업로드 성공!!");
+							//location.href="/used_goods/used_goods_detail_view";
+			　　　　　　} else if (data.code == 500){
+							alert(data.errorMessage);
+							location.href="/user/sign_in_view";
+			　　　　　　}
 			　　　　}
 			　　　　, error: function(e) {
-			　　　　　　alert("error:" + e);
+			　　　　　　alert("글 업로드에 실패했습니다. 관리자에게 문의해주세요.");
 			　　　　}
 			　　});
 		});

@@ -20,7 +20,7 @@
 	${userNickname}님
 	</a>
 	<div class="dropdown-content">
-	  <a href="#">내 정보</a>
+	  <a href="/user/user_info_view">내 정보</a>
 	  <a href="/user/sign_out">로그아웃</a>
 	</div>
 	</div>

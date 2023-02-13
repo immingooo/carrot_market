@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.carrotMarket.usedGoods.dao.UsedGoodsDAO">
+	<insert id="insertUsedGoods" parameterType="map"
+	useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `used_goods`
+		(
+			`userId`
+			,`title`
+			,`category`
+			,`price`
+			,`content`
+			,`place`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{userId}
+			, #{title}
+			, #{category}
+			, #{price}
+			, #{content}
+			, #{place}
+			, NOW()
+			, NOW()
+		)
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<!-- <select id="selectUsedGoods" parameterType="int" resultType="com.carrotMarket.usedGoods.model.UsedGoods">
+		SELECT
+			`id`
+			,`userId`
+			,`title`
+			,`category`
+			,`price`
+			,`content`
+			,`place`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`used_goods`
+		WHERE
+			`id` = #{}
+	</select> -->
+</mapper>

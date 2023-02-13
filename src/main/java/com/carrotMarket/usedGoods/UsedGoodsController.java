@@ -14,4 +14,10 @@ public class UsedGoodsController {
 		model.addAttribute("viewName", "usedGoods/usedGoodsCreate");
 		return "template/layout";
 	}
+	
+	@GetMapping("/used_goods_detail_view")
+	public String usedGoodsDetailView(Model model) {
+		model.addAttribute("viewName", "usedGoods/usedGoodsDetail");
+		return "template/layout";
+	}
 }
