@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.carrotMarket.usedGoods.bo.UsedGoodsBO;
-import com.carrotMarket.usedGoods.model.UsedGoods;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -44,19 +43,10 @@ public class UsedGoodsRestController {
 			return result;
 		}
 		
-		UsedGoods usedGoods = new UsedGoods();
-		usedGoods = usedGoodsBO.addUsedGoods(userId, userLoginId, title, category, price, content, place, files);
-		// 객체로 받아와서
-		usedGoods.getId();
+		usedGoodsBO.addUsedGoods(userId, userLoginId, title, category, price, content, place, files);
 		
-		int rowCount = 1;
-		if (rowCount > 0) {
-			result.put("code", 1);
-			result.put("result", "성공");
-		} else {
-			result.put("code", 500);
-			result.put("errorMessage", "글 업로드에 실패했습니다.");
-		}
+		result.put("code", 1);
+		result.put("result", "성공");
 		
 		return result;
 	}

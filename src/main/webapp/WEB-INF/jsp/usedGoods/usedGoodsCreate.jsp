@@ -196,6 +196,7 @@
 			　　　　, success: function(data) {
 			　　　　　　if (data.code == 1) {
 							alert("글 업로드 성공!!");
+							location.reload();
 							//location.href="/used_goods/used_goods_detail_view";
 			　　　　　　} else if (data.code == 500){
 							alert(data.errorMessage);

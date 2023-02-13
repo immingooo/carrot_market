@@ -27,25 +27,27 @@
 			, NOW()
 			, NOW()
 		)
-		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
 	
-	<!-- <select id="selectUsedGoods" parameterType="int" resultType="com.carrotMarket.usedGoods.model.UsedGoods">
-		SELECT
-			`id`
-			,`userId`
-			,`title`
-			,`category`
-			,`price`
-			,`content`
-			,`place`
+	<insert id="insertUsedGoodsImage" parameterType="map">
+		INSERT INTO `used_goods_image`
+		(
+			`usedGoodsId`
+			,`imageUrl`
 			,`createdAt`
 			,`updatedAt`
-		FROM
-			`used_goods`
-		WHERE
-			`id` = #{}
-	</select> -->
+		)
+		VALUES
+		<foreach collection="imagePathList" item="item" separator=" , ">
+		(
+			#{id}
+			, #{item}
+			, NOW()
+			, NOW()
+		)
+		</foreach>
+	</insert>
 </mapper>
