@@ -20,7 +20,7 @@ li {list-style:none;}
 
 .bg-orange {border: 2px solid #FF7E36; color:#FF7E36; background-color:white;}
 .btn-orange {background-color: #FF7E36;}
-.profile-img {border-radius: 40%;}
+/* .profile-img {border-radius: 40%;} */
 
 .dropbtn {
     cursor: pointer;

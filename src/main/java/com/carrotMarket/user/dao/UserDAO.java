@@ -17,6 +17,8 @@ public interface UserDAO {
 			@Param("loginId") String loginId, 
 			@Param("password") String password);
 	
+	public User selectUserByLoginId (String loginId);
+	
 	public boolean existLoginId (String loginId);
 	
 	public boolean existNickname (String nickname);
@@ -26,5 +28,6 @@ public interface UserDAO {
 			@Param("password") String password, 
 			@Param("nickname") String nickname, 
 			@Param("address") String address);
+	
 	
 }

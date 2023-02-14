@@ -44,8 +44,8 @@ public class UsedGoodsBO {
 		logger.info("###방금 insert된 id번호### id:{}", id);
 		
 		List<String> imagePathList = new ArrayList<>();
-		//imagePathList = null; // 업로드한 이미지가 없는 경우
-		if (!files.isEmpty()) {
+		//imagePathList.clear(); // []
+		if (files != null) {
 			for (int i = 0; i < files.size(); i++) {
 				//String imagePath = null;
 				MultipartFile file = files.get(i);
@@ -54,7 +54,10 @@ public class UsedGoodsBO {
 			}
 		}
 		
+		//imagePathList = null; // 업로드한 이미지가 없는 경우
 		// 가져온 usedGoodsId로 imagePathList만큼 반복문을 돌려서 usedGoodsImage 테이블에 insert하기
-		usedGoodsDAO.insertUsedGoodsImage(id, imagePathList);
+		if (!imagePathList.isEmpty()) {
+			usedGoodsDAO.insertUsedGoodsImage(id, imagePathList);
+		}
 	}
 }

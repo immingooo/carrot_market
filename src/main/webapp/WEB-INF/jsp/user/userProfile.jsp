@@ -6,7 +6,7 @@
 		<div class="d-flex justify-content-between border-bottom">
 			<div class="d-flex p-3">
 				<img alt="프로필 이미지" src="" onerror="this.src='/static/img/user.png'" width="60px">
-				<h5 class="font-weight-bold pl-3 pt-3 text-center p-0 m-0">덤덤</h5>
+				<h5 class="font-weight-bold pl-3 pt-3 text-center p-0 m-0">${user.nickname}</h5>
 			</div>
 		</div>
 		<div class="pb-3">
@@ -16,7 +16,7 @@
 		<%-- 온도 --%>
 		<div class="pb-5">
 			<div class="small font-weight-bold">매너온도</div>
-			<div class="d-flex justify-content-end font-weight-bold">35.6℃</div>
+			<div class="d-flex justify-content-end font-weight-bold">${user.temperature}℃</div>
 			<%-- 온도계 --%>
 		</div>
 		

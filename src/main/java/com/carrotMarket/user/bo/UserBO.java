@@ -20,11 +20,15 @@ public class UserBO {
 		return userDAO.existNickname(nickname);
 	}
 	
-	public int addUser(String loginId, String password, String nickname, String address) {
+	public int addUser (String loginId, String password, String nickname, String address) {
 		return userDAO.insertUser(loginId, password, nickname, address);
 	}
 	
-	public User getUserByLoginIdPassword(String loginId, String password) {
+	public User getUserByLoginIdPassword (String loginId, String password) {
 		return userDAO.selectUserByLoginIdPassword(loginId, password);
+	}
+	
+	public User getUserByLoginId (String loginId) {
+		return userDAO.selectUserByLoginId(loginId);
 	}
 }

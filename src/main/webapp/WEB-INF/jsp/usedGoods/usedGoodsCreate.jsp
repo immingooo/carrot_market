@@ -123,6 +123,7 @@
 			});
 		});
 		
+		// 사진 미리보기
 		function preview(arr){
 		      arr.forEach(function(f){
 		        
@@ -146,6 +147,7 @@
 		      });//arr.forEach
 		    }
 		
+		// 글 작성 버튼클릭
 		$('#usedGoodsCreateForm').on('submit', function(e) {
 			//alert("111");
 			e.preventDefault();

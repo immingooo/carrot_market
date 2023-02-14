@@ -9,7 +9,7 @@
 		<div class="d-flex justify-content-between m-3">
 			<div class="d-flex col-9 p-0">
 				<img alt="프로필 이미지" src="" onerror="this.src='/static/img/user.png'" width="40px">
-				<h5 class="font-weight-bold pl-3 mt-2">덤덤</h5>
+				<h5 class="font-weight-bold pl-3 mt-2">${user.nickname}</h5>
 			</div>
 			<div class="col-3 p-0">
 				<a href="/user/user_profile_view" class="btn btn-light font-weight-bold">프로필 보기</a>

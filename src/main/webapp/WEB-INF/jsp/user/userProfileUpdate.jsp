@@ -13,7 +13,7 @@
 				<a href="#"><img alt="프로필 이미지" src="" onerror="this.src='/static/img/user.png'" width="90px"></a>
 			</div>
 			<div class="font-weight-bold pt-2 pb-2">닉네임</div>
-			<input type="text" class="form-control">
+			<input type="text" class="form-control" value="${user.nickname}">
 			
 			<button type="submit" class="btn btn-orange text-light font-weight-bold w-100 mt-3">수정 완료</button>
 		</form>

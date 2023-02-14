@@ -28,6 +28,23 @@
 			AND `password` = #{password}
  	</select>
  	
+ 	<select id="selectUserByLoginId" parameterType="string" resultType="com.carrotMarket.user.model.User">
+ 		SELECT
+ 			 `id`
+			,`loginId`
+			,`password`
+			,`nickname`
+			,`address`
+			,`temperature`
+			,`profileImageUrl`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+ 	</select>
+ 	
  	<select id="existLoginId" parameterType="string" resultType="boolean">
  		SELECT
  			COUNT(1)

@@ -7,15 +7,13 @@
 		</div>
 		<form id="signUpForm" method="post" action="/user/sign_up">
 			<%-- 프로필 이미지 --%>
-			<!-- <div>
-				<div class="d-flex justify-content-center">
-					<img alt="프로필 이미지" src="/static/img/profile.jpg" width="100" class="profile-img border">
+			<div>
+				<div class="d-flex justify-content-center pb-3">
+					<a href="#" id="fileUpload"><img alt="프로필 이미지" src="" onerror="this.src='/static/img/user.png'" width="120px" class="profile-img"></a>
+					<input type="file" id="file" class="d-none" accept=".gif, .jpg, .png, .jpeg">
 				</div>
-				<div class="d-flex justify-content-center">
-				<input type="file" class="d-none" accept=".gif, .jpg, .png, .jpeg">
-					<button type="button" class="btn mt-2 mb-2">업로드</button>
-				</div>
-			</div> -->
+			</div>
+			
 			<div class="pb-3">
 				<div class="d-flex justify-content-between">
 					<label for="loginId"><h6 class="font-weight-bold mt-2">아이디</h6></label>
@@ -237,6 +235,28 @@
 	        }).open();
 	    });
 		
+		// 프로필 이미지 클릭
+	    $('#fileUpload').on('click', function(e){
+			//alert("1111");
+			e.preventDefault(); // a태그의 스크롤이 저절로 올라가는 현상 방지(a태그의 성질)
+			$('#file').click(); // input file을 사용자가 클릭한 것과 같은 효과
+		});
+		
+	 // 사용자가 이미지를 선택했을 때 유효성 확인(file에 변경이 일어났을 때로 이벤트를 잡아야 함)
+		$('#file').on('change', function(e) { // e에 파일이름도 들고 있음
+			//alert("파일 선택");
+			let fileName = e.target.files[0].name; // target은 this랑 같은 역할. 파일명만 가져옴 dog-4372036_960_720.jpg
+			//alert(fileName);
+			
+			// 확장자 유효성 확인
+			let ext = fileName.split(".").pop().toLowerCase(); // jpg
+			if (ext != 'jpg' && ext != 'jpeg' && ext != 'gif' && ext != 'png') {
+				alert("이미지 파일만 업로드 할 수 있습니다.");
+				$('#file').val(''); // 파일 태그의 실제 파일 제거(중요)
+				return;
+			}
+		});
+	 
 		// 회원가입 버튼클릭
 		$("#signUpForm").on('submit', function(e){
 			//alert("111");
