@@ -8,7 +8,7 @@
 		</div> -->
 		<div class="d-flex justify-content-between m-3">
 			<div class="d-flex col-9 p-0">
-				<img alt="프로필 이미지" src="" onerror="this.src='/static/img/user.png'" width="40px">
+				<img alt="프로필 이미지" src="${user.profileImageUrl}" onerror="this.src='/static/img/user.png'" style="border-radius: 50%;" width="40px">
 				<h5 class="font-weight-bold pl-3 mt-2">${user.nickname}</h5>
 			</div>
 			<div class="col-3 p-0">

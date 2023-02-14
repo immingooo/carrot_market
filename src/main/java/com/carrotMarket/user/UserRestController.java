@@ -6,9 +6,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.carrotMarket.common.EncryptUtils;
 import com.carrotMarket.user.bo.UserBO;
@@ -87,12 +89,13 @@ public class UserRestController {
 			@RequestParam("loginId") String loginId,
 			@RequestParam("password") String password,
 			@RequestParam("nickname") String nickname,
-			@RequestParam("address") String address) {
+			@RequestParam("address") String address,
+			@RequestParam(value="file", required=false) MultipartFile file) {
 		
 		String hashedPassword = EncryptUtils.md5(password);
 		
 		Map<String, Object> result = new HashMap<>();
-		int rowCount = userBO.addUser(loginId, hashedPassword, nickname, address);
+		int rowCount = userBO.addUser(loginId, hashedPassword, nickname, address, file);
 		if (rowCount > 0) {
 			result.put("code", 1);
 			result.put("result", "성공");
@@ -125,6 +128,37 @@ public class UserRestController {
 			result.put("code", 500);
 			result.put("errorMessage", "존재하지 않는 사용자 입니다.");
 		}
+		
+		return result;
+	}
+	
+	@PutMapping("/update")
+	public Map<String, Object> update(
+			@RequestParam("nickname") String nickname,
+			@RequestParam(value="file", required=false) MultipartFile file
+			, HttpSession session) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		Integer userId = (Integer)session.getAttribute("userId");
+		String userLoginId = (String)session.getAttribute("userLoginId");
+		// 로그인되어있는지 확인
+		if (userId == null) {
+			result.put("code", 501);
+			result.put("errorMessage", "로그인해주세요");
+			return result;
+		}
+		
+		// 닉네임 중복인지 확인
+		boolean isDuplicated = userBO.existNickname(nickname);
+		if (isDuplicated) { // 중복일 때
+			result.put("code", 500);
+			return result;
+		}
+		
+		// 로그인 되어있고 닉네임 중복되지 않아서 정보수정(DB update)
+		result.put("code", 1);
+		result.put("result", "성공");
 		
 		return result;
 	}

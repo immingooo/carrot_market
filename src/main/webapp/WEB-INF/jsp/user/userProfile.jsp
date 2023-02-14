@@ -5,8 +5,8 @@
 	<div class="col-4 p-0 pb-5">
 		<div class="d-flex justify-content-between border-bottom">
 			<div class="d-flex p-3">
-				<img alt="프로필 이미지" src="" onerror="this.src='/static/img/user.png'" width="60px">
-				<h5 class="font-weight-bold pl-3 pt-3 text-center p-0 m-0">${user.nickname}</h5>
+				<img alt="프로필 이미지" src="${user.profileImageUrl}" onerror="this.src='/static/img/user.png'" width="70px" height="70px" style="border-radius: 50%;">
+				<h5 class="font-weight-bold pl-3 pt-4 text-center p-0 m-0">${user.nickname}</h5>
 			</div>
 		</div>
 		<div class="pb-3">

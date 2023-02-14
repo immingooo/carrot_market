@@ -49,7 +49,7 @@ public class UsedGoodsBO {
 			for (int i = 0; i < files.size(); i++) {
 				//String imagePath = null;
 				MultipartFile file = files.get(i);
-				String imagePath = fileManagerService.saveFiles(userLoginId, file);
+				String imagePath = fileManagerService.saveFile(userLoginId, file);
 				imagePathList.add(imagePath);
 			}
 		}

@@ -5,11 +5,11 @@
 		<div class="d-flex justify-content-center mt-4 mb-4">
 			<h4 class="font-weight-bold">회원가입</h4>
 		</div>
-		<form id="signUpForm" method="post" action="/user/sign_up">
+		<!-- <form id="signUpForm" method="post" action="/user/sign_up"> -->
 			<%-- 프로필 이미지 --%>
 			<div>
 				<div class="d-flex justify-content-center pb-3">
-					<a href="#" id="fileUpload"><img alt="프로필 이미지" src="" onerror="this.src='/static/img/user.png'" width="120px" class="profile-img"></a>
+					<a href="#" id="fileUpload"><img alt="프로필 이미지" id="preview" src="" onerror="this.src='/static/img/user.png'" style="border-radius: 50%;" width="120px" height="120px" class="profile-img"></a>
 					<input type="file" id="file" class="d-none" accept=".gif, .jpg, .png, .jpeg">
 				</div>
 			</div>
@@ -66,14 +66,14 @@
 			<div class="d-flex justify-content-between pb-3">
 				<label for="address"><h6 class="font-weight-bold mt-2">주소</h6></label>
 				<div class="d-flex justify-content-between col-9 p-0">
-					<input type="text" id="address_kakao" name="address" class="form-control col-12" readonly>
+					<input type="text" id="address" name="address" class="form-control col-12" readonly>
 					<!-- <input type="button" onclick="sample5_execDaumPostcode()" class="btn" value="주소 검색"><br> -->
 				</div>
 			</div>
 			<!-- <div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div> -->
 			
-			<button type="submit" class="btn btn-orange text-light w-100 font-weight-bold">가입하기</button>
-		</form>
+			<button type="button" id="joinBtn" class="btn btn-orange text-light w-100 font-weight-bold">가입하기</button>
+		<!-- </form> -->
 	</div>
 </div>
 
@@ -226,11 +226,11 @@
 		});
 		
 		// 주소 API
-	    $('#address_kakao').on("click", function(){ //주소입력칸을 클릭하면
+	    $('#address').on("click", function(){ //주소입력칸을 클릭하면
 	        //카카오 지도 발생
 	        new daum.Postcode({
 	            oncomplete: function(data) { //선택시 입력값 세팅
-	                document.getElementById("address_kakao").value = data.address; // 주소 넣기
+	                document.getElementById("address").value = data.address; // 주소 넣기
 	            }
 	        }).open();
 	    });
@@ -242,7 +242,7 @@
 			$('#file').click(); // input file을 사용자가 클릭한 것과 같은 효과
 		});
 		
-	 // 사용자가 이미지를 선택했을 때 유효성 확인(file에 변경이 일어났을 때로 이벤트를 잡아야 함)
+	 	// 사용자가 이미지를 선택했을 때 유효성 확인(file에 변경이 일어났을 때로 이벤트를 잡아야 함)
 		$('#file').on('change', function(e) { // e에 파일이름도 들고 있음
 			//alert("파일 선택");
 			let fileName = e.target.files[0].name; // target은 this랑 같은 역할. 파일명만 가져옴 dog-4372036_960_720.jpg
@@ -255,12 +255,22 @@
 				$('#file').val(''); // 파일 태그의 실제 파일 제거(중요)
 				return;
 			}
+			
+			let file = e.target.files[0];
+			
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$("#preview").attr("src", e.target.result);
+			}
+			
+			reader.readAsDataURL(file);
+			console.log("미리보기 이미지 파일: " + $('#file').val());
 		});
 	 
 		// 회원가입 버튼클릭
-		$("#signUpForm").on('submit', function(e){
+		$("#joinBtn").on('click', function(e){
 			//alert("111");
-			e.preventDefault();
+			//e.preventDefault();
 			
 			// 유효성 검사
 			let loginId = $("#loginId").val().trim();
@@ -268,6 +278,7 @@
 			let confirmPassword = $("#confirmPassword").val().trim();
 			let nickname = $("#nickname").val().trim();
 			let address = $("#address").val();
+			console.log("주소: " + address);
 			
 			if (loginId == "") {
 				alert("아이디를 입력해주세요");
@@ -304,18 +315,60 @@
 				return false;
 			}
 			
-			let url = $(this).attr('action');
+			// 이미지
+			let file = $('#file').val();
+			console.log("업로드 될 이미지 파일: " + file);
+			
+			// 파일이 업로드 된 경우에만 확장자 체크(파일이 없을 땐 공백임)
+			if (file != '') {
+				let ext = file.split(".").pop().toLowerCase(); // 확장자
+				if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) { // $.inArray(): 이 배열에 있는지. 없으면 -1리턴
+					alert("이미지 파일만 업로드 할 수 있습니다.");
+					$('#file').val(""); // 잘못된 파일을 비운다.
+					return;
+				}
+			}
+			
+			let formData = new FormData();
+			formData.append("loginId", loginId);
+			formData.append("password", password);
+			formData.append("nickname", nickname);
+			formData.append("address", address);
+			formData.append("file", $('#file')[0].files[0]);
+			
+			/* let url = $(this).attr('action');
 			let params = $(this).serialize();
 			console.log(url);
-			console.log(params);
+			console.log(params); */
 			
-			$.post(url,params)
+			/* $.post(url,params)
 			.done(function(data) {
 				if (data.code == 1) {
 					alert("회원가입을 축하드립니다!");
 					location.href="/user/sign_in_view";
 				} else {
 					alert(data.errorMessage);
+				}
+			}); */
+			
+			$.ajax({
+				type:"post"
+				, url:"/user/sign_up"
+				, data:formData
+				, enctype:"multipart/form-data" // 파일업로드를 위한 필수 설정
+				, processData:false // 파일업로드를 위한 필수 설정
+				, contentType:false // 파일업로드를 위한 필수 설정
+				
+				, success:function(data) {
+					if (data.code == 1) {
+						alert("회원가입을 축하드립니다!");
+						location.href="/user/sign_in_view";
+					} else {
+						alert(data.errorMessage);
+					}
+				}
+				, error:function(e) {
+					alert("회원가입에 실패했습니다. 관리자에게 문의하세요.");
 				}
 			});
 		});

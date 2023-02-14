@@ -27,7 +27,8 @@ public interface UserDAO {
 			@Param("loginId") String loginId, 
 			@Param("password") String password, 
 			@Param("nickname") String nickname, 
-			@Param("address") String address);
+			@Param("address") String address,
+			@Param("imagePath") String imagePath);
 	
 	
 }

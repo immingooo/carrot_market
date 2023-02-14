@@ -70,6 +70,7 @@
 			,`password`
 			,`nickname`
 			,`address`
+			, `profileImageUrl`
 			,`createdAt`
 			,`updatedAt`
  		)
@@ -79,6 +80,7 @@
  			, #{password}
  			, #{nickname}
  			, #{address}
+ 			, #{imagePath}
  			, NOW()
  			, NOW()
  		)
