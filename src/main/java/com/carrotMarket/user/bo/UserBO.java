@@ -49,6 +49,10 @@ public class UserBO {
 		return userDAO.selectUserByLoginId(loginId);
 	}
 	
+	public User getUserByUserId (int id) {
+		return userDAO.selectUserByUserId(id);
+	}
+	
 	public void updateUser (int userId, String userLoginId, String nickname, MultipartFile file) {
 		
 		// 기존 사용자가 없는 이상한 경우 체크

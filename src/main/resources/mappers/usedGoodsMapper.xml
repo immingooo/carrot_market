@@ -50,4 +50,21 @@
 		)
 		</foreach>
 	</insert>
+	
+	<select id="selectUsedGoodsByUsedGoodsId" parameterType="int" resultType="com.carrotMarket.usedGoods.model.UsedGoods">
+		SELECT
+			`id`
+			,`userId`
+			,`title`
+			,`category`
+			,`price`
+			,`content`
+			,`place`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`used_goods`
+		WHERE
+			`id` = #{usedGoodsId}
+	</select>
 </mapper>

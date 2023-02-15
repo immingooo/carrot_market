@@ -158,6 +158,8 @@ public class UserRestController {
 		
 		// 로그인 되어있고 닉네임 중복 아닐때 => 정보수정(DB update)
 		userBO.updateUser(userId, userLoginId, nickname, file);
+		User user = userBO.getUserByLoginId(userLoginId);
+		session.setAttribute("userNickname", user.getNickname());
 		result.put("code", 1);
 		result.put("result", "성공");
 		

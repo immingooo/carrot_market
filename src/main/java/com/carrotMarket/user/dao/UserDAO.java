@@ -19,6 +19,8 @@ public interface UserDAO {
 	
 	public User selectUserByLoginId (String loginId);
 	
+	public User selectUserByUserId (int id);
+	
 	public boolean existLoginId (String loginId);
 	
 	public boolean existNickname (String nickname);

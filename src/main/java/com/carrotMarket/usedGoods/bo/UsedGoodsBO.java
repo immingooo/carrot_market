@@ -12,7 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.carrotMarket.common.FileManagerService;
+import com.carrotMarket.main.model.PostView;
 import com.carrotMarket.usedGoods.dao.UsedGoodsDAO;
+import com.carrotMarket.usedGoods.model.UsedGoods;
+import com.carrotMarket.user.bo.UserBO;
+import com.carrotMarket.user.model.User;
 
 @Service
 public class UsedGoodsBO {
@@ -24,6 +28,9 @@ public class UsedGoodsBO {
 	
 	@Autowired
 	private UsedGoodsDAO usedGoodsDAO;
+	
+	@Autowired
+	private UserBO userBO;
 
 	public void addUsedGoods(int userId, String userLoginId, String title, String category, 
 			Integer price, String content, String place, List<MultipartFile> files) {
@@ -59,5 +66,20 @@ public class UsedGoodsBO {
 		if (!imagePathList.isEmpty()) {
 			usedGoodsDAO.insertUsedGoodsImage(id, imagePathList);
 		}
+	}
+	
+	public PostView generatePostView(int usedGoodsId) {
+		// PostView객체 가져와서 객체 채우기
+		PostView post = new PostView();
+		
+		// 글 가져오기(글 번호로)
+		UsedGoods usedGoods = usedGoodsDAO.selectUsedGoodsByUsedGoodsId(usedGoodsId);
+		post.setUsedGoods(usedGoods);
+		
+		// 글쓴이 정보 가져오기(글 작성한 글쓴이 id번호로)
+		User user = userBO.getUserByUserId(usedGoods.getUserId());
+		post.setUser(user);
+		
+		return post;
 	}
 }
