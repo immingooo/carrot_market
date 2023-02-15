@@ -30,5 +30,9 @@ public interface UserDAO {
 			@Param("address") String address,
 			@Param("imagePath") String imagePath);
 	
-	
+	public void updateUserByUserIdLoginId(
+			@Param("userId") int userId, 
+			@Param("loginId") String loginId, 
+			@Param("nickname") String nickname,  
+			@Param("imagePath") String imagePath);
 }

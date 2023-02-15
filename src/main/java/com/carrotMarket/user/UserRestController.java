@@ -156,7 +156,8 @@ public class UserRestController {
 			return result;
 		}
 		
-		// 로그인 되어있고 닉네임 중복되지 않아서 정보수정(DB update)
+		// 로그인 되어있고 닉네임 중복 아닐때 => 정보수정(DB update)
+		userBO.updateUser(userId, userLoginId, nickname, file);
 		result.put("code", 1);
 		result.put("result", "성공");
 		

@@ -85,4 +85,17 @@
  			, NOW()
  		)
  	</insert>
+ 	
+ 	<update id="updateUserByUserIdLoginId" parameterType="map">
+ 		UPDATE `user`
+ 		SET
+ 			`nickname` = #{nickname}
+ 			, `updatedAt` = NOW()
+ 			<if test="imagePath != null">
+ 			, `profileImageUrl` = #{imagePath}
+ 			</if>
+ 		WHERE
+ 			`id` = #{userId}
+ 			AND `loginId` = #{loginId}
+ 	</update>
  </mapper>
