@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.carrotMarket.main.model.PostView;
 import com.carrotMarket.usedGoods.bo.UsedGoodsBO;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/used_goods")
 public class UsedGoodsController {
@@ -23,12 +25,12 @@ public class UsedGoodsController {
 	}
 	
 	@GetMapping("/used_goods_detail_view")
-	public String usedGoodsDetailView(Model model) {
+	public String usedGoodsDetailView(Model model, HttpSession session) {
 		
-		int usedGoodsId = 18; // 임시로 18번째 글을 가져올 거임
+		int usedGoodsId = 19; // 임시로 18번째 글을 가져올 거임
 		
 		// 글 번호에 해당하는 postView객체를 가져와야 함(로그인/비로그인 모두 들어갈 수 있음)
-		PostView postView = usedGoodsBO.generatePostView(usedGoodsId);
+		PostView postView = usedGoodsBO.generatePostView(usedGoodsId, (Integer)session.getAttribute("userId"));
 		
 		model.addAttribute("postView", postView);
 		model.addAttribute("viewName", "usedGoods/usedGoodsDetail");

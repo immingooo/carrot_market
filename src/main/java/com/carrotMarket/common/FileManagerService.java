@@ -16,7 +16,7 @@ public class FileManagerService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public static final String FILE_UPLOAD_PATH = "D:\\minkyung\\6_Spring_project\\carrotMarket\\workspace\\images/";
+	public static final String FILE_UPLOAD_PATH = "D:\\minkyung\\6_spring_project\\carrotMarket\\workspace\\images/";
 	
 	// 이미지 추가(업로드)하는 로직
 	public String saveFile(String userLoginId, MultipartFile file) {

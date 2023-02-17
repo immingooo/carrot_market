@@ -18,12 +18,16 @@ public class PostView {
 	private List<UsedGoodsImage> usedGoodsImageList;
 	
 	// 내가(로그인 된 사람) 좋아요를 눌렀는지(boolean)
+	private boolean filledLike;
 	
 	// 좋아요 개수
+	private int likeCount;
 	
 	// 조회수
+	private int hitsCount;
 	
 	// 채팅 개수
+	
 	
 	public User getUser() {
 		return user;
@@ -47,6 +51,30 @@ public class PostView {
 
 	public void setUsedGoodsImageList(List<UsedGoodsImage> usedGoodsImageList) {
 		this.usedGoodsImageList = usedGoodsImageList;
+	}
+
+	public boolean isFilledLike() {
+		return filledLike;
+	}
+
+	public void setFilledLike(boolean filledLike) {
+		this.filledLike = filledLike;
+	}
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public int getHitsCount() {
+		return hitsCount;
+	}
+
+	public void setHitsCount(int hitsCount) {
+		this.hitsCount = hitsCount;
 	}
 	
 }
