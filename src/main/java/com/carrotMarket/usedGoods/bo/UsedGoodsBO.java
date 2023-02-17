@@ -15,6 +15,7 @@ import com.carrotMarket.common.FileManagerService;
 import com.carrotMarket.main.model.PostView;
 import com.carrotMarket.usedGoods.dao.UsedGoodsDAO;
 import com.carrotMarket.usedGoods.model.UsedGoods;
+import com.carrotMarket.usedGoods.model.UsedGoodsImage;
 import com.carrotMarket.user.bo.UserBO;
 import com.carrotMarket.user.model.User;
 
@@ -79,6 +80,10 @@ public class UsedGoodsBO {
 		// 글쓴이 정보 가져오기(글 작성한 글쓴이 id번호로)
 		User user = userBO.getUserByUserId(usedGoods.getUserId());
 		post.setUser(user);
+		
+		// 글 하나에 해당하는 사진들 채우기 - 이미지가 없을 땐? 이미지가 하나일 땐?
+		List<UsedGoodsImage> usedGoodsImageList = usedGoodsDAO.selectUsedGoodsImageByUsedGoodsId(usedGoodsId);
+		post.setUsedGoodsImageList(usedGoodsImageList);
 		
 		return post;
 	}

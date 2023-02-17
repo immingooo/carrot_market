@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div class="d-flex justify-content-center pt-4 pb-5">
 	<div class="col-7 pb-5">
@@ -10,12 +11,12 @@
 				<img alt="프로필 이미지" src="${postView.user.profileImageUrl}" onerror="this.src='/static/img/user.png'" style="border-radius: 50%;" width="45px">
 				<div class="pl-3">
 					<div class="font-weight-bold">${postView.user.nickname}</div>
-					<%-- <c:if test="${postView.usedGoods.place eq null}">
+					<c:if test="${empty postView.usedGoods.place}">
 					<div class="small">${postView.user.address}</div>
 					</c:if>
-					<c:if test="${postView.usedGoods.place not eq null}">
+					<c:if test="${not empty postView.usedGoods.place}">
 					<div class="small">${postView.usedGoods.place}</div>
-					</c:if> --%>
+					</c:if>
 				</div>
 			</div>
 			<div class="d-flex">
@@ -32,8 +33,10 @@
 				<a href=""><img alt="메뉴아이콘" src="https://cdn-icons-png.flaticon.com/512/3018/3018442.png" width="25px"></a>
 			</div>
 			<h5 class="font-weight-bold">${postView.usedGoods.title}</h5>
-			<div class="small text-secondary pb-1">${postView.usedGoods.category} ∙ ${postView.usedGoods.createdAt}</div>
-			<h5 class="font-weight-bold">${postView.usedGoods.price}원</h5>
+			<fmt:formatDate var="createdAt" value="${postView.usedGoods.createdAt}" pattern="yyyy년 MM월 dd일 HH:mm"/>
+			<div class="small text-secondary pb-1">${postView.usedGoods.category} ∙ ${createdAt}</div>
+			<fmt:formatNumber var="price" value="${postView.usedGoods.price}" type="number" />
+			<h5 class="font-weight-bold">${price}원</h5>
 			<div class="pt-3 pb-3">${postView.usedGoods.content}</div>
 			<div class="small text-secondary">관심9 채팅15 조회34</div>
 			<div class="d-flex justify-content-end">
@@ -48,3 +51,91 @@
 		</div>
 	</div>
 </div>
+
+
+
+
+
+
+<div class="slider-2">
+    
+     <div class="side-btns">
+        <div><span><i class="fas fa-caret-left"></i></i></span></div>
+        <div><span><i class="fas fa-caret-right"></i></span></div>
+    </div>
+    
+    <div class="slides" id="slides">
+    	<c:forEach var="usedGoodsImageList" items="${postView.usedGoodsImageList}">
+        <div style="background-image:url(${usedGoodsImageList.imageUrl});"></div>
+    	</c:forEach>
+    </div>
+    
+    <div class="page-nav" id="pageNav">
+  	 	<c:forEach var="usedGoodsImageList" items="${postView.usedGoodsImageList}">
+        <div></div>
+        </c:forEach>
+    </div>
+</div>
+
+<script>
+	$(document).ready(function() {
+		var slides = document.getElementById('slides');
+		//console.log(slides);
+		var children = slides.firstElementChild;
+		console.log(children);
+		children.setAttribute('class','active');
+		
+		var pageNav = document.getElementById('pageNav');
+		//console.log(pageNav);
+		var pageNavChildren = pageNav.firstElementChild;
+		//console.log(pageNavChildren);
+		pageNavChildren.setAttribute('class','active');
+		
+		$('.slider-2 .page-nav > div').click(function() {
+		    
+		    var $this = $(this);
+		    var $pagenav = $this.parent();
+		    var $current = $pagenav.find('.active');
+		    
+		    $current.removeClass('active');
+		    $this.addClass('active');
+		
+		    var index = $this.index();
+		    var $슬라이더 = $this.closest('.slider-2');
+		    
+		    $슬라이더.find('.slides > div.active').removeClass('active');
+		    $슬라이더.find('.slides > div').eq(index).addClass('active');
+		    
+		    
+		});
+		
+		$('.slider-2 > .side-btns > div:first-child').click(function() {
+		    var $this = $(this);
+		    var $slider = $this.closest('.slider-2');
+		    
+		    var $current = $slider.find('.page-nav > div.active');
+		    var $post = $current.prev();
+		    
+		    if ( $post.length == 0 ) {
+		        $post = $slider.find('.page-nav > div:last-child');
+		    }
+		    
+		    $post.click();
+		});
+		
+		$('.slider-2 > .side-btns > div:last-child').click(function() {
+		    var $this = $(this);
+		    var $slider = $this.closest('.slider-2');
+		    
+		    var $current = $slider.find('.page-nav > div.active');
+		    var $post = $current.next();
+		    
+		    if ( $post.length == 0 ) {
+		        $post = $slider.find('.page-nav > div:first-child');
+		    }
+		    
+		    $post.click();
+		});
+		
+	});
+</script>
