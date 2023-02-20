@@ -136,4 +136,13 @@
 		WHERE
 			`usedGoodsId` = #{usedGoodsId}
 	</delete>
+	
+	<delete id="deleteUsedGoodsByUsedGoodsIdUserId" parameterType="map">
+		DELETE
+		FROM
+			`used_goods`
+		WHERE
+			`id` = #{usedGoodsId}
+			AND `userId` = #{userId}
+	</delete>
 </mapper>

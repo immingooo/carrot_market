@@ -64,7 +64,7 @@
 			<div class="pb-2">
 				<div>
 					<input type="text" class="form-control" id="place" name="place"
-						placeholder="장소를 입력해주세요">
+						placeholder="장소를 입력해주세요" readonly>
 				</div>
 			</div>
 
@@ -87,6 +87,7 @@
 	</div>
 </div>
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	$(document).ready(function() {
 		var inputFileList = new Array();     // 이미지 파일을 담아놓을 배열 (업로드 버튼 누를 때 서버에 전송할 데이터)
@@ -155,6 +156,16 @@
 		      });//arr.forEach
 		    }
 		
+		// 주소 API
+	    $('#place').on("click", function(){ //주소입력칸을 클릭하면
+	        //카카오 지도 발생
+	        new daum.Postcode({
+	            oncomplete: function(data) { //선택시 입력값 세팅
+	                document.getElementById("place").value = data.address; // 주소 넣기
+	            }
+	        }).open();
+	    });
+		
 		// 글 작성 버튼클릭
 		$('#usedGoodsCreateForm').on('submit', function(e) {
 			//alert("111");
@@ -165,6 +176,7 @@
 			//console.log(category); // 문자
 			let price = $('#price').val();
 			let content = $('#content').val();
+			//content = content.replaceAll(/(\n|\r\n)/g, "<br>");
 			let place = $('#place').val();
 			
 			

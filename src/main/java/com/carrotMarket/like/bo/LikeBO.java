@@ -30,4 +30,8 @@ public class LikeBO {
 	public int getLikeCountByUsedGoodsId(int usedGoodsId) {
 		return likeDAO.selectLikeCountByUsedGoodsId(usedGoodsId);
 	}
+	
+	public void deleteLikeByUsedGoodsId(int usedGoodsId) {
+		likeDAO.deleteLikeByUsedGoodsId(usedGoodsId);
+	}
 }

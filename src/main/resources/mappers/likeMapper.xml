@@ -45,4 +45,12 @@
  			, NOW()
  		)
  	</insert>
+ 	
+ 	<delete id="deleteLikeByUsedGoodsId" parameterType="int">
+ 		DELETE
+ 		FROM
+ 			`like`
+ 		WHERE
+ 			`usedGoodsId` = #{usedGoodsId}
+ 	</delete>
  </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,9 +71,31 @@ public class UsedGoodsRestController {
 		if (userId == null) {
 			result.put("code", 500);
 			result.put("errorMessage", "로그인해주세요");
+			return result;
 		}
 		
-		usedGoodsBO.update(userId, userLoginId, usedGoodsId, title, category, price, content, place, files);
+		usedGoodsBO.updateUsedGoods(userId, userLoginId, usedGoodsId, title, category, price, content, place, files);
+		result.put("code", 1);
+		result.put("result", "성공");
+		
+		return result;
+	}
+	
+	@DeleteMapping("/delete")
+	public Map<String, Object> delete(
+			@RequestParam("usedGoodsId") int usedGoodsId,
+			HttpSession session) {
+		
+		Map<String, Object> result = new HashMap<>();
+
+		Integer userId = (Integer)session.getAttribute("userId");
+		if (userId == null) {
+			result.put("code", 500);
+			result.put("errorMessage", "로그인 해주세요");
+			return result;
+		}
+		
+		usedGoodsBO.deleteUsedGoods(usedGoodsId, userId);
 		result.put("code", 1);
 		result.put("result", "성공");
 		

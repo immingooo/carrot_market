@@ -62,12 +62,12 @@
 			<c:if test="${userId eq postView.user.id}">
 			<div class="d-flex justify-content-end">
 				<div class="dropdown">
-					<a href="#" role="button" data-toggle="dropdown" data-display="static" aria-expanded="false">
+					<a href="#" role="button" data-toggle="dropdown" data-display="static" aria-expanded="false" id="moreBtn" data-used-goods-id="${postView.usedGoods.id}">
 			 			<img alt="메뉴아이콘" src="https://cdn-icons-png.flaticon.com/512/3018/3018442.png" width="25px"></a>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 					  <a class="dropdown-item font-weight-bold" href="/used_goods/used_goods_update_view?usedGoodsId=${postView.usedGoods.id}">글 수정</a>
-					  <a class="dropdown-item font-weight-bold" href="#">글 삭제</a>
+					  <a class="dropdown-item font-weight-bold" href="#" data-target="#modal" data-toggle="modal">글 삭제</a>
 					</div>
 				</div>
 			</div>
@@ -78,7 +78,7 @@
 			<div class="small text-secondary pb-1">${postView.usedGoods.category} ∙ ${createdAt}</div>
 			<fmt:formatNumber var="price" value="${postView.usedGoods.price}" type="number" />
 			<h5 class="font-weight-bold">${price}원</h5>
-			<div class="pt-3 pb-3">${postView.usedGoods.content}</div>
+			<pre class="pt-3 pb-3">${postView.usedGoods.content}</pre>
 			<div class="small text-secondary">관심${postView.likeCount} 채팅15 조회34</div>
 			<div class="d-flex justify-content-end">
 				<c:if test="${postView.filledLike eq false}">
@@ -104,21 +104,48 @@
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="modal">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">경고창</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        정말 삭제하시겠습니까?
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary col-6" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-danger col-6" id="deleteBtn">삭제</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <script>
 	$(document).ready(function() {
 		
 		// 이미지 슬라이드 구현
 		var slides = document.getElementById('slides');
 		//console.log(slides);
-		var slidesChildren = slides.firstElementChild;
-		//console.log(slidesChildren);
-		slidesChildren.setAttribute('class','active');
+		if (slides != null) {
+			var slidesChildren = slides.firstElementChild;
+			//console.log(slidesChildren);
+			slidesChildren.setAttribute('class','active');
+		}
 		
 		var pageNav = document.getElementById('pageNav');
 		//console.log(pageNav);
-		var pageNavChildren = pageNav.firstElementChild;
-		//console.log(pageNavChildren);
-		pageNavChildren.setAttribute('class','active');
+		if (pageNav != null) {
+			var pageNavChildren = pageNav.firstElementChild;
+			//console.log(pageNavChildren);
+			pageNavChildren.setAttribute('class','active');
+		}
 		
 		$('.slider-2 .page-nav > div').click(function() {
 		    
@@ -194,6 +221,40 @@
 				}
 				, error:function(e) {
 					alert("좋아요/해제 하는데 실패했습니다.");
+				}
+			});
+		});
+		
+		$('#moreBtn').on('click', function(e) {
+			e.preventDefault();
+			
+			let usedGoodsId = $(this).data('used-goods-id');
+			
+			$('#modal').data('used-goods-id', usedGoodsId)
+		});
+		
+		// 삭제 버튼 클릭
+		$('#modal #deleteBtn').on('click', function() {
+			//alert('1111');
+			
+			let usedGoodsId = $('#modal').data('used-goods-id');
+			//alert(usedGoodsId);
+			
+			$.ajax({
+				type:"delete"
+				, url:"/used_goods/delete"
+				, data:{"usedGoodsId":usedGoodsId}
+			
+				, success:function(data) {
+					if (data.code == 1) {
+						location.href="/main/main_view"
+					} else {
+						alert(data.errorMessage);
+						location.href="/user/sign_in_view"
+					}
+				}
+				, error:function(e) {
+					alert("글 삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
 				}
 			});
 		});

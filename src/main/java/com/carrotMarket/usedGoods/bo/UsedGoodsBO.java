@@ -115,7 +115,7 @@ public class UsedGoodsBO {
 		return usedGoodsDAO.selectUsedGoodsImageListByUsedGoodsId(usedGoodsId);
 	}
 	
-	public void update(int userId, String userLoginId, int usedGoodsId, String title, 
+	public void updateUsedGoods(int userId, String userLoginId, int usedGoodsId, String title, 
 			String category, Integer price, String content, String place, List<MultipartFile> files) {
 		
 		UsedGoods usedGoods = usedGoodsDAO.selectUsedGoodsByUsedGoodsIdUserId(usedGoodsId, userId);
@@ -152,5 +152,36 @@ public class UsedGoodsBO {
 		if (!imagePathList.isEmpty()) {
 			usedGoodsDAO.insertUsedGoodsImage(usedGoodsId, imagePathList);
 		}
+	}
+	
+	public void deleteUsedGoods(int usedGoodsId, int userId) {
+		// 기존 글 가져오기
+		UsedGoods usedGoods = usedGoodsDAO.selectUsedGoodsByUsedGoodsIdUserId(usedGoodsId, userId);
+		List<UsedGoodsImage> usedGoodsImageList = usedGoodsDAO.selectUsedGoodsImageListByUsedGoodsId(usedGoodsId);
+		if (usedGoods == null) {
+			logger.warn("[글 삭제 에러] usedGoods is null. usedGoodsId:{}, userId:{}", usedGoodsId, userId);
+			return;
+		}
+		
+		// 이미지 있으면 이미지 삭제
+		// 실제 이미지 파일 삭제 + 이미지경로가 저장된 DB 행 삭제
+		if (!usedGoodsImageList.isEmpty()) {
+			for (UsedGoodsImage usedGoodsImage : usedGoodsImageList) {
+				fileManagerService.deleteFile(usedGoodsImage.getImageUrl());
+			}
+			usedGoodsDAO.deleteUsedGoodsImageByUsedGoodsId(usedGoodsId);
+		} 
+		
+		// 글 삭제
+		usedGoodsDAO.deleteUsedGoodsByUsedGoodsIdUserId(usedGoodsId, userId);
+		
+		// 좋아요들 삭제
+		likeBO.deleteLikeByUsedGoodsId(usedGoodsId);
+		
+		// 조회수들 삭제
+		
+		// 채팅들 삭제
+		
+		// 리뷰 삭제(리뷰랑 연결된 매너들도 삭제.? -> X 매너로 회원에 대한 평가가 들어가야함, 리뷰는...)
 	}
 }

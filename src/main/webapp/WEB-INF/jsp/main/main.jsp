@@ -67,8 +67,8 @@
 				<div class="used-box">
 					<a href="/used_goods/used_goods_detail_view?usedGoodsId=${postView.usedGoods.id}" style="text-decoration:none; color:black">
 						<!-- <img src="" onerror="this.src='/static/img/used_goods.jpg'" alt="상품사진" width="201px" height="201px" style="border: 2px solid gray; border-radius:8%"> -->
-						<c:if test="${postView.usedGoodsImageList.size() > 1}">
-							<img alt="상품이미지" src="${postView.usedGoodsImageList[0].imageUrl}" width="201px" height="201px" style="border-radius:8%">
+						<c:if test="${postView.usedGoodsImageList.size() > 0}">
+							<img alt="상품이미지" src="${postView.usedGoodsImageList[0].imageUrl}" width="200px" height="200px" style="border-radius:8%">
 						</c:if>
 						
 						<c:if test="${empty postView.usedGoodsImageList}">

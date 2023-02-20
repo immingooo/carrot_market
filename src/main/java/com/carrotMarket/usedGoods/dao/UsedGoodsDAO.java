@@ -39,4 +39,8 @@ public interface UsedGoodsDAO {
 	
 	public void deleteUsedGoodsImageByUsedGoodsId(int usedGoodsId);
 	
+	public void deleteUsedGoodsByUsedGoodsIdUserId(
+			@Param("usedGoodsId") int usedGoodsId, 
+			@Param("userId") int userId);
+	
 }

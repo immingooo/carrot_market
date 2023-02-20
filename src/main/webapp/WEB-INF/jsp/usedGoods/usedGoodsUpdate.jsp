@@ -168,6 +168,7 @@
 			let category = $('#category').val().trim();
 			let price = $('#price').val().trim();
 			let content = $('#content').val();
+			//content = content.replaceAll(/(\n|\r\n)/g, "<br>");
 			let place = $('#place').val().trim();
 			
 			if (title == '') {
