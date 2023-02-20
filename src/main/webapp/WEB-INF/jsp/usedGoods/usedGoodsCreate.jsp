@@ -6,14 +6,18 @@
 		<div class="d-flex justify-content-center mt-4 mb-4">
 			<h4 class="font-weight-bold">내 물건 팔기</h4>
 		</div>
+		
 		<form id="usedGoodsCreateForm" method="post"
 			action="/used_goods/used_goods_create">
 			<div class="pb-3">
 				<div class="d-flex justify-content-between">
+				
+					<%-- 제목 --%>
 					<div class="col-9 p-0 pr-2">
-						<input type="text" id="title" name="title" class="form-control"
-							placeholder="제목을 입력해주세요">
+						<input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력해주세요">
 					</div>
+					
+					<%-- 카테고리 --%>
 					<div class="d-flex justify-content-between">
 						<select class="form-control" id="category" name="category">
 							<option>카테고리</option>
@@ -41,6 +45,7 @@
 				</div>
 			</div>
 
+			<%-- 가격 --%>
 			<div class="pb-3">
 				<div>
 					<input type="text" id="price" name="price" class="form-control"
@@ -49,11 +54,13 @@
 				</div>
 			</div>
 
+			<%-- 내용 --%>
 			<div class="pb-3">
 				<textarea class="form-control" id="content" name="content"
 					placeholder="내용을 입력해주세요" rows="8" cols="10"></textarea>
 			</div>
 
+			<%-- 장소 --%>
 			<div class="pb-2">
 				<div>
 					<input type="text" class="form-control" id="place" name="place"
@@ -61,6 +68,7 @@
 				</div>
 			</div>
 
+			<%-- 이미지들 --%>
 			<!-- <div class="file-upload d-flex pb-2">
 				<input type="file" id="file" class="d-none" accept=".gif, .jpg, .png, .jpeg">
 				<a href="#" id="fileUploadBtn"><img src="https://cdn-icons-png.flaticon.com/512/45/45010.png" alt="이미지 업로드" width="50px"></a>
@@ -197,9 +205,10 @@
 			    
 			　　　　, success: function(data) {
 			　　　　　　if (data.code == 1) {
-							alert("글 업로드 성공!!");
-							location.reload();
-							//location.href="/used_goods/used_goods_detail_view";
+							//alert("글 업로드 성공!!");
+							//location.reload();
+							location.href="/main/main_view";
+							// 상세화면으로 가거나
 			　　　　　　} else if (data.code == 500){
 							alert(data.errorMessage);
 							location.href="/user/sign_in_view";
@@ -208,7 +217,7 @@
 			　　　　, error: function(e) {
 			　　　　　　alert("글 업로드에 실패했습니다. 관리자에게 문의해주세요.");
 			　　　　}
-			　　});
+			});
 		});
 	});
 </script>

@@ -86,7 +86,7 @@ public class UsedGoodsBO {
 		post.setUser(user);
 		
 		// 글 하나에 해당하는 사진들 채우기
-		List<UsedGoodsImage> usedGoodsImageList = usedGoodsDAO.selectUsedGoodsImageByUsedGoodsId(usedGoodsId);
+		List<UsedGoodsImage> usedGoodsImageList = usedGoodsDAO.selectUsedGoodsImageListByUsedGoodsId(usedGoodsId);
 		post.setUsedGoodsImageList(usedGoodsImageList);
 		
 		// 내가 좋아요를 눌렀는지 filledLike
@@ -101,5 +101,56 @@ public class UsedGoodsBO {
 		// 글에 대한 채팅 개수
 		
 		return post;
+	}
+	
+	public List<UsedGoods> getUsedGoodsList() {
+		return usedGoodsDAO.selectUsedGoodsList();
+	}
+	
+	public UsedGoods getUsedGoodsByUsedGoodsIdUserId(int usedGoodsId, int userId) {
+		return usedGoodsDAO.selectUsedGoodsByUsedGoodsIdUserId(usedGoodsId, userId);
+	}
+	
+	public List<UsedGoodsImage> getUsedGoodsImageListByUsedGoodsId(int usedGoodsId) {
+		return usedGoodsDAO.selectUsedGoodsImageListByUsedGoodsId(usedGoodsId);
+	}
+	
+	public void update(int userId, String userLoginId, int usedGoodsId, String title, 
+			String category, Integer price, String content, String place, List<MultipartFile> files) {
+		
+		UsedGoods usedGoods = usedGoodsDAO.selectUsedGoodsByUsedGoodsIdUserId(usedGoodsId, userId);
+		List<UsedGoodsImage> usedGoodsImageList = usedGoodsDAO.selectUsedGoodsImageListByUsedGoodsId(usedGoodsId);
+		if (usedGoods == null) { // 이상한 상황(이미지는 없을 수도 있음)
+			logger.warn("[update usedGoods] 수정할 글이 존재하지 않습니다. usedGoodsId:{}, userId:{}", usedGoodsId, userId);
+			return;
+		}
+		
+		List<String> imagePathList = new ArrayList<>();
+		//imagePathList.clear(); // []
+		if (files != null) {
+			// 수정할 새로운 이미지 업로드(노트북에 새로운 이미지 저장)
+			for (int i = 0; i < files.size(); i++) {
+				MultipartFile file = files.get(i);
+				String imagePath = fileManagerService.saveFile(userLoginId, file);
+				imagePathList.add(imagePath);
+			}
+			
+			// 수정할 새로운 이미지 업로드 성공했으면 기존이미지 삭제(노트북에 기존 이미지 삭제)
+			if (!imagePathList.isEmpty() && !usedGoodsImageList.isEmpty()) {
+				for (UsedGoodsImage usedGoodsImage : usedGoodsImageList) {
+					fileManagerService.deleteFile(usedGoodsImage.getImageUrl());
+				}
+			}
+		}
+		
+		// 글 수정
+		usedGoodsDAO.updateUsedGoodsByUserIdUsedGoodsId(userId, usedGoodsId, title, category, price, content, place);
+		// 글에 대한 이미지들 수정(delete -> insert) - 이미지들이 있을 때만 주소저장
+		if (!imagePathList.isEmpty() && !usedGoodsImageList.isEmpty()) {
+			usedGoodsDAO.deleteUsedGoodsImageByUsedGoodsId(usedGoodsId);
+		}
+		if (!imagePathList.isEmpty()) {
+			usedGoodsDAO.insertUsedGoodsImage(usedGoodsId, imagePathList);
+		}
 	}
 }

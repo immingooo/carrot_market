@@ -21,8 +21,9 @@ public class MainController {
 	@GetMapping("/main_view")
 	public String mainView(Model model) {
 		
-		//List<PostView> postViewList = mainBO.generatePostViewList();
+		List<PostView> postViewList = mainBO.generatePostViewList();
 		
+		model.addAttribute("postViewList", postViewList);
 		model.addAttribute("viewName", "main/main");
 		return "template/layout";
 	}

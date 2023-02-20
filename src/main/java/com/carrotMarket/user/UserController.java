@@ -44,10 +44,10 @@ public class UserController {
 			Model model,
 			HttpSession session) {
 		
-//		Integer userId = (Integer)session.getAttribute("userId");
-//		if (userId == null) {
-//			
-//		}
+		Integer userId = (Integer)session.getAttribute("userId");
+		if (userId == null) {
+			return "redirect:/user/sign_in_view";
+		}
 		
 		String loginId = (String)session.getAttribute("userLoginId");
 		User user = userBO.getUserByLoginId(loginId);
@@ -62,6 +62,11 @@ public class UserController {
 			Model model
 			, HttpSession session) {
 		
+		Integer userId = (Integer)session.getAttribute("userId");
+		if (userId == null) {
+			return "redirect:/user/sign_in_view";
+		}
+		
 		String loginId = (String)session.getAttribute("userLoginId");
 		User user = userBO.getUserByLoginId(loginId);
 		
@@ -74,6 +79,11 @@ public class UserController {
 	public String userProfileUpdateView(
 			Model model
 			, HttpSession session) {
+		
+		Integer userId = (Integer)session.getAttribute("userId");
+		if (userId == null) {
+			return "redirect:/user/sign_in_view";
+		}
 		
 		String loginId = (String)session.getAttribute("userLoginId");
 		User user = userBO.getUserByLoginId(loginId);

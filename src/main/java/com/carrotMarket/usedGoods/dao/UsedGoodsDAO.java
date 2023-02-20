@@ -20,5 +20,23 @@ public interface UsedGoodsDAO {
 	
 	public UsedGoods selectUsedGoodsByUsedGoodsId(int usedGoodsId);
 	
-	public List<UsedGoodsImage> selectUsedGoodsImageByUsedGoodsId(int usedGoodsId);
+	public List<UsedGoodsImage> selectUsedGoodsImageListByUsedGoodsId(int usedGoodsId);
+	
+	public List<UsedGoods> selectUsedGoodsList();
+	
+	public UsedGoods selectUsedGoodsByUsedGoodsIdUserId(
+			@Param("usedGoodsId") int usedGoodsId, 
+			@Param("userId") int userId);
+	
+	public void updateUsedGoodsByUserIdUsedGoodsId(
+			@Param("userId") int userId, 
+			@Param("usedGoodsId") int usedGoodsId, 
+			@Param("title") String title, 
+			@Param("category") String category, 
+			@Param("price") Integer price, 
+			@Param("content") String content, 
+			@Param("place") String place);
+	
+	public void deleteUsedGoodsImageByUsedGoodsId(int usedGoodsId);
+	
 }

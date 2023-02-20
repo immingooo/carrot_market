@@ -68,7 +68,7 @@
 			`id` = #{usedGoodsId}
 	</select>
 	
-	<select id="selectUsedGoodsImageByUsedGoodsId" parameterType="int" resultType="com.carrotMarket.usedGoods.model.UsedGoodsImage">
+	<select id="selectUsedGoodsImageListByUsedGoodsId" parameterType="int" resultType="com.carrotMarket.usedGoods.model.UsedGoodsImage">
 		SELECT
 			`id`
 			,`usedGoodsId`
@@ -80,4 +80,60 @@
 		WHERE
 			`usedGoodsId` = #{usedGoodsId}
 	</select>
+	
+	<select id="selectUsedGoodsList" resultType="com.carrotMarket.usedGoods.model.UsedGoods">
+		SELECT
+			`id`
+			,`userId`
+			,`title`
+			,`category`
+			,`price`
+			,`content`
+			,`place`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`used_goods`
+		ORDER BY `id` DESC
+	</select>
+	
+	<select id="selectUsedGoodsByUsedGoodsIdUserId" parameterType="map" resultType="com.carrotMarket.usedGoods.model.UsedGoods">
+		SELECT
+			`id`
+			,`userId`
+			,`title`
+			,`category`
+			,`price`
+			,`content`
+			,`place`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`used_goods`
+		WHERE
+			`id` = #{usedGoodsId}
+			AND `userId` = #{userId}
+	</select>
+	
+	<update id="updateUsedGoodsByUserIdUsedGoodsId" parameterType="map">
+		UPDATE `used_goods`
+		SET
+			`title` = #{title}
+			,`category` = #{category}
+			,`price` = #{price}
+			,`content` = #{content}
+			,`place` = #{place}
+			,`updatedAt` = NOW()
+		WHERE
+			`id` = #{usedGoodsId}
+			AND `userId` = #{userId}
+	</update>
+	
+	<delete id="deleteUsedGoodsImageByUsedGoodsId" parameterType="int">
+		DELETE
+		FROM
+			`used_goods_image`
+		WHERE
+			`usedGoodsId` = #{usedGoodsId}
+	</delete>
 </mapper>

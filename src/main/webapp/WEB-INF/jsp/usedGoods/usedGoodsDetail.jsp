@@ -10,8 +10,8 @@
 		<div class="slider-2">
 		    <c:if test="${postView.usedGoodsImageList.size() > 1}">
 		     <div class="side-btns">
-		        <div><span><i class="fas fa-caret-left"></i></i></span></div>
-		        <div><span><i class="fas fa-caret-right"></i></span></div>
+		        <div><span><img src="/static/img/left.png" width="45px" class="ml-1"></span></div>
+		        <div><span><img src="/static/img/right.png" width="90px" class="pr-5"></span></div>
 		    </div>
 		    </c:if>
 		    
@@ -59,10 +59,21 @@
 		
 		<%-- 글 정보 --%>
 		<div>
+			<c:if test="${userId eq postView.user.id}">
 			<div class="d-flex justify-content-end">
-				<a href=""><img alt="메뉴아이콘" src="https://cdn-icons-png.flaticon.com/512/3018/3018442.png" width="25px"></a>
+				<div class="dropdown">
+					<a href="#" role="button" data-toggle="dropdown" data-display="static" aria-expanded="false">
+			 			<img alt="메뉴아이콘" src="https://cdn-icons-png.flaticon.com/512/3018/3018442.png" width="25px"></a>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right">
+					  <a class="dropdown-item font-weight-bold" href="/used_goods/used_goods_update_view?usedGoodsId=${postView.usedGoods.id}">글 수정</a>
+					  <a class="dropdown-item font-weight-bold" href="#">글 삭제</a>
+					</div>
+				</div>
 			</div>
-			<h5 class="font-weight-bold">${postView.usedGoods.title}</h5>
+			</c:if>
+			
+			<h5 class="font-weight-bold pt-2">${postView.usedGoods.title}</h5>
 			<fmt:formatDate var="createdAt" value="${postView.usedGoods.createdAt}" pattern="yyyy년 MM월 dd일 HH:mm"/>
 			<div class="small text-secondary pb-1">${postView.usedGoods.category} ∙ ${createdAt}</div>
 			<fmt:formatNumber var="price" value="${postView.usedGoods.price}" type="number" />
@@ -91,12 +102,6 @@
 		</div>
 	</div>
 </div>
-
-
-
-
-
-
 
 
 <script>
