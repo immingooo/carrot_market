@@ -45,4 +45,6 @@ public interface UsedGoodsDAO {
 	
 	public void updateViewCount(int usedGoodsId);
 	
+	public List<UsedGoods> selectUsedGoodsListByKeyword(String keyword);
+	
 }

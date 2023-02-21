@@ -41,6 +41,7 @@ public class UsedGoodsBO {
 	@Autowired
 	private LikeBO likeBO;
 
+	// 글 작성(추가)
 	public void addUsedGoods(int userId, String userLoginId, String title, String category, 
 			Integer price, String content, String place, List<MultipartFile> files) {
 		
@@ -178,13 +179,11 @@ public class UsedGoodsBO {
 			usedGoodsDAO.deleteUsedGoodsImageByUsedGoodsId(usedGoodsId);
 		} 
 		
-		// 글 삭제
+		// 글 삭제 + 조회수
 		usedGoodsDAO.deleteUsedGoodsByUsedGoodsIdUserId(usedGoodsId, userId);
 		
 		// 좋아요들 삭제
 		likeBO.deleteLikeByUsedGoodsId(usedGoodsId);
-		
-		// 조회수들 삭제
 		
 		// 채팅들 삭제
 		
@@ -215,8 +214,12 @@ public class UsedGoodsBO {
 	    	usedGoodsDAO.updateViewCount(usedGoodsId);
 	        Cookie newCookie = new Cookie("visit_cookie","[" + usedGoodsId + "]");
 	        newCookie.setPath("/");
-	        newCookie.setMaxAge(60 * 60 * 24);
+	        newCookie.setMaxAge(60 * 60 * 24); // 유효시간: 하루
 	        response.addCookie(newCookie);
 	    }
+	}
+	
+	public List<UsedGoods> getUsedGoodsListByKeyword(String keyword) {
+		return usedGoodsDAO.selectUsedGoodsListByKeyword(keyword);
 	}
 }

@@ -116,6 +116,26 @@
 			AND `userId` = #{userId}
 	</select>
 	
+	<select id="selectUsedGoodsListByKeyword" parameterType="string" resultType="com.carrotMarket.usedGoods.model.UsedGoods">
+		SELECT
+			`id`
+			,`userId`
+			,`title`
+			,`category`
+			,`price`
+			,`content`
+			,`place`
+			, `viewCount`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`used_goods`
+		WHERE
+			`title` LIKE CONCAT('%', #{keyword}, '%')
+			OR `content` LIKE CONCAT('%', #{keyword}, '%')
+			OR `place` LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+	
 	<update id="updateUsedGoodsByUserIdUsedGoodsId" parameterType="map">
 		UPDATE `used_goods`
 		SET
