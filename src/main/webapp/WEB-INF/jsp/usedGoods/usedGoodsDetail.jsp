@@ -79,7 +79,7 @@
 			<fmt:formatNumber var="price" value="${postView.usedGoods.price}" type="number" />
 			<h5 class="font-weight-bold">${price}원</h5>
 			<pre class="pt-3 pb-3">${postView.usedGoods.content}</pre>
-			<div class="small text-secondary">관심${postView.likeCount} 채팅15 조회34</div>
+			<div class="small text-secondary">관심${postView.likeCount} 채팅15 조회${postView.usedGoods.viewCount}</div>
 			<div class="d-flex justify-content-end">
 				<c:if test="${postView.filledLike eq false}">
 				<a href="#" class="pr-3 pt-1" id="likeBtn" data-user-id="${userId}" data-used-goods-id="${postView.usedGoods.id}">

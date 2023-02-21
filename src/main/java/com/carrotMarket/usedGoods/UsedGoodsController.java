@@ -14,6 +14,8 @@ import com.carrotMarket.usedGoods.bo.UsedGoodsBO;
 import com.carrotMarket.usedGoods.model.UsedGoods;
 import com.carrotMarket.usedGoods.model.UsedGoodsImage;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -33,10 +35,12 @@ public class UsedGoodsController {
 	public String usedGoodsDetailView(
 			@RequestParam("usedGoodsId") int usedGoodsId,
 			Model model, 
-			HttpSession session) {
+			HttpSession session,
+			HttpServletRequest request,
+			HttpServletResponse response) {
 
-		// 조회수 insert
-		
+		// 조회수 update
+		usedGoodsBO.addViewCount(usedGoodsId, request, response);
 		
 		//int usedGoodsId = 18; // 임시로 18번째 글을 가져올 거임
 		// 글 번호에 해당하는 postView객체를 가져와야 함(로그인/비로그인 모두 들어갈 수 있음)

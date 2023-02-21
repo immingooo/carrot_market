@@ -11,6 +11,7 @@ public class UsedGoods {
 	private int price;
 	private String content;
 	private String place;
+	private int viewCount;
 	private Date createdAt;
 	private Date updatedAt;
 	
@@ -55,6 +56,12 @@ public class UsedGoods {
 	}
 	public void setPlace(String place) {
 		this.place = place;
+	}
+	public int getViewCount() {
+		return viewCount;
+	}
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
 	}
 	public Date getCreatedAt() {
 		return createdAt;

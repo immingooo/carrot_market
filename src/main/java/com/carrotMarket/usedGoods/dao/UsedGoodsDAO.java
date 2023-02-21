@@ -43,4 +43,6 @@ public interface UsedGoodsDAO {
 			@Param("usedGoodsId") int usedGoodsId, 
 			@Param("userId") int userId);
 	
+	public void updateViewCount(int usedGoodsId);
+	
 }

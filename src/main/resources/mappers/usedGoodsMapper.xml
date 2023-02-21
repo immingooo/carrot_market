@@ -60,6 +60,7 @@
 			,`price`
 			,`content`
 			,`place`
+			, `viewCount`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -145,4 +146,12 @@
 			`id` = #{usedGoodsId}
 			AND `userId` = #{userId}
 	</delete>
+	
+	<update id="updateViewCount" parameterType="int">
+		UPDATE `used_goods`
+		SET
+			`viewCount` = `viewCount`+1
+		WHERE
+			`id` = #{usedGoodsId}
+	</update>
 </mapper>

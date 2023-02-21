@@ -20,6 +20,10 @@ import com.carrotMarket.usedGoods.model.UsedGoodsImage;
 import com.carrotMarket.user.bo.UserBO;
 import com.carrotMarket.user.model.User;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 @Service
 public class UsedGoodsBO {
 	
@@ -115,6 +119,7 @@ public class UsedGoodsBO {
 		return usedGoodsDAO.selectUsedGoodsImageListByUsedGoodsId(usedGoodsId);
 	}
 	
+	// 글 수정
 	public void updateUsedGoods(int userId, String userLoginId, int usedGoodsId, String title, 
 			String category, Integer price, String content, String place, List<MultipartFile> files) {
 		
@@ -154,6 +159,7 @@ public class UsedGoodsBO {
 		}
 	}
 	
+	// 글 삭제
 	public void deleteUsedGoods(int usedGoodsId, int userId) {
 		// 기존 글 가져오기
 		UsedGoods usedGoods = usedGoodsDAO.selectUsedGoodsByUsedGoodsIdUserId(usedGoodsId, userId);
@@ -183,5 +189,34 @@ public class UsedGoodsBO {
 		// 채팅들 삭제
 		
 		// 리뷰 삭제(리뷰랑 연결된 매너들도 삭제.? -> X 매너로 회원에 대한 평가가 들어가야함, 리뷰는...)
+	}
+	
+	// 조회수
+	public void addViewCount(int usedGoodsId, HttpServletRequest request, HttpServletResponse response) {
+		Cookie oldCookie = null;
+	    Cookie[] cookies = request.getCookies();
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            if (cookie.getName().equals("visit_cookie")) {
+	                oldCookie = cookie;
+	            }
+	        }
+	    }
+	    if (oldCookie != null) {
+	        if (!oldCookie.getValue().contains("[" + usedGoodsId + "" + "]")) {
+	        	usedGoodsDAO.updateViewCount(usedGoodsId);
+	            //postService.viewCountUp(id);
+	            oldCookie.setValue(oldCookie.getValue() + "_[" + usedGoodsId + "]");
+	            oldCookie.setPath("/");
+	            oldCookie.setMaxAge(60 * 60 * 24);
+	            response.addCookie(oldCookie);
+	        }
+	    } else {
+	    	usedGoodsDAO.updateViewCount(usedGoodsId);
+	        Cookie newCookie = new Cookie("visit_cookie","[" + usedGoodsId + "]");
+	        newCookie.setPath("/");
+	        newCookie.setMaxAge(60 * 60 * 24);
+	        response.addCookie(newCookie);
+	    }
 	}
 }

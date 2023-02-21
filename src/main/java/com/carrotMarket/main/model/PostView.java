@@ -24,7 +24,7 @@ public class PostView {
 	private int likeCount;
 	
 	// 조회수
-	private int hitsCount;
+	//private int hitsCount;
 	
 	// 채팅 개수
 	
@@ -67,14 +67,6 @@ public class PostView {
 
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
-	}
-
-	public int getHitsCount() {
-		return hitsCount;
-	}
-
-	public void setHitsCount(int hitsCount) {
-		this.hitsCount = hitsCount;
 	}
 	
 }
