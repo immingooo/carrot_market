@@ -136,6 +136,24 @@
 			OR `place` LIKE CONCAT('%', #{keyword}, '%')
 	</select>
 	
+	<select id="selectUsedGoodsListByCategory" parameterType="string" resultType="com.carrotMarket.usedGoods.model.UsedGoods">
+		SELECT
+			`id`
+			,`userId`
+			,`title`
+			,`category`
+			,`price`
+			,`content`
+			,`place`
+			, `viewCount`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`used_goods`
+		WHERE
+			`category` = #{category}
+	</select>
+	
 	<update id="updateUsedGoodsByUserIdUsedGoodsId" parameterType="map">
 		UPDATE `used_goods`
 		SET

@@ -16,12 +16,14 @@ public class MainBO {
 	@Autowired
 	private UsedGoodsBO usedGoodsBO;
 
-	public List<PostView> generatePostViewList(String keyword) {
+	public List<PostView> generatePostViewList(String keyword, String category) {
 		List<PostView> postViewList = new ArrayList<>();
 		
 		List<UsedGoods> usedGoodsList;
 		if (keyword != null) {
 			usedGoodsList = usedGoodsBO.getUsedGoodsListByKeyword(keyword);
+		} else if (category != null) {
+			usedGoodsList = usedGoodsBO.getUsedGoodsListByCategory(category);
 		} else {
 			usedGoodsList = usedGoodsBO.getUsedGoodsList();
 		}

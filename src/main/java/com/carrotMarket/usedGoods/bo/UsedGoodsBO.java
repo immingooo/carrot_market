@@ -45,6 +45,11 @@ public class UsedGoodsBO {
 	public void addUsedGoods(int userId, String userLoginId, String title, String category, 
 			Integer price, String content, String place, List<MultipartFile> files) {
 		
+		if (place.equals("")) {
+			User user = userBO.getUserByUserId(userId);
+			place = user.getAddress();
+		}
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("title", title);
@@ -221,5 +226,9 @@ public class UsedGoodsBO {
 	
 	public List<UsedGoods> getUsedGoodsListByKeyword(String keyword) {
 		return usedGoodsDAO.selectUsedGoodsListByKeyword(keyword);
+	}
+	
+	public List<UsedGoods> getUsedGoodsListByCategory(String category) {
+		return usedGoodsDAO.selectUsedGoodsListByCategory(category);
 	}
 }

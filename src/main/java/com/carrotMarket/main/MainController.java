@@ -26,7 +26,7 @@ public class MainController {
 	@GetMapping("/main_view")
 	public String mainView(Model model) {
 		
-		List<PostView> postViewList = mainBO.generatePostViewList(null);
+		List<PostView> postViewList = mainBO.generatePostViewList(null, null);
 		
 		model.addAttribute("postViewList", postViewList);
 		model.addAttribute("viewName", "main/main");
@@ -34,8 +34,10 @@ public class MainController {
 	}
 	
 	@GetMapping("/search_view")
-	public String searchView(Model model) {
+	public String searchView(Model model,
+			@RequestParam("keyword") String keyword) {
 		
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("viewName", "main/search");
 		return "template/layout";
 	}
@@ -44,9 +46,19 @@ public class MainController {
 	public String searchResultView(Model model,
 			@RequestParam("keyword") String keyword) {
 		
-		List<PostView> postViewList = mainBO.generatePostViewList(keyword);
+		List<PostView> postViewList = mainBO.generatePostViewList(keyword, null);
 		
 		model.addAttribute("postViewList", postViewList);
 		return "main/searchContent"; // 레이아웃이 아예 없는 html
+	}
+	
+	@GetMapping("/category_view")
+	public String categoryView(Model model,
+			@RequestParam("category") String category) {
+		
+		List<PostView> postViewList = mainBO.generatePostViewList(null, category);
+		
+		model.addAttribute("postViewList", postViewList);
+		return "main/category";
 	}
 }

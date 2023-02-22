@@ -47,14 +47,16 @@
 	</ul>
 	
 	<%-- 검색창 --%>
-	<div class="input-group col-3 mr-5 p-0">
-	<input type="text" class="form-control" id="keyword" placeholder="물품이나 동네를 검색해보세요">
-	<div class="input-group-prepend">
- 	<a href="#" class="input-group-text" id="searchBtn">
-    	<img alt="검색 아이콘" src="https://cdn-icons-png.flaticon.com/512/2866/2866321.png" width="25px">
-    </a>
+	<form action="/main/search_view" method="get">
+	<div class="input-group mr-5 p-0 form-group">
+		<input type="text" class="form-control" id="keyword" name="keyword" placeholder="물품이나 동네를 검색해보세요">
+		<div class="input-group-prepend">
+		 	<button type="submit" class="input-group-text" id="searchBtn">
+		    	<img alt="검색 아이콘" src="https://cdn-icons-png.flaticon.com/512/2866/2866321.png" width="25px">
+		    </button>
+		</div>
 	</div>
-	</div>
+	</form>
 </div>
 
 <script>
@@ -68,22 +70,7 @@
 				alert('검색어를 입력해주세요');
 				return;
 			}
-			
-			$.ajax({
-				type:"get"
-				, url:"/main/search_result_view"
-				, data:{"keyword":keyword}
-			
-				, success:function(data) {
-					console.log(data) // data에 searchContent가 들어있음
-					$('.search-box').html(data)
-					location.href="/main/search_view" // ???
-					//location.href="/main/search_result_view"
-				}
-				, error:function(e) {
-					alert("검색에 실패했습니다. 관리자에게 문의해주세요.");
-				}
-			});
+			location.href="/main/search_view?keyword=" + keyword;
 		});
 	});
 </script>

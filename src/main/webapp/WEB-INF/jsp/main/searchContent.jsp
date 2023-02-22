@@ -4,16 +4,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+
 <div class="d-flex justify-content-start mt-3 mb-3">
-	<h5 class="font-weight-bold m-0">인기 중고</h5>
+	<h5 class="font-weight-bold m-0">최신 중고</h5>
 </div>
 
+<c:if test="${not empty postViewList}">
 <%-- 중고매물들 --%>
 <div class="hot-used-parent-box d-flex flex-wrap">
 	<%-- 중고매물 1개 --%>
 	<c:forEach var="postView" items="${postViewList}">
 	<div class="used-box">
-		<a href="#" style="text-decoration:none; color:black">
+		<a href="/used_goods/used_goods_detail_view?usedGoodsId=${postView.usedGoods.id}" style="text-decoration:none; color:black">
 			<%-- 상품 이미지 --%>
 			<c:if test="${postView.usedGoodsImageList.size() > 0}">
 				<img alt="상품이미지" src="${postView.usedGoodsImageList[0].imageUrl}" width="200px" height="200px" style="border-radius:8%">
@@ -74,3 +76,9 @@
 	</div>
 	</c:forEach>
 </div>
+</c:if>
+<c:if test="${empty postViewList}">
+	<div class="d-flex justify-content-center align-items-center" style="height:500px">
+		<h3>검색결과가 없습니다.</h3>
+	</div>
+</c:if>

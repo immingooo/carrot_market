@@ -17,7 +17,7 @@
 		<div>
 			<%-- 카테고리 --%>
 			<div class="d-flex justify-content-between mt-4 mb-5">
-				<select class="form-control col-2">
+				<select class="form-control col-2" id="category">
 					<option>카테고리</option>
 					<option>디지털기기</option>
 					<option>생활가전</option>
@@ -62,7 +62,7 @@
 			</div>
 			
 			<%-- 중고매물들 --%>
-			<div class="used-parent-box d-flex flex-wrap">
+			<div class="used-parent-box d-flex flex-wrap test-box">
 				<%-- 중고매물 1개 --%>
 				<c:forEach var="postView" items="${postViewList}">
 				<div class="used-box">
@@ -118,3 +118,25 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function() {
+		$('#category').on('change', function() {
+			let category = $(this).val();
+			//alert(category);
+			
+			$.ajax({
+				url:"/main/category_view"
+				, data:{"category":category}
+			
+				, success:function(data) {
+					console.log(data);
+					$('.test-box').html(data);
+				}
+				, error:function(e) {
+					alert("카테고리 검색에 실패했습니다. 관리자에게 문의해주세요.");
+				}
+			});
+		});
+	});
+</script>

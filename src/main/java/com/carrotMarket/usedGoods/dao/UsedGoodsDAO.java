@@ -47,4 +47,6 @@ public interface UsedGoodsDAO {
 	
 	public List<UsedGoods> selectUsedGoodsListByKeyword(String keyword);
 	
+	public List<UsedGoods> selectUsedGoodsListByCategory(String category);
+	
 }
