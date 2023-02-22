@@ -16,10 +16,15 @@ public class MainBO {
 	@Autowired
 	private UsedGoodsBO usedGoodsBO;
 
-	public List<PostView> generatePostViewList() {
+	public List<PostView> generatePostViewList(String keyword) {
 		List<PostView> postViewList = new ArrayList<>();
 		
-		List<UsedGoods> usedGoodsList = usedGoodsBO.getUsedGoodsList();
+		List<UsedGoods> usedGoodsList;
+		if (keyword != null) {
+			usedGoodsList = usedGoodsBO.getUsedGoodsListByKeyword(keyword);
+		} else {
+			usedGoodsList = usedGoodsBO.getUsedGoodsList();
+		}
 		
 		for (UsedGoods usedGoods : usedGoodsList) {
 			PostView postView = usedGoodsBO.generatePostView(usedGoods.getId(), null); // 비로그인 회원도 메인화면접속가능

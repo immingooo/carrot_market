@@ -84,7 +84,7 @@
 							${postView.usedGoods.title}
 							</c:if>
 						</div>
-						<%-- <div class="pt-3 pb-1" style="width:200px">${postView.usedGoods.title}</div> --%>
+						
 						<fmt:formatNumber var="price" value="${postView.usedGoods.price}" type="number" />
 						<div class="font-weight-bold pb-1">${price}원</div>
 						

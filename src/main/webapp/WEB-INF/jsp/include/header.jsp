@@ -75,11 +75,10 @@
 				, data:{"keyword":keyword}
 			
 				, success:function(data) {
-					if (data.code == 1) { // 검색 결과가 있을 때
-						$('.search-box').html(data) // data에 searchContent가 들어있음
-					} else { // 검색 결과가 아무것도 없을 때
-						alert("검색결과가 없습니다.");
-					}
+					console.log(data) // data에 searchContent가 들어있음
+					$('.search-box').html(data)
+					location.href="/main/search_view" // ???
+					//location.href="/main/search_result_view"
 				}
 				, error:function(e) {
 					alert("검색에 실패했습니다. 관리자에게 문의해주세요.");

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.carrotMarket.main.bo.MainBO;
 import com.carrotMarket.main.model.PostView;
 import com.carrotMarket.usedGoods.bo.UsedGoodsBO;
-import com.carrotMarket.usedGoods.model.UsedGoods;
 
 @Controller
 @RequestMapping("/main")
@@ -27,7 +26,7 @@ public class MainController {
 	@GetMapping("/main_view")
 	public String mainView(Model model) {
 		
-		List<PostView> postViewList = mainBO.generatePostViewList();
+		List<PostView> postViewList = mainBO.generatePostViewList(null);
 		
 		model.addAttribute("postViewList", postViewList);
 		model.addAttribute("viewName", "main/main");
@@ -36,6 +35,7 @@ public class MainController {
 	
 	@GetMapping("/search_view")
 	public String searchView(Model model) {
+		
 		model.addAttribute("viewName", "main/search");
 		return "template/layout";
 	}
@@ -44,9 +44,9 @@ public class MainController {
 	public String searchResultView(Model model,
 			@RequestParam("keyword") String keyword) {
 		
-		List<UsedGoods> usedGoodsList = usedGoodsBO.getUsedGoodsListByKeyword(keyword);
+		List<PostView> postViewList = mainBO.generatePostViewList(keyword);
 		
-		model.addAttribute("usedGoodsList", usedGoodsList);
-		return "main/searchContent";
+		model.addAttribute("postViewList", postViewList);
+		return "main/searchContent"; // 레이아웃이 아예 없는 html
 	}
 }
