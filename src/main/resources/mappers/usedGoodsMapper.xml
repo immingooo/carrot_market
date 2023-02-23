@@ -154,6 +154,24 @@
 			`category` = #{category}
 	</select>
 	
+	<select id="selectUsedGoodsListByArea" parameterType="string" resultType="com.carrotMarket.usedGoods.model.UsedGoods">
+		SELECT
+			`id`
+			,`userId`
+			,`title`
+			,`category`
+			,`price`
+			,`content`
+			,`place`
+			, `viewCount`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`used_goods`
+		WHERE
+			`place` LIKE CONCAT('%', #{area}, '%')
+	</select>
+	
 	<update id="updateUsedGoodsByUserIdUsedGoodsId" parameterType="map">
 		UPDATE `used_goods`
 		SET

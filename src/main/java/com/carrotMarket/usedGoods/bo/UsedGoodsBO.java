@@ -231,4 +231,8 @@ public class UsedGoodsBO {
 	public List<UsedGoods> getUsedGoodsListByCategory(String category) {
 		return usedGoodsDAO.selectUsedGoodsListByCategory(category);
 	}
+	
+	public List<UsedGoods> getUsedGoodsListByArea(String area) {
+		return usedGoodsDAO.selectUsedGoodsListByArea(area);
+	}
 }

@@ -39,16 +39,16 @@
 					<option>기타 중고물품</option>
 					<option>삽니다</option>
 				</select>
-				<select class="form-control col-2">
+				<select class="form-control col-2" id="area">
 					<option>지역을 선택하세요</option>
-					<option>서울특벌시</option>
-					<option>부산광역시</option>
-					<option>대구광역시</option>
-					<option>인천광역시</option>
-					<option>광주광역시</option>
-					<option>대전광역시</option>
-					<option>울산광역시</option>
-					<option>세종특별자치시</option>
+					<option value="서울">서울특벌시</option>
+					<option value="부산">부산광역시</option>
+					<option value="대구">대구광역시</option>
+					<option value="인천">인천광역시</option>
+					<option value="광주">광주광역시</option>
+					<option value="대전">대전광역시</option>
+					<option value="울산">울산광역시</option>
+					<option value="세종">세종특별자치시</option>
 					<option>경기도</option>
 					<option>강원도</option>
 					<option>충청북도</option>
@@ -121,6 +121,7 @@
 
 <script>
 	$(document).ready(function() {
+		// 카테고리 선택
 		$('#category').on('change', function() {
 			let category = $(this).val();
 			//alert(category);
@@ -130,11 +131,32 @@
 				, data:{"category":category}
 			
 				, success:function(data) {
-					console.log(data);
+					//console.log(data);
 					$('.test-box').html(data);
+					$('#area').css("visibility","hidden");
 				}
 				, error:function(e) {
 					alert("카테고리 검색에 실패했습니다. 관리자에게 문의해주세요.");
+				}
+			});
+		});
+		
+		// 지역 선택
+		$('#area').on('change', function() {
+			let area = $(this).val();
+			//alert(area);
+			
+			$.ajax({
+				url:"/main/area_view"
+				, data:{"area":area}
+			
+				, success:function(data) {
+					console.log(data);
+					$('.test-box').html(data);
+					$('#category').css("visibility","hidden");
+				}
+				, error:function(e) {
+					alert("검색에 실패했습니다. 관리자에게 문의해주세요.");
 				}
 			});
 		});

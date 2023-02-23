@@ -39,7 +39,7 @@
 	
 	<%-- 메뉴 --%>
 	<ul class="nav d-flex align-items-center col-6 justify-content-between font-weight-bold p-0">
-		<li class="nav-list"><a href="#" class="nav-item nav-font-size pr-4" style="text-decoration:none">중고거래</a></li>
+		<li class="nav-list"><a href="/main/main_view" class="nav-item nav-font-size pr-4 text-orange" style="text-decoration:none">중고거래</a></li>
 		<li class="nav-list"><a href="#" class="nav-item nav-font-size pr-4" style="text-decoration:none">동네가게</a></li>
 		<li class="nav-list"><a href="#" class="nav-item nav-font-size pr-4" style="text-decoration:none">알바</a></li>
 		<li class="nav-list"><a href="#" class="nav-item nav-font-size pr-4" style="text-decoration:none">부동산 직거래</a></li>

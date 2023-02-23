@@ -63,11 +63,11 @@
 			<div>
 				<c:if test="${not empty usedGoods.place}">
 				<input type="text" class="form-control" id="place" name="place"
-					value="${usedGoods.place}">
+					value="${usedGoods.place}" readonly>
 				</c:if>
 				<c:if test="${empty usedGoods.place}">
 				<input type="text" class="form-control" id="place" name="place"
-					placeholder="장소를 입력해주세요">
+					placeholder="장소를 입력해주세요" readonly>
 				</c:if>
 			</div>
 		</div>
@@ -159,6 +159,16 @@
 		        }
 		      });//arr.forEach
 		}
+		
+		// 주소 API
+	    $('#place').on("click", function(){ //주소입력칸을 클릭하면
+	        //카카오 지도 발생
+	        new daum.Postcode({
+	            oncomplete: function(data) { //선택시 입력값 세팅
+	                document.getElementById("place").value = data.address; // 주소 넣기
+	            }
+	        }).open();
+	    });
 		
 		$('#updateBtn').on("click", function() {
 			//alert('111');

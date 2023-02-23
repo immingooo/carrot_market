@@ -18,6 +18,8 @@ li {list-style:none;}
 .text-orange {color:#FF7E36;}
 .hot-used-parent-box {gap: 40px 50px;}
 
+.nav-list a:hover {color:#FF7E36;}
+
 .bg-orange {border: 2px solid #FF7E36; color:#FF7E36; background-color:white;}
 .btn-orange {background-color: #FF7E36;}
 /* .profile-img {border-radius: 40%;} */
