@@ -72,10 +72,4 @@ public class MainController {
 		return "main/area";
 	}
 	
-	@GetMapping("/chat_message_view")
-	public String chatMessageView(Model model) {
-		
-		model.addAttribute("viewName", "chat/chatMessage");
-		return "template/layout";
-	}
 }

@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
 import com.carrotMarket.handler.SocketHandler;
 
@@ -17,6 +18,10 @@ public class WebSocketConfig implements WebSocketConfigurer {
 	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(socketHandler, "/chating");
+		registry.addHandler(socketHandler, "/chating")
+		.setAllowedOrigins("*")
+		.withSockJS()
+		.setClientLibraryUrl("https://cdn.jsdelivr.net/sockjs/latest/sockjs.min.js")
+		.setInterceptors(new HttpSessionHandshakeInterceptor());
 	}
 }

@@ -1,36 +1,77 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<div id="container" class="container">
-	<h1>채팅</h1>
-	<div id="chating" class="chating">
-	</div>
-	
-	<div id="yourName">
-		<table class="inputTable">
-			<tr>
-				<th>사용자명</th>
-				<th><input type="text" name="userName" id="userName"></th>
-				<th><button id="startBtn">이름 등록</button></th>
-			</tr>
-		</table>
-	</div>
-	<div id="yourMsg">
-		<table class="inputTable">
-			<tr>
-				<th>메시지</th>
-				<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
-				<th><button id="sendBtn">보내기</button></th>
-			</tr>
-		</table>
-	</div>
-</div>
+<form id="chatForm">
+    <button type="button" class="chat_start_main" data-user-id="${userId}">
+        상담 CHAT
+    </button>
+    <div class="chat_main">
+        <div class="modal-header" style="height:20%;">
+            상담 CHAT 
+        </div>
+        <div class="modal-content" id="chat" style="height:60%;">
+            
+        </div>
+        <div class="modal-footer">
+            <input type="text" id="message" class="form-control" style="height:20%;" placeholder="메세지를 입력하세요"/>    
+        </div>
+    </div>
+	<button class="">send</button>
+</form>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script type="text/javascript">
+var socket = null;
 	$(document).ready(function() {
+		let userId = $('.chat_start_main').data('user-id');
+		console.log(userId);
+	    if(userId != '') {
+            connectWS();
+	    }
+		/* }); */
+	
+	    $(".chat_start_main").on('click', function() {
+	        $(this).css("display","none");
+	        $(".chat_main").css("display","inline");
+	    });
+		
+	    $(".chat_main .modal-header").on('click', function() {
+	        $(".chat_start_main").css("display","inline");
+	        $(".chat_main").css("display","none");
+	    });
+	
 		var ws;
 	
-		function wsOpen(){
+		function connectWS(){
+	        var sock = new SockJS("/chating");
+	            socket =sock;
+	        sock.onopen = function() {
+	               console.log('info: connection opened.');
+	        };
+	        sock.onmessage = function(e){
+//	             console.log(e);
+//	             var strArray = e.data.split(":");
+//	             if(e.data.indexof(":") > -1){
+//	                 $(".chat_start_main").text(strArray[0]+"님이 메세지를 보냈습니다.");
+//	             }
+//	             else{
+//	             }
+	            $("#chat").append(e.data + "<br/>");
+	        }
+	        sock.onclose = function(){
+	            $("#chat").append("연결 종료");
+//	              setTimeout(function(){conntectWs();} , 10000); 
+	        }
+	        sock.onerror = function (err) {console.log('Errors : ' , err);};
+	 
+	        $("#chatForm").submit(function(event){
+	            event.preventDefault();
+	                sock.send($("#message").val());
+	                $("#message").val('').focus();    
+	        });
+	    }
+		
+		/* function wsOpen(){
 			ws = new WebSocket("ws://" + location.host + "/chating");
 			wsEvt();
 		}
@@ -93,6 +134,6 @@
 				}
 				ws.send(JSON.stringify(option))
 				$('#chatting').val("");
-		});
+		}); */
 	});
 </script>
