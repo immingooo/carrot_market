@@ -82,6 +82,20 @@
 			`usedGoodsId` = #{usedGoodsId}
 	</select>
 	
+	<select id="selectUsedGoodsImageByUsedGoodsId" parameterType="int" resultType="com.carrotMarket.usedGoods.model.UsedGoodsImage">
+		SELECT
+			`id`
+			,`usedGoodsId`
+			,`imageUrl`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`used_goods_image`
+		WHERE
+			`usedGoodsId` = #{usedGoodsId} 
+		Limit 1
+	</select>
+	
 	<select id="selectUsedGoodsList" resultType="com.carrotMarket.usedGoods.model.UsedGoods">
 		SELECT
 			`id`

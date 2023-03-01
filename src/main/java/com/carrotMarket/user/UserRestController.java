@@ -124,6 +124,7 @@ public class UserRestController {
 			session.setAttribute("userId", user.getId()); // 사용자 아이디번호
 			session.setAttribute("userLoginId", user.getLoginId()); // 사용자 아이디
 			session.setAttribute("userNickname", user.getNickname()); // 사용자 닉네임
+			session.setAttribute("userProfileImageUrl", user.getProfileImageUrl());
 		} else { // 비회원
 			result.put("code", 500);
 			result.put("errorMessage", "존재하지 않는 사용자 입니다.");

@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.carrotMarket.chatMessage.dao.ChatMessageDAO">
- 	<insert id="insertChatMessage" parameterType="com.carrotMarket.chatMessage.model.ChatMessage">
+ 	<insert id="insertChatMessage" parameterType="map">
  		INSERT INTO `chat`
  		(
 	 		`chatRoomId`
@@ -25,4 +25,20 @@
  			, NOW()
  		)
  	</insert>
+ 	
+ 	<select id="selectChatMessageByChatRoomId" parameterType="int" resultType="com.carrotMarket.chatMessage.model.ChatMessage">
+ 		SELECT
+ 			`id`
+ 			,`chatRoomId`
+			,`sellerId`
+			,`buyerId`
+			,`nickname`
+			,`profileImageUrl`
+			,`chatContent`
+			,`createdAt`
+		FROM
+			`chat`
+		WHERE
+			`chatRoomId` = #{chatRoomId}
+ 	</select>
  </mapper>

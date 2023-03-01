@@ -1,139 +1,113 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<form id="chatForm">
-    <button type="button" class="chat_start_main" data-user-id="${userId}">
-        상담 CHAT
-    </button>
-    <div class="chat_main">
-        <div class="modal-header" style="height:20%;">
-            상담 CHAT 
-        </div>
-        <div class="modal-content" id="chat" style="height:60%;">
-            
-        </div>
-        <div class="modal-footer">
-            <input type="text" id="message" class="form-control" style="height:20%;" placeholder="메세지를 입력하세요"/>    
-        </div>
-    </div>
-	<button class="">send</button>
-</form>
+<div class="d-flex justify-content-center pt-3 pb-5">
+	<div class="message-box col-5 p-0" style="height:600px;">
+		<h5 class="m-3 font-weight-bold text-center">
+			<%-- 판매자일 때 --%>
+			<c:if test="${chatRoom.sellerId eq userId}">
+			${chatRoom.buyerNickname}
+			</c:if>
+			<%-- 구매자일 때 --%>
+			<c:if test="${chatRoom.buyerId eq userId}">
+			${chatRoom.sellerNickname}
+			</c:if>
+		</h5>
+		<hr>
+		<div class="d-flex justify-content-between m-3">
+			<div class="d-flex">
+				<div>
+					<img alt="상품사진" src="${chatRoom.usedGoodsImageUrl}" onerror="this.src='/static/img/used_goods.jpg'" width="50px" height="50px">
+				</div>
+				<div class="pl-2">
+					<div class="small font-weight-bold">${usedGoods.title}</div>
+					<fmt:formatNumber var="price" value="${usedGoods.price}" type="number" />
+					<div class="font-weight-bold">${price}</div>
+				</div>
+			</div>
+			<c:if test="${chatRoom.sellerId eq userId}">
+			<div class="pt-2">
+				<button type="button" id="reviewBtn" class="btn btn-outline-success">거래완료</button>
+			</div>
+			</c:if>
+		</div>
+		<hr>
+		<div id="chatBox" class="bg-success" style="height:400px">
+			<%-- 대화내용 --%>
+		</div>
+		<div class="d-flex send-box" style="width:500px">
+			<div class="d-flex w-100">
+				<input type="text" class="form-control" id="chatContent">
+				<button type="button" id="chatSendBtn" class="btn btn-orange text-light">보내기</button>
+			</div>
+		</div>
+	</div>
+</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
-<script type="text/javascript">
-var socket = null;
+<script>
 	$(document).ready(function() {
-		let userId = $('.chat_start_main').data('user-id');
-		console.log(userId);
-	    if(userId != '') {
-            connectWS();
-	    }
-		/* }); */
-	
-	    $(".chat_start_main").on('click', function() {
-	        $(this).css("display","none");
-	        $(".chat_main").css("display","inline");
-	    });
+		// 처음 대화창에 들어오면 이전에 있던 메세지들이 보여야 함!!!!
+		// 그 이후에 새로고침하거나 자동으로 새로고침되도록해야함...
+		let chatRoomId = ${chatRoom.id}
 		
-	    $(".chat_main .modal-header").on('click', function() {
-	        $(".chat_start_main").css("display","inline");
-	        $(".chat_main").css("display","none");
-	    });
-	
-		var ws;
-	
-		function connectWS(){
-	        var sock = new SockJS("/chating");
-	            socket =sock;
-	        sock.onopen = function() {
-	               console.log('info: connection opened.');
-	        };
-	        sock.onmessage = function(e){
-//	             console.log(e);
-//	             var strArray = e.data.split(":");
-//	             if(e.data.indexof(":") > -1){
-//	                 $(".chat_start_main").text(strArray[0]+"님이 메세지를 보냈습니다.");
-//	             }
-//	             else{
-//	             }
-	            $("#chat").append(e.data + "<br/>");
-	        }
-	        sock.onclose = function(){
-	            $("#chat").append("연결 종료");
-//	              setTimeout(function(){conntectWs();} , 10000); 
-	        }
-	        sock.onerror = function (err) {console.log('Errors : ' , err);};
-	 
-	        $("#chatForm").submit(function(event){
-	            event.preventDefault();
-	                sock.send($("#message").val());
-	                $("#message").val('').focus();    
-	        });
-	    }
+		$.ajax({
+			type:"post"
+			, url:"/chat/chat_list_result_view"
+			, data:{"chatRoomId":chatRoomId}
 		
-		/* function wsOpen(){
-			ws = new WebSocket("ws://" + location.host + "/chating");
-			wsEvt();
-		}
-			
-		function wsEvt() {
-			ws.onopen = function(data){
-				//소켓이 열리면 초기화 세팅하기
+			, success:function(data) { // data에 html 통째로 들어가는지 확인하기
+				// ajax 바꿔끼기 - 채팅내용 리스트
+				console.log(data);
+				$("#chatBox").html(data);
+				
+				// 스크롤을 맨아래로 가게하기
 			}
-			
-			ws.onmessage = function(data) {
-				//메시지를 받으면 동작
-				var msg = data.data;
-				if(msg != null && msg.trim() != ''){
-					var d = JSON.parse(msg);
-					if(d.type == "getId"){
-						var si = d.sessionId != null ? d.sessionId : "";
-						if(si != ''){
-							$("#sessionId").val(si); 
-						}
-					}else if(d.type == "message"){
-						if(d.sessionId == $("#sessionId").val()){
-							$("#chating").append("<p class='me'>나 :" + d.msg + "</p>");	
-						}else{
-							$("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
-						}
-							
-					}else{
-						console.warn("unknown type!")
-					}
-				}
-			}
-	
-			document.addEventListener("keypress", function(e){
-				if(e.keyCode == 13){ //enter press
-					send();
-				}
-			});
-		}
-	
-		$('#startBtn').on('click', function() {
-			var userName = $("#userName").val();
-			//console.log(userName)
-			if(userName == null || userName.trim() == ""){
-				alert("사용자 이름을 입력해주세요.");
-				$("#userName").focus();
-			}else{
-				wsOpen();
-				$("#yourName").hide();
-				$("#yourMsg").show();
+			, error:function(e) {
+				alert("채팅내역을 불러올 수 없습니다. 관리자에게 문의해주세요.");
 			}
 		});
 		
-	
-		$("#sendBtn").on('click', function() {
-			var option ={
-					type: "message",
-					sessionId : $("#sessionId").val(),
-					userName : $("#userName").val(),
-					msg : $("#chatting").val()
+		$('#chatSendBtn').on('click', function() {
+			//alert("1111");
+			let chatRoomId = ${chatRoom.id};
+			let sellerId = ${chatRoom.sellerId}
+			let buyerId = ${chatRoom.buyerId}
+			let userNickname = "${userNickname}"
+			let profileImageUrl = "${userProfileImageUrl}"
+			let chatContent = $('#chatContent').val();
+			/* console.log("chatRoomId: " + chatRoomId)
+			console.log("sellerId: " + sellerId)
+			console.log("buyerId: " + buyerId)
+			console.log("userNickname: " + userNickname)
+			console.log("profileImageUrl: " + profileImageUrl)
+			console.log("chatContent: " + chatContent) */
+			
+			if (chatContent == "") {
+				alert("대화내용을 입력해주세요");
+				return;
+			}
+			
+			$.ajax({
+				type:"post"
+				, url:"/chat/chat_list_result_view"
+				, data:{"chatRoomId":chatRoomId, "sellerId":sellerId, "buyerId":buyerId, "userNickname":userNickname, "profileImageUrl":profileImageUrl, "chatContent":chatContent}
+			
+				, success:function(data) { // data에 html 통째로 들어가는지 확인하기
+					// 메세지 입력칸 비우기
+					$("#chatContent").val("");
+					
+					// ajax 바꿔끼기 - 채팅내용 리스트
+					console.log(data);
+					$("#chatBox").html(data);
+					
+					// 스크롤을 맨아래로 가게하기
 				}
-				ws.send(JSON.stringify(option))
-				$('#chatting').val("");
-		}); */
+				, error:function(e) {
+					alert("채팅메세지를 보낼 수 없습니다. 관리자에게 문의해주세요.");
+				}
+			});
+		});
 	});
 </script>

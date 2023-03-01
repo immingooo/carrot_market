@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.carrotMarket.chatRoom.dao.ChatRoomDAO">
- 	<select id="selectChatRoom" parameterType="int" resultType="com.carrotMarket.chatRoom.model.ChatRoom">
+ 	<select id="selectChatRoomByChatRoomId" parameterType="int" resultType="com.carrotMarket.chatRoom.model.ChatRoom">
  		SELECT
  			`id`
 			,`usedGoodsId`
@@ -21,4 +21,58 @@
 		WHERE
 			`id` = #{chatRoomId}
  	</select>
+ 	
+ 	<select id="selectChatRoomByUsedGoodsIdSellerIdBuyerId" parameterType="map" resultType="com.carrotMarket.chatRoom.model.ChatRoom">
+		SELECT
+ 			`id`
+			,`usedGoodsId`
+			,`sellerId`
+			,`buyerId`
+			,`sellerNickname`
+			,`sellerProfileImageUrl`
+			,`buyerNickname`
+			,`buyerProfileImageUrl`
+			,`usedGoodsImageUrl`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`chat_room`
+		WHERE
+			`usedGoodsId` = #{usedGoodsId}
+			AND `sellerId` = #{sellerId}
+			AND `buyerId` = #{buyerId}
+ 	</select>
+ 	
+ 	<insert id="insertChatRoom" parameterType="map" 
+ 	useGeneratedKeys="true" keyProperty="id">
+ 		INSERT INTO `chat_room`
+ 		(
+ 			`usedGoodsId`
+			,`sellerId`
+			,`buyerId`
+			,`sellerNickname`
+			,`sellerProfileImageUrl`
+			,`buyerNickname`
+			,`buyerProfileImageUrl`
+			,`usedGoodsImageUrl`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{usedGoodsId}
+ 			, #{sellerId}
+ 			, #{buyerId}
+ 			, #{sellerNickname}
+ 			, #{sellerProfileImageUrl}
+ 			, #{buyerNickname}
+ 			, #{buyerProfileImageUrl}
+ 			, #{usedGoodsImageUrl}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+ 	</insert>
  </mapper>

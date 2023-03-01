@@ -1,5 +1,7 @@
 package com.carrotMarket.chatMessage.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,12 @@ public class ChatMessageBO {
 	@Autowired
 	private ChatMessageDAO chatMessageDAO;
 
-	public int addChatMessage(ChatMessage chatMessage) {
-		return chatMessageDAO.insertChatMessage(chatMessage);
+	public void addChatMessage(int chatRoomId, int sellerId, int buyerId, String userNickname, 
+			String profileImageUrl, String chatContent) {
+		chatMessageDAO.insertChatMessage(chatRoomId, sellerId, buyerId, userNickname, profileImageUrl, chatContent);
+	}
+	
+	public List<ChatMessage> getChatMessageByChatRoomId(int chatRoomId) {
+		return chatMessageDAO.selectChatMessageByChatRoomId(chatRoomId);
 	}
 }

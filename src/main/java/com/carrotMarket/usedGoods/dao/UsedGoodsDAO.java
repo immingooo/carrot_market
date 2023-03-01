@@ -22,6 +22,8 @@ public interface UsedGoodsDAO {
 	
 	public List<UsedGoodsImage> selectUsedGoodsImageListByUsedGoodsId(int usedGoodsId);
 	
+	public UsedGoodsImage selectUsedGoodsImageByUsedGoodsId(int usedGoodsId);
+	
 	public List<UsedGoods> selectUsedGoodsList();
 	
 	public UsedGoods selectUsedGoodsByUsedGoodsIdUserId(

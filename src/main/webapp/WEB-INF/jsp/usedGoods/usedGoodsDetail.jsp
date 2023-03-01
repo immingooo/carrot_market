@@ -91,7 +91,7 @@
 					<img alt="빈 하트" src="/static/img/heart-shape.png" width="30px">
 				</a>
 				</c:if>
-				<a href="#" class="btn btn-orange text-light col-3">채팅하기</a>
+				<a href="#" class="btn btn-orange text-light col-3" id="chatBtn">채팅하기</a>
 			</div>
 		</div>
 		<hr style="background:gray; heigth:5px;">
@@ -255,6 +255,44 @@
 				}
 				, error:function(e) {
 					alert("글 삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
+				}
+			});
+		});
+		
+		// 채팅하기 버튼 클릭
+		$('#chatBtn').on('click', function(e) {
+			//alert('1111');
+			e.preventDefault();
+			
+			let usedGoodsId = ${postView.usedGoods.id}
+			let sellerId = ${postView.user.id}
+			let sellerNickname = "${postView.user.nickname}"
+			let sellerProfileImageUrl = "${postView.user.profileImageUrl}"
+			//let usedGoodsMainImage = "${postView.usedGoodsImageList.get(0)}"
+			console.log("usedGoodsId: " + usedGoodsId);
+			console.log("sellerId: " + sellerId);
+			console.log("sellerNickname: " + sellerNickname);
+			console.log("sellerProfileImageUrl: " + sellerProfileImageUrl);
+			//console.log("usedGoodsMainImage: " + usedGoodsMainImage);
+			
+			// 채팅방 생성(글작성자-postView에 있음, 로그인되어있는 자-session에 있는데 user객체로도 가져올 수 있음)
+			// 생성된 채팅방 채팅창으로 가기
+			$.ajax({
+				type:"post"
+				, url:"/chat_room/create"
+				, data:{"usedGoodsId": usedGoodsId, "sellerId": sellerId, "sellerNickname": sellerNickname, "sellerProfileImageUrl":sellerProfileImageUrl}
+			
+				, success:function(data) {
+					if (data.code == 1) {
+						location.href="/chat/chat_message_view/" + data.chatRoomId // 방금 생성된 채팅방 대화창으로 이동
+					} else if (data.code == 500) { // 로그인이 안되어있을 때
+						alert(data.errorMessage);
+					} else if (data.code == 501) { // 자신이 쓴 글에 채팅하기버튼을 눌렀을 때
+						alert(data.errorMessage);
+					}
+				}
+				, error:function(e) {
+					alert("채팅방 생성에 실패했습니다. 관리자에게 문의해주세요.");
 				}
 			});
 		});
