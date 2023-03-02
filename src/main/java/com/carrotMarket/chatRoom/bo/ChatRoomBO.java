@@ -1,6 +1,7 @@
 package com.carrotMarket.chatRoom.bo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -25,6 +26,10 @@ public class ChatRoomBO {
 	
 	public ChatRoom getChatRoomByUsedGoodsIdSellerIdBuyerId(int usedGoodsId, int sellerId, int buyerId) {
 		return chatRoomDAO.selectChatRoomByUsedGoodsIdSellerIdBuyerId(usedGoodsId, sellerId, buyerId);
+	}
+	
+	public List<ChatRoom> getChatRoomListByUserId(int userId) {
+		return chatRoomDAO.selectChatRoomListByUserId(userId);
 	}
 	
 	public int addChatRoom(int usedGoodsId, int sellerId, int buyerId, String sellerNickname, 

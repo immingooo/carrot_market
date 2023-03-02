@@ -19,7 +19,7 @@
  			#{chatRoomId}
  			, #{sellerId}
  			, #{buyerId}
- 			, #{nickname}
+ 			, #{userNickname}
  			, #{profileImageUrl}
  			, #{chatContent}
  			, NOW()

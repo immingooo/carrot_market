@@ -29,12 +29,17 @@
 			</div>
 			<c:if test="${chatRoom.sellerId eq userId}">
 			<div class="pt-2">
-				<button type="button" id="reviewBtn" class="btn btn-outline-success">거래완료</button>
+				<button type="button" id="doneBtn" class="btn btn-outline-success">거래완료</button>
+			</div>
+			</c:if>
+			<c:if test="${chatRoom.sellerId ne userId}">
+			<div class="pt-2">
+				<button type="button" id="reviewBtn" class="btn btn-outline-primary">후기작성</button>
 			</div>
 			</c:if>
 		</div>
 		<hr>
-		<div id="chatBox" class="bg-success" style="height:400px">
+		<div id="chatBox" style="height:400px">
 			<%-- 대화내용 --%>
 		</div>
 		<div class="d-flex send-box" style="width:500px">
@@ -59,7 +64,7 @@
 		
 			, success:function(data) { // data에 html 통째로 들어가는지 확인하기
 				// ajax 바꿔끼기 - 채팅내용 리스트
-				console.log(data);
+				//console.log(data);
 				$("#chatBox").html(data);
 				
 				// 스크롤을 맨아래로 가게하기
@@ -99,7 +104,7 @@
 					$("#chatContent").val("");
 					
 					// ajax 바꿔끼기 - 채팅내용 리스트
-					console.log(data);
+					//console.log(data);
 					$("#chatBox").html(data);
 					
 					// 스크롤을 맨아래로 가게하기
@@ -108,6 +113,12 @@
 					alert("채팅메세지를 보낼 수 없습니다. 관리자에게 문의해주세요.");
 				}
 			});
+		});
+		
+		// 판매자가 거래완료버튼을 클릭했을 때 -> (구매자알림) -> 구매자 채팅창에 후기작성 버튼 보이기
+		$("#doneBtn").on('click', function() {
+			//alert("1111");
+			
 		});
 	});
 </script>

@@ -1,5 +1,6 @@
 package com.carrotMarket.chatRoom.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
@@ -16,6 +17,8 @@ public interface ChatRoomDAO {
 			@Param("usedGoodsId") int usedGoodsId, 
 			@Param("sellerId") int sellerId, 
 			@Param("buyerId") int buyerId);
+	
+	public List<ChatRoom> selectChatRoomListByUserId(int userId);
 	
 	public void insertChatRoom(Map<String, Object> map);
 	

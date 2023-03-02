@@ -43,6 +43,26 @@
 			AND `buyerId` = #{buyerId}
  	</select>
  	
+ 	<select id="selectChatRoomListByUserId" parameterType="int" resultType="com.carrotMarket.chatRoom.model.ChatRoom">
+ 		SELECT
+ 			`id`
+			,`usedGoodsId`
+			,`sellerId`
+			,`buyerId`
+			,`sellerNickname`
+			,`sellerProfileImageUrl`
+			,`buyerNickname`
+			,`buyerProfileImageUrl`
+			,`usedGoodsImageUrl`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`chat_room`
+ 		WHERE
+ 			`sellerId` = #{userId}
+ 			OR `buyerId` = #{userId}
+ 	</select>
+ 	
  	<insert id="insertChatRoom" parameterType="map" 
  	useGeneratedKeys="true" keyProperty="id">
  		INSERT INTO `chat_room`
