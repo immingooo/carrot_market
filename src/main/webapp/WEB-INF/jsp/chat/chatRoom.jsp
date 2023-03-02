@@ -25,7 +25,7 @@
 						<c:if test="${chatRoom.buyerNickname eq userNickname}">
 						<span class="font-weight-bold">${chatRoom.sellerNickname}</span>
 						</c:if>
-						<span class="small text-dark">마지막채팅시간</span>
+						<span class="small text-dark">거래장소 ∙ 마지막채팅시간</span>
 					</div>
 					<div>마지막으로 보낸 채팅메세지</div>
 				</div>

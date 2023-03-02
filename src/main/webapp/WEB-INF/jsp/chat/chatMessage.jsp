@@ -34,7 +34,7 @@
 			</c:if>
 			<c:if test="${chatRoom.sellerId ne userId}">
 			<div class="pt-2">
-				<button type="button" id="reviewBtn" class="btn btn-outline-primary">후기작성</button>
+				<a href="/review/review_create_view?chatRoomId=${chatRoom.id}&usedGoodsId=${usedGoods.id}" id="reviewBtn" class="btn btn-outline-primary">후기작성</a>
 			</div>
 			</c:if>
 		</div>
@@ -115,7 +115,7 @@
 			});
 		});
 		
-		// 판매자가 거래완료버튼을 클릭했을 때 -> (구매자알림) -> 구매자 채팅창에 후기작성 버튼 보이기
+		// 판매자가 거래완료버튼을 클릭했을 때 -> (구매자알림) -> (구매자 채팅창에 후기작성 버튼 보이기) => 나중에
 		$("#doneBtn").on('click', function() {
 			//alert("1111");
 			

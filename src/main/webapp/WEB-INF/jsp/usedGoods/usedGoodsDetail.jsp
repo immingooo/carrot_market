@@ -26,11 +26,10 @@
 		        <div></div>
 		        </c:forEach>
 		    </div>
-		    
 		</div>
 		</c:if>
 		<c:if test="${empty postView.usedGoodsImageList}">
-			<img alt="상품이미지" src="" onerror="this.src='/static/img/used_goods.jpg'" style="border: 4px solid #C2C2C2; border-radius:20px" width="670px" height="400px">
+			<img alt="상품이미지" src="/static/img/used_goods.jpg" style="border: 4px solid #C2C2C2; border-radius:20px" width="670px" height="400px">
 		</c:if>
 		
 		<%-- 글쓴이 정보 --%>
@@ -76,8 +75,10 @@
 			<h5 class="font-weight-bold pt-2">${postView.usedGoods.title}</h5>
 			<fmt:formatDate var="createdAt" value="${postView.usedGoods.createdAt}" pattern="yyyy년 MM월 dd일 HH:mm"/>
 			<div class="small text-secondary pb-1">${postView.usedGoods.category} ∙ ${createdAt}</div>
+			
 			<fmt:formatNumber var="price" value="${postView.usedGoods.price}" type="number" />
 			<h5 class="font-weight-bold">${price}원</h5>
+			
 			<pre class="pt-3 pb-3">${postView.usedGoods.content}</pre>
 			<div class="small text-secondary">관심${postView.likeCount} 채팅15 조회${postView.usedGoods.viewCount}</div>
 			<div class="d-flex justify-content-end">
@@ -129,7 +130,7 @@
 
 <script>
 	$(document).ready(function() {
-		
+		console.log("111111");
 		// 이미지 슬라이드 구현
 		var slides = document.getElementById('slides');
 		//console.log(slides);
@@ -268,12 +269,10 @@
 			let sellerId = ${postView.user.id}
 			let sellerNickname = "${postView.user.nickname}"
 			let sellerProfileImageUrl = "${postView.user.profileImageUrl}"
-			//let usedGoodsMainImage = "${postView.usedGoodsImageList.get(0)}"
 			console.log("usedGoodsId: " + usedGoodsId);
 			console.log("sellerId: " + sellerId);
 			console.log("sellerNickname: " + sellerNickname);
 			console.log("sellerProfileImageUrl: " + sellerProfileImageUrl);
-			//console.log("usedGoodsMainImage: " + usedGoodsMainImage);
 			
 			// 채팅방 생성(글작성자-postView에 있음, 로그인되어있는 자-session에 있는데 user객체로도 가져올 수 있음)
 			// 생성된 채팅방 채팅창으로 가기
