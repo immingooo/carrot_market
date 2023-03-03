@@ -41,4 +41,13 @@
 		WHERE
 			`chatRoomId` = #{chatRoomId}
  	</select>
+ 	
+ 	<update id="updateChatMessage" parameterType="map">
+ 		UPDATE `chat`
+ 		SET
+ 			`nickname` = #{nickname}
+ 			, `profileImageUrl` = #{ImageUrl}
+ 		WHERE
+ 			`nickname` = #{oldNickname}
+ 	</update>
  </mapper>

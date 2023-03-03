@@ -12,6 +12,7 @@ public class UsedGoods {
 	private String content;
 	private String place;
 	private int viewCount;
+	private String soldOut;
 	private Date createdAt;
 	private Date updatedAt;
 	
@@ -62,6 +63,12 @@ public class UsedGoods {
 	}
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
+	}
+	public String getSoldOut() {
+		return soldOut;
+	}
+	public void setSoldOut(String soldOut) {
+		this.soldOut = soldOut;
 	}
 	public Date getCreatedAt() {
 		return createdAt;

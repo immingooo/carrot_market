@@ -81,6 +81,31 @@ public class UsedGoodsRestController {
 		return result;
 	}
 	
+	@PostMapping("/done")
+	public Map<String, Object> done(
+			@RequestParam("usedGoodsId") int usedGoodsId,
+			@RequestParam("buyerId") int buyerId,
+			HttpSession session) {
+
+		Map<String, Object> result = new HashMap<>();
+		
+		Integer userId = (Integer)session.getAttribute("userId");
+		if (userId == null) {
+			result.put("code", 500);
+			result.put("errorMessage", "로그인해주세요.");
+			return result;
+		}
+		
+		// DB update
+		//usedGoodsBO.updateSoldOut(usedGoodsId, userId);
+		// DB insert
+		usedGoodsBO.addUsedGoodsDone(usedGoodsId, buyerId);
+		result.put("code", 1);
+		result.put("result", "성공");
+		
+		return result;
+	}
+	
 	@DeleteMapping("/delete")
 	public Map<String, Object> delete(
 			@RequestParam("usedGoodsId") int usedGoodsId,

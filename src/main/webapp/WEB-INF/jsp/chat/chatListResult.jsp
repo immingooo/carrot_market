@@ -5,7 +5,6 @@
 
 <c:forEach var="chatMessage" items="${chatMessageList}">
 	<%-- 현재 로그인되어있는 사람이랑 메세지 보낸 사람이랑 같을 때 => 내가 보낸 메세지 --%>
-	<%-- <c:set var="sender" value="${chatMessage.nickname}" /> --%>
 	<c:if test="${userNickname eq chatMessage.nickname}">
 		<div class="d-flex justify-content-end p-2" style="width:500px">
 			<fmt:formatDate var="createdAt" value="${chatMessage.createdAt}" pattern="a h:mm"/>

@@ -19,4 +19,9 @@ public interface ChatMessageDAO {
 			@Param("chatContent") String chatContent);
 	
 	public List<ChatMessage> selectChatMessageByChatRoomId(int chatRoomId);
+	
+	public void updateChatMessage(
+			@Param("oldNickname") String oldNickname, 
+			@Param("nickname") String nickname, 
+			@Param("ImageUrl") String ImageUrl);
 }

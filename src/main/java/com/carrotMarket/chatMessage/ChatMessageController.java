@@ -17,6 +17,7 @@ import com.carrotMarket.chatRoom.bo.ChatRoomBO;
 import com.carrotMarket.chatRoom.model.ChatRoom;
 import com.carrotMarket.usedGoods.bo.UsedGoodsBO;
 import com.carrotMarket.usedGoods.model.UsedGoods;
+import com.carrotMarket.usedGoods.model.UsedGoodsDone;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -40,6 +41,7 @@ public class ChatMessageController {
 			Model model,
 			HttpSession session) {
 		
+		// 채팅방 가져오기
 		ChatRoom chatRoom = chatRoomBO.getChatRoomByChatRoomId(chatRoomId);
 		
 		Integer userId = (Integer)session.getAttribute("userId");
@@ -47,10 +49,14 @@ public class ChatMessageController {
 			return "redirect:/user/sign_in_view";
 		}
 		
+		// 채팅방에 해당하는 글 가져오기(대화창에서 글정보를 뿌려야돼서)
 		UsedGoods usedGoods = usedGoodsBO.getUsedGoodsByUsedGoodsId(chatRoom.getUsedGoodsId());
+		// 거래완료된 게시물인지 아닌지
+		UsedGoodsDone usedGoodsDone = usedGoodsBO.getUsedGoodsDoneByUsedGoodsId(usedGoods.getId());
 		
 		model.addAttribute("chatRoom", chatRoom);
 		model.addAttribute("usedGoods", usedGoods);
+		model.addAttribute("usedGoodsDone", usedGoodsDone);
 		model.addAttribute("viewName", "chat/chatMessage");
 		return "template/layout";
 	}

@@ -79,16 +79,21 @@
 			console.log("미리보기 이미지 파일: " + $('#file').val());
 		});
 		
+	 	/* $("#nickname").on('change', function() {
+	 		nickname = $('#nickname').val().trim();
+	 	}); */
+	 	
 		// 수정 버튼 클릭(닉네임 중복확인, 닉네임 validation 체크, 이미지 전송)
 		$('#updateBtn').on('click', function() {
 			//alert("1111");
 			
-			let nickname = $('#nickname').val().trim();
+			let nickname = $('#nickname').val().trim(); // 바뀐이름, 기존이름 둘 다 가져옴
+			/* nickname = ${user.nickname} */
 			if (nickname == '') {
 				alert("닉네임을 입력해주세요.");
 				return;
 			}
-			
+			console.log("nickname: "+ nickname);
 			let file = $('#file').val(); 
 			console.log(file);
 			

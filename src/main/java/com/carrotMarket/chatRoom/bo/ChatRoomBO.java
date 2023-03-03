@@ -1,5 +1,6 @@
 package com.carrotMarket.chatRoom.bo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,5 +51,23 @@ public class ChatRoomBO {
 		logger.info("####방금 추가된 id#### id:{}", id);
 		
 		return id;
+	}
+	
+	public void updateChatRoom(int userId, String nickname, String ImageUrl) {
+		
+		// 더 간단한 로직 없나 생각해보기
+		List<ChatRoom> chatRoomList = chatRoomDAO.selectChatRoomListByUserId(userId);
+		if (!chatRoomList.isEmpty()) { // 채팅방이 존재할 때
+			for(ChatRoom chatRoom : chatRoomList) {
+				if (chatRoom.getSellerId() == userId) { // 판매자일 때 => 판매자 이름, 프로필이미지 변경
+					// 채팅방번호를 리스트로 받아와서 
+//					List<Integer> chatRoomIdList = new ArrayList<>();
+//					chatRoomIdList.add(chatRoom.getId());
+					chatRoomDAO.updateChatRoomBySellerId(userId, nickname, ImageUrl);
+				} else if (chatRoom.getBuyerId() == userId) { // 구매자일 때 => 구매자 이름, 프로필이미지 변경
+					chatRoomDAO.updateChatRoomByBuyerId(userId, nickname, ImageUrl);
+				}
+			}
+		}
 	}
 }

@@ -51,6 +51,33 @@
 		</foreach>
 	</insert>
 	
+	<insert id="insertUsedGoodsDone" parameterType="map">
+		INSERT INTO `used_goods_done`
+		(
+			`usedGoodsId`
+			,`buyerId`
+			,`createdAt`
+		)
+		VALUES
+		(
+			#{usedGoodsId}
+			, #{buyerId}
+			, NOW()
+		)
+	</insert>
+	
+	<select id="selectUsedGoodsDoneByUsedGoodsId" parameterType="int" resultType="com.carrotMarket.usedGoods.model.UsedGoodsDone">
+		SELECT
+			`id`
+			,`usedGoodsId`
+			,`buyerId`
+			,`createdAt`
+		FROM
+			`used_goods_done`
+		WHERE
+			`usedGoodsId` = #{usedGoodsId}
+	</select>
+	
 	<select id="selectUsedGoodsByUsedGoodsId" parameterType="int" resultType="com.carrotMarket.usedGoods.model.UsedGoods">
 		SELECT
 			`id`
@@ -61,6 +88,7 @@
 			,`content`
 			,`place`
 			, `viewCount`
+			, `soldOut`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -105,6 +133,8 @@
 			,`price`
 			,`content`
 			,`place`
+			, `viewCount`
+			, `soldOut`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -121,6 +151,8 @@
 			,`price`
 			,`content`
 			,`place`
+			, `viewCount`
+			, `soldOut`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -140,6 +172,7 @@
 			,`content`
 			,`place`
 			, `viewCount`
+			, `soldOut`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -160,6 +193,7 @@
 			,`content`
 			,`place`
 			, `viewCount`
+			, `soldOut`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -178,6 +212,7 @@
 			,`content`
 			,`place`
 			, `viewCount`
+			, `soldOut`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -200,6 +235,23 @@
 			AND `userId` = #{userId}
 	</update>
 	
+	<update id="updateViewCount" parameterType="int">
+		UPDATE `used_goods`
+		SET
+			`viewCount` = `viewCount`+1
+		WHERE
+			`id` = #{usedGoodsId}
+	</update>
+	
+	<update id="updateSoldOut" parameterType="map">
+		UPDATE `used_goods`
+		SET
+			`soldOut` = 'Y'
+		WHERE
+			`id` = #{usedGoodsId}
+			AND `userId` = #{userId}
+	</update>
+	
 	<delete id="deleteUsedGoodsImageByUsedGoodsId" parameterType="int">
 		DELETE
 		FROM
@@ -216,12 +268,4 @@
 			`id` = #{usedGoodsId}
 			AND `userId` = #{userId}
 	</delete>
-	
-	<update id="updateViewCount" parameterType="int">
-		UPDATE `used_goods`
-		SET
-			`viewCount` = `viewCount`+1
-		WHERE
-			`id` = #{usedGoodsId}
-	</update>
 </mapper>

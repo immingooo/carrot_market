@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.carrotMarket.chatMessage.bo.ChatMessageBO;
+import com.carrotMarket.chatRoom.bo.ChatRoomBO;
 import com.carrotMarket.common.EncryptUtils;
 import com.carrotMarket.user.bo.UserBO;
 import com.carrotMarket.user.model.User;
@@ -24,6 +26,12 @@ public class UserRestController {
 	
 	@Autowired
 	private UserBO userBO;
+	
+	@Autowired
+	private ChatRoomBO chatRoomBO;
+	
+	@Autowired
+	private ChatMessageBO chatMessageBO;
 
 	/**
 	 * 아이디 중복확인 API
@@ -150,17 +158,33 @@ public class UserRestController {
 			return result;
 		}
 		
-		// 닉네임 중복인지 확인
-		boolean isDuplicated = userBO.existNickname(nickname);
-		if (isDuplicated) { // 중복일 때
-			result.put("code", 500);
-			return result;
+		// 나중에 이 로직 UserBO에 들어가도 될 듯??
+		// 이미지만 변경했을 경우(기존에 있던 이름이랑 같은 이름인지 확인)
+		User user = userBO.getUserByUserId(userId);
+		if (!user.getNickname().equals(nickname)) {
+			// 닉네임 중복인지 확인
+			boolean isDuplicated = userBO.existNickname(nickname);
+			if (isDuplicated) { // 중복일 때
+				result.put("code", 500);
+				return result;
+			}
 		}
 		
-		// 로그인 되어있고 닉네임 중복 아닐때 => 정보수정(DB update)
+		User oldUser = userBO.getUserByUserId(userId);
+		String oldUserNickname = oldUser.getNickname();
+		// user DB update
 		userBO.updateUser(userId, userLoginId, nickname, file);
-		User user = userBO.getUserByLoginId(userLoginId);
+		
+		user = userBO.getUserByLoginId(userLoginId); // 업데이트된 user객체 새로 받아옴
+		
+		// chatRoom DB update - 아직 없을수도..(없으면 변경안해도 됨)
+		chatRoomBO.updateChatRoom(userId, user.getNickname(), user.getProfileImageUrl());
+		// chat DB update - 아직 없을수도..(없으면,,,) nickname에 새로 입력한 이름이 들어있음. 바뀌기 전 이름이 안들어있음
+		chatMessageBO.updateChatMessage(userId, oldUserNickname , user.getNickname(), user.getProfileImageUrl());
+		
+		
 		session.setAttribute("userNickname", user.getNickname());
+		session.setAttribute("userProfileImageUrl", user.getProfileImageUrl());
 		result.put("code", 1);
 		result.put("result", "성공");
 		

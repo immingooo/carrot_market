@@ -61,6 +61,7 @@
  		WHERE
  			`sellerId` = #{userId}
  			OR `buyerId` = #{userId}
+ 		ORDER BY `id` DESC
  	</select>
  	
  	<insert id="insertChatRoom" parameterType="map" 
@@ -95,4 +96,24 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
  	</insert>
+ 	
+ 	<update id="updateChatRoomBySellerId" parameterType="map">
+ 		UPDATE `chat_room`
+ 		SET
+ 			`sellerNickname` = #{nickname}
+ 			,`sellerProfileImageUrl` = #{ImageUrl}
+ 			,`updatedAt` = NOW()
+ 		WHERE
+ 			`sellerId` = #{userId}
+ 	</update>
+ 	
+ 	<update id="updateChatRoomByBuyerId" parameterType="map">
+ 	 	UPDATE `chat_room`
+ 		SET
+ 			`buyerNickname` = #{nickname}
+ 			,`buyerProfileImageUrl` = #{ImageUrl}
+ 			,`updatedAt` = NOW()
+ 		WHERE
+ 			`buyerId` = #{userId}
+ 	</update>
  </mapper>

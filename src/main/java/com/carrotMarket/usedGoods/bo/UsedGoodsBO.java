@@ -16,6 +16,7 @@ import com.carrotMarket.like.bo.LikeBO;
 import com.carrotMarket.main.model.PostView;
 import com.carrotMarket.usedGoods.dao.UsedGoodsDAO;
 import com.carrotMarket.usedGoods.model.UsedGoods;
+import com.carrotMarket.usedGoods.model.UsedGoodsDone;
 import com.carrotMarket.usedGoods.model.UsedGoodsImage;
 import com.carrotMarket.user.bo.UserBO;
 import com.carrotMarket.user.model.User;
@@ -82,6 +83,11 @@ public class UsedGoodsBO {
 			usedGoodsDAO.insertUsedGoodsImage(id, imagePathList);
 		}
 	}
+	
+	// 거래완료(추가)
+	public void addUsedGoodsDone(int usedGoodsId, int buyerId) {
+		usedGoodsDAO.insertUsedGoodsDone(usedGoodsId, buyerId);
+	}
 
 	public PostView generatePostView(int usedGoodsId, Integer userId) {
 		// PostView객체 가져와서 객체 채우기
@@ -105,12 +111,16 @@ public class UsedGoodsBO {
 		// 글에 눌린 좋아요 개수
 		post.setLikeCount(likeBO.getLikeCountByUsedGoodsId(usedGoods.getId()));
 
-		// 글에 대한 조회수
-		// post.setHitsCount();
+		// 거래완료됐는지 - null일수도 있음
+		post.setUsedGoodsDone(usedGoodsDAO.selectUsedGoodsDoneByUsedGoodsId(usedGoodsId));
 
 		// 글에 대한 채팅 개수
 
 		return post;
+	}
+	
+	public UsedGoodsDone getUsedGoodsDoneByUsedGoodsId(int usedGoodsId) {
+		return usedGoodsDAO.selectUsedGoodsDoneByUsedGoodsId(usedGoodsId);
 	}
 
 	public List<UsedGoods> getUsedGoodsList() {
@@ -171,6 +181,11 @@ public class UsedGoodsBO {
 		if (!imagePathList.isEmpty()) {
 			usedGoodsDAO.insertUsedGoodsImage(usedGoodsId, imagePathList);
 		}
+	}
+	
+	// 거래완료 수정
+	public void updateSoldOut(int usedGoodsId, int userId) {
+		usedGoodsDAO.updateSoldOut(usedGoodsId, userId);
 	}
 
 	// 글 삭제

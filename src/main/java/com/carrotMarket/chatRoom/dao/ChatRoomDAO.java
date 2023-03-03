@@ -22,4 +22,13 @@ public interface ChatRoomDAO {
 	
 	public void insertChatRoom(Map<String, Object> map);
 	
+	public void updateChatRoomBySellerId(
+			@Param("userId") int userId, 
+			@Param("nickname") String nickname, 
+			@Param("ImageUrl") String ImageUrl);
+	
+	public void updateChatRoomByBuyerId(
+			@Param("userId") int userId, 
+			@Param("nickname") String nickname, 
+			@Param("ImageUrl") String ImageUrl);
 }

@@ -3,6 +3,7 @@ package com.carrotMarket.main.model;
 import java.util.List;
 
 import com.carrotMarket.usedGoods.model.UsedGoods;
+import com.carrotMarket.usedGoods.model.UsedGoodsDone;
 import com.carrotMarket.usedGoods.model.UsedGoodsImage;
 import com.carrotMarket.user.model.User;
 
@@ -23,8 +24,8 @@ public class PostView {
 	// 좋아요 개수
 	private int likeCount;
 	
-	// 조회수
-	//private int hitsCount;
+	// 거래완료됐는지
+	private UsedGoodsDone usedGoodsDone;
 	
 	// 채팅 개수
 	
@@ -68,5 +69,12 @@ public class PostView {
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
-	
+
+	public UsedGoodsDone getUsedGoodsDone() {
+		return usedGoodsDone;
+	}
+
+	public void setUsedGoodsDone(UsedGoodsDone usedGoodsDone) {
+		this.usedGoodsDone = usedGoodsDone;
+	}
 }

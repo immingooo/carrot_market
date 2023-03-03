@@ -31,19 +31,19 @@
 			<h5 class="font-weight-bold w-100 text-center pt-4">거래하며 좋았던 점을 선택해 주세요.</h5>
 			<div class="p-3 pl-5 pr-5">
 				<div>
-					<input type="checkbox" id="1" value="1" name="manner">
+					<input type="checkbox" id="1" value="manner1" name="manner">
 					<label for="1">제가 있는 곳까지 와서 거래했어요.</label>
 				</div>
 				<div>
-					<input type="checkbox" id="2" value="2" name="manner">
+					<input type="checkbox" id="2" value="manner2" name="manner">
 					<label for="2">친절하고 매너가 좋아요.</label>
 				</div>
 				<div>
-					<input type="checkbox" id="3" value="3" name="manner">
+					<input type="checkbox" id="3" value="manner3" name="manner">
 					<label for="3">시간 약속을 잘 지켜요</label>
 				</div>
 				<div>
-					<input type="checkbox" id="4" value="4" name="manner">
+					<input type="checkbox" id="4" value="manner4" name="manner">
 					<label for="4">응답이 빨라요</label>
 				</div>
 			</div>
@@ -62,6 +62,7 @@
 	$(document).ready(function() {
 		$("#reviewDoneBtn").on('click', function() {
 			//alert('1111');
+			let usedGoodsId = ${usedGoods.id}
 			var chkArray = new Array();
 			
 			let rating = $('input[name=rating]:checked').val();
@@ -85,10 +86,15 @@
 			$.ajax({
 				type:"post"
 				, url:"/review/create"
-				, data:{"rating":rating, "chkArray":chkArray, "reviewContent":reviewContent}
+				, data:{"usedGoodsId":usedGoodsId, "rating":rating, "chkArray":chkArray, "reviewContent":reviewContent}
 			
 				, success:function(data) {
-					
+					if (data.code == 1) {
+						alert("리뷰작성 완료!")
+						location.href="/main/main_view"
+					} else {
+						alert(data.errorMessage);
+					}
 				}
 				, error:function(e) {
 					alert("리뷰를 저장할 수 없습니다. 관리자에게 문의해주세요.");

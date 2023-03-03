@@ -18,24 +18,43 @@
 		<hr>
 		<div class="d-flex justify-content-between m-3">
 			<div class="d-flex">
+				<c:if test="${!empty chatRoom.usedGoodsImageUrl}">
 				<div>
-					<img alt="상품사진" src="${chatRoom.usedGoodsImageUrl}" onerror="this.src='/static/img/used_goods.jpg'" width="50px" height="50px">
+					<img alt="상품사진" src="${chatRoom.usedGoodsImageUrl}" style="border-radius:5px" width="50px" height="50px">
 				</div>
+				</c:if>
+				<c:if test="${empty chatRoom.usedGoodsImageUrl}">
+				<div>
+					<img alt="상품사진" src="/static/img/used_goods.jpg" style="border: 2px solid #C2C2C2; border-radius:5px" width="50px" height="50px">
+				</div>
+				</c:if>
 				<div class="pl-2">
 					<div class="small font-weight-bold">${usedGoods.title}</div>
 					<fmt:formatNumber var="price" value="${usedGoods.price}" type="number" />
-					<div class="font-weight-bold">${price}</div>
+					<div class="font-weight-bold">${price}원</div>
 				</div>
 			</div>
+			
+			<%-- 판매자일 때 --%>
 			<c:if test="${chatRoom.sellerId eq userId}">
-			<div class="pt-2">
-				<button type="button" id="doneBtn" class="btn btn-outline-success">거래완료</button>
-			</div>
+				<c:if test="${empty usedGoodsDone}">
+				<div class="pt-2">
+					<button type="button" id="doneBtn" class="btn btn-outline-success">거래완료</button>
+				</div>
+				</c:if>
+				<c:if test="${!empty usedGoodsDone}">
+				<div class="pt-2">
+					<button type="button" style="pointer-events: none;" class="btn btn-success">거래완료</button>
+				</div>
+				</c:if>
 			</c:if>
+			<%-- 구매자일 때 --%>
 			<c:if test="${chatRoom.sellerId ne userId}">
-			<div class="pt-2">
-				<a href="/review/review_create_view?chatRoomId=${chatRoom.id}&usedGoodsId=${usedGoods.id}" id="reviewBtn" class="btn btn-outline-primary">후기작성</a>
-			</div>
+				<c:if test="${usedGoodsDone.buyerId eq userId}">
+				<div class="pt-2">
+					<a href="/review/review_create_view?chatRoomId=${chatRoom.id}&usedGoodsId=${usedGoods.id}" id="reviewBtn" class="btn btn-outline-primary">후기작성</a>
+				</div>
+				</c:if>
 			</c:if>
 		</div>
 		<hr>
@@ -115,10 +134,30 @@
 			});
 		});
 		
-		// 판매자가 거래완료버튼을 클릭했을 때 -> (구매자알림) -> (구매자 채팅창에 후기작성 버튼 보이기) => 나중에
+		// 판매자가 거래완료버튼을 클릭했을 때
 		$("#doneBtn").on('click', function() {
 			//alert("1111");
+			let usedGoodsId = ${usedGoods.id}
+			let buyerId = ${chatRoom.buyerId}
 			
+			$.ajax({
+				type:"post"
+				, url:"/used_goods/done"
+				, data:{"usedGoodsId":usedGoodsId, "buyerId":buyerId}
+			
+				, success:function(data) {
+					if(data.code == 1) {
+						// 거래완료버튼 사라졌나 확인하기
+						location.reload(); 
+						
+					} else {
+						alert(data.errorMessage);
+					}
+				}
+				, error:function(e) {
+					alert("거래완료버튼 클릭에 실패했습니다. 관리자에게 문의해주세요.");
+				}
+			});
 		});
 	});
 </script>

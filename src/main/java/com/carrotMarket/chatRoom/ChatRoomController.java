@@ -27,6 +27,8 @@ public class ChatRoomController {
 	public String chatRoomView(Model model, HttpSession session) {
 		
 		Integer userId = (Integer)session.getAttribute("userId");
+		String userNickname = (String)session.getAttribute("userNickname");
+		String userProfileImageUrl = (String)session.getAttribute("userProfileImageUrl");
 		if (userId == null) {
 			return "redirect:/user/sign_in_view";
 		}
@@ -35,11 +37,6 @@ public class ChatRoomController {
 		// DB select(사용자번호에 해당하는 채팅방 리스트들 가져오기)
 		List<ChatRoom> chatRoomList = chatRoomBO.getChatRoomListByUserId(userId);
 		
-		// DB select(chatDB - 마지막 채팅내용, 시간 가져오기)
-//		for (ChatRoom chatRoom : chatRoomList) {
-//			ChatMessage chatMessage = chatMessageBO.getLastChatMessageByChatRoomId(chatRoom.getId());
-//			
-//		}
 		
 		model.addAttribute("chatRoomList", chatRoomList);
 		model.addAttribute("viewName", "chat/chatRoom");

@@ -51,8 +51,12 @@ public class ChatRoomRestContoller {
 		String buyerProfileImageUrl = (String)session.getAttribute("userProfileImageUrl");
 		
 		UsedGoodsImage usedGoodsImage = usedGoodsBO.getUsedGoodsImageByUsedGoodsId(usedGoodsId);
-		String usedGoodsImageUrl = usedGoodsImage.getImageUrl();
+		String usedGoodsImageUrl = null;
+		if (usedGoodsImage != null) { // 글에 대한 사진이 있을 때만 이미지주소를 가져온다.
+			usedGoodsImageUrl = usedGoodsImage.getImageUrl();
+		}
 		
+		// int반환으로 BO에 로직 옮겨도 될 듯.?
 		// DB insert - 글에 대한 채팅생성(!!!이미 생성된 방(같은 글 번호 + 판매자 번호 + 구매자 번호)이라면 기존에 생성했던 방으로 이동해야 함!!!)
 		int chatRoomId = 0;
 		ChatRoom chatRoom = chatRoomBO.getChatRoomByUsedGoodsIdSellerIdBuyerId(usedGoodsId, sellerId, buyerId);

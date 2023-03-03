@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.carrotMarket.usedGoods.model.UsedGoods;
+import com.carrotMarket.usedGoods.model.UsedGoodsDone;
 import com.carrotMarket.usedGoods.model.UsedGoodsImage;
 
 @Repository
@@ -17,6 +18,12 @@ public interface UsedGoodsDAO {
 	public void insertUsedGoodsImage(
 			@Param("id") int id, 
 			@Param("imagePathList") List<String> imagePathList);
+	
+	public void insertUsedGoodsDone(
+			@Param("usedGoodsId") int usedGoodsId, 
+			@Param("buyerId") int buyerId);
+	
+	public UsedGoodsDone selectUsedGoodsDoneByUsedGoodsId(int usedGoodsId);
 	
 	public UsedGoods selectUsedGoodsByUsedGoodsId(int usedGoodsId);
 	
@@ -46,6 +53,10 @@ public interface UsedGoodsDAO {
 			@Param("userId") int userId);
 	
 	public void updateViewCount(int usedGoodsId);
+	
+	public void updateSoldOut(
+			@Param("usedGoodsId") int usedGoodsId, 
+			@Param("userId") int userId);
 	
 	public List<UsedGoods> selectUsedGoodsListByKeyword(String keyword);
 	

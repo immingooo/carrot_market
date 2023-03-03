@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.carrotMarket.review.dao.ReviewDAO">
+	<insert id="insertReview" parameterType="map" 
+	useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `review`
+		(
+			`usedGoodsId`
+			,`userId`
+			,`rating`
+			,`reviewContent`
+			,`createdAt`
+		)
+		VALUES
+		(
+			#{usedGoodsId}
+			, #{userId}
+			, #{rating}
+			, #{reviewContent}
+			, NOW()
+		)
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertManner" parameterType="map">
+		INSERT INTO `manner`
+		(
+			`reviewId`
+			,`mannerContent`
+			,`createdAt`
+		)
+		VALUES
+		<foreach collection="mannerContentArray" item="mannerContent" separator=" , ">
+		(
+			#{reviewId}
+			,#{mannerContent}
+			, NOW()
+		)
+		</foreach>
+	</insert>
+</mapper>
