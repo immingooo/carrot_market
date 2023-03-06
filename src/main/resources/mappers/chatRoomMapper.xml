@@ -64,6 +64,15 @@
  		ORDER BY `id` DESC
  	</select>
  	
+ 	<select id="selectChatRoomCountByUsedGoodsId" parameterType="int" resultType="int">
+ 		SELECT
+ 			COUNT(*)
+ 		FROM
+			`chat_room`
+		WHERE
+			`usedGoodsId` = #{usedGoodsId}
+ 	</select>
+ 	
  	<insert id="insertChatRoom" parameterType="map" 
  	useGeneratedKeys="true" keyProperty="id">
  		INSERT INTO `chat_room`

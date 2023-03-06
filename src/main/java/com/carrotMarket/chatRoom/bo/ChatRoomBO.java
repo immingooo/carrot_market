@@ -10,8 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.carrotMarket.chatMessage.bo.ChatMessageBO;
 import com.carrotMarket.chatRoom.dao.ChatRoomDAO;
 import com.carrotMarket.chatRoom.model.ChatRoom;
+import com.carrotMarket.chatRoom.model.ChatRoomView;
+import com.carrotMarket.usedGoods.bo.UsedGoodsBO;
 
 @Service
 public class ChatRoomBO {
@@ -20,6 +23,9 @@ public class ChatRoomBO {
 	
 	@Autowired
 	private ChatRoomDAO chatRoomDAO;
+	
+	@Autowired
+	private ChatMessageBO chatMessageBO;
 
 	public ChatRoom getChatRoomByChatRoomId(int chatRoomId) {
 		return chatRoomDAO.selectChatRoomByChatRoomId(chatRoomId);
@@ -31,6 +37,10 @@ public class ChatRoomBO {
 	
 	public List<ChatRoom> getChatRoomListByUserId(int userId) {
 		return chatRoomDAO.selectChatRoomListByUserId(userId);
+	}
+	
+	public int getChatRoomCountByUsedGoodsId(int usedGoodsId) {
+		return chatRoomDAO.selectChatRoomCountByUsedGoodsId(usedGoodsId);
 	}
 	
 	public int addChatRoom(int usedGoodsId, int sellerId, int buyerId, String sellerNickname, 
@@ -69,5 +79,29 @@ public class ChatRoomBO {
 				}
 			}
 		}
+	}
+	
+	public List<ChatRoomView> generateChatRoomView(int userId) {
+		List<ChatRoomView> chatRoomViewList = new ArrayList<>();
+		
+		// 사용자번호에 해당하는 채팅방 리스트들 가져오기 - 없을수도 있음
+		List<ChatRoom> chatRoomList = getChatRoomListByUserId(userId);
+		
+		for(ChatRoom chatRoom : chatRoomList) {
+			// 리턴할 리스트에 넣을 ChatRoomView 객체 생성
+			ChatRoomView chatRoomView = new ChatRoomView();
+			
+			// chatRoom 가져오기
+			chatRoomView.setChatRoom(chatRoom);
+			
+			// chatMessage 채우기
+			chatRoomView.setChatMessage(chatMessageBO.getLastChatMessageByChatRoomId(chatRoom.getId()));
+			
+			// 리스트에 넣기
+			chatRoomViewList.add(chatRoomView);
+		}
+		
+		// 리스트 리턴하기
+		return chatRoomViewList;
 	}
 }

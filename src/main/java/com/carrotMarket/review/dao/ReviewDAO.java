@@ -11,6 +11,8 @@ public interface ReviewDAO {
 
 	public void insertReview(Map<String, Object> map);
 	
+	public int selectReviewByUsedGoodsId(int usedGoodsId);
+	
 	public void insertManner(
 			@Param("reviewId") int reviewId, 
 			@Param("mannerContentArray") List<String> mannerContentArray);

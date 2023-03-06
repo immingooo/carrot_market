@@ -35,10 +35,12 @@ public class ReviewController {
 		// DB select
 		UsedGoods usedGoods = usedGoodsBO.getUsedGoodsByUsedGoodsId(usedGoodsId);
 		UsedGoodsImage usedGoodsImage = usedGoodsBO.getUsedGoodsImageByUsedGoodsId(usedGoodsId);
+		if (usedGoodsImage != null) {
+			model.addAttribute("usedGoodsImage", usedGoodsImage.getImageUrl());
+		}
 		ChatRoom chatRoom = chatRoomBO.getChatRoomByChatRoomId(chatRoomId);
 		
 		model.addAttribute("usedGoods", usedGoods);
-		model.addAttribute("usedGoodsImage", usedGoodsImage.getImageUrl());
 		model.addAttribute("sellerNickname", chatRoom.getSellerNickname());
 		model.addAttribute("viewName", "review/reviewCreate");
 		return "template/layout";

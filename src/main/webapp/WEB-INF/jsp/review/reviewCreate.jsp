@@ -58,30 +58,63 @@
 	</div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">경고</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <div>제출하면 수정할 수 없습니다.</div>
+        <div>제출하시겠습니까?</div>
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary col-6" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-success col-6" id="reviewDoneModalBtn">제출하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
-	$(document).ready(function() {
+	$(document).ready(function() {		
+		// 리뷰작성 버튼을 클릭했을 때 => 유효성 검사 => 모달창 띄우기
 		$("#reviewDoneBtn").on('click', function() {
 			//alert('1111');
-			let usedGoodsId = ${usedGoods.id}
-			var chkArray = new Array();
-			
 			let rating = $('input[name=rating]:checked').val();
-			console.log("rating: " + rating);
-			
-		    $("input[name=manner]:checked").each(function() { 
-		      var manner = $(this).val(); 
-		      chkArray.push(manner);
-		    });
-			console.log("chkArray: " + chkArray);
-			
-			let reviewContent = $('#reviewContent').val();
-			console.log(reviewContent);
 			
 			// 유효성 검사
 			if (rating == undefined) {
 				alert("거래가 어떠셨는지 선택해주세요.")
 				return;
 			}
+			
+			// 유효성 검사 통과하면 모달창 띄우기
+			$('#exampleModal').modal('show');
+		});
+		
+		// 최종 후기작성제출 모달버튼을 클릭했을 때
+		$('#reviewDoneModalBtn').on('click', function() {
+			var chkArray = new Array();
+			
+			let usedGoodsId = ${usedGoods.id}
+			let rating = $('input[name=rating]:checked').val();
+			let reviewContent = $('#reviewContent').val();
+			
+		    $("input[name=manner]:checked").each(function() { 
+		      var manner = $(this).val(); 
+		      chkArray.push(manner);
+		    });
+			
+			console.log("rating: " + rating);
+			console.log("chkArray: " + chkArray);
+			console.log("reviewContent: " + reviewContent);
 			
 			$.ajax({
 				type:"post"

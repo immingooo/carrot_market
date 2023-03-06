@@ -26,7 +26,7 @@
  		)
  	</insert>
  	
- 	<select id="selectChatMessageByChatRoomId" parameterType="int" resultType="com.carrotMarket.chatMessage.model.ChatMessage">
+ 	<select id="selectChatMessageListByChatRoomId" parameterType="int" resultType="com.carrotMarket.chatMessage.model.ChatMessage">
  		SELECT
  			`id`
  			,`chatRoomId`
@@ -40,6 +40,24 @@
 			`chat`
 		WHERE
 			`chatRoomId` = #{chatRoomId}
+ 	</select>
+ 	
+ 	<select id="selectLastChatMessageByChatRoomId" parameterType="int" resultType="com.carrotMarket.chatMessage.model.ChatMessage">
+ 		SELECT
+ 			`id`
+ 			,`chatRoomId`
+			,`sellerId`
+			,`buyerId`
+			,`nickname`
+			,`profileImageUrl`
+			,`chatContent`
+			,`createdAt`
+		FROM
+			`chat`
+		WHERE
+			`chatRoomId` = #{chatRoomId}
+		ORDER BY `id` DESC
+		LIMIT 1
  	</select>
  	
  	<update id="updateChatMessage" parameterType="map">

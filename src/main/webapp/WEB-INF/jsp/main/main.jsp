@@ -110,7 +110,7 @@
 						</div>
 						</c:if>
 						
-						<div class="small text-secondary pb-2">관심 ${postView.likeCount} ∙ 채팅 22</div>
+						<div class="small text-secondary pb-2">관심 ${postView.likeCount} ∙ 채팅 ${postView.chatRoomCount}</div>
 						<div class="w-100 sold-out-box text-center text-light font-weight-bold">거래완료</div>
 					</a>
 				</div>
@@ -161,7 +161,7 @@
 						</div>
 						</c:if>
 						
-						<div class="small text-secondary pb-2">관심 ${postView.likeCount} ∙ 채팅 22</div>
+						<div class="small text-secondary pb-2">관심 ${postView.likeCount} ∙ 채팅 ${postView.chatRoomCount}</div>
 						<!-- <div class="w-100 sold-out-box text-center text-light font-weight-bold">거래완료</div> -->
 					</a>
 				</div>

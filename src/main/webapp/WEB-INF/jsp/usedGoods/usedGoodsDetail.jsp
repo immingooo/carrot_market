@@ -65,8 +65,13 @@
 			 			<img alt="메뉴아이콘" src="https://cdn-icons-png.flaticon.com/512/3018/3018442.png" width="25px"></a>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
-					  <a class="dropdown-item font-weight-bold" href="/used_goods/used_goods_update_view?usedGoodsId=${postView.usedGoods.id}">글 수정</a>
-					  <a class="dropdown-item font-weight-bold" href="#" data-target="#modal" data-toggle="modal">글 삭제</a>
+						<a class="dropdown-item font-weight-bold" href="/used_goods/used_goods_update_view?usedGoodsId=${postView.usedGoods.id}">글 수정</a>
+						<c:if test="${reviewRowCount < 1}">
+						<a class="dropdown-item font-weight-bold" href="#" data-target="#modal" data-toggle="modal">글 삭제</a>
+						</c:if>
+						<%-- <c:if test="${reviewRowCount > 0}">
+						<a class="dropdown-item font-weight-bold" href="#" data-target="#modal" data-toggle="modal">글 삭제</a>
+						</c:if> --%>
 					</div>
 				</div>
 			</div>
@@ -80,7 +85,7 @@
 			<h5 class="font-weight-bold">${price}원</h5>
 			
 			<pre class="pt-3 pb-3">${postView.usedGoods.content}</pre>
-			<div class="small text-secondary">관심${postView.likeCount} 채팅15 조회${postView.usedGoods.viewCount}</div>
+			<div class="small text-secondary">관심${postView.likeCount} 채팅${postView.chatRoomCount} 조회${postView.usedGoods.viewCount}</div>
 			<div class="d-flex justify-content-end">
 				<c:if test="${postView.filledLike eq false}">
 				<a href="#" class="pr-3 pt-1" id="likeBtn" data-user-id="${userId}" data-used-goods-id="${postView.usedGoods.id}">

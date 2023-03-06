@@ -15,6 +15,7 @@ import com.carrotMarket.chatMessage.bo.ChatMessageBO;
 import com.carrotMarket.chatMessage.model.ChatMessage;
 import com.carrotMarket.chatRoom.bo.ChatRoomBO;
 import com.carrotMarket.chatRoom.model.ChatRoom;
+import com.carrotMarket.review.bo.ReviewBO;
 import com.carrotMarket.usedGoods.bo.UsedGoodsBO;
 import com.carrotMarket.usedGoods.model.UsedGoods;
 import com.carrotMarket.usedGoods.model.UsedGoodsDone;
@@ -33,6 +34,9 @@ public class ChatMessageController {
 	
 	@Autowired
 	private ChatMessageBO chatMessageBO;
+	
+	@Autowired
+	private ReviewBO reviewBO;
 	
 	// 채팅창으로 들어가는 로직
 	@GetMapping("/chat_message_view/{chatRoomId}")
@@ -53,10 +57,13 @@ public class ChatMessageController {
 		UsedGoods usedGoods = usedGoodsBO.getUsedGoodsByUsedGoodsId(chatRoom.getUsedGoodsId());
 		// 거래완료된 게시물인지 아닌지
 		UsedGoodsDone usedGoodsDone = usedGoodsBO.getUsedGoodsDoneByUsedGoodsId(usedGoods.getId());
+		// 후기작성된 게시물인지 아닌지
+		int rowCount = reviewBO.getReviewByUsedGoodsId(usedGoods.getId());
 		
 		model.addAttribute("chatRoom", chatRoom);
 		model.addAttribute("usedGoods", usedGoods);
 		model.addAttribute("usedGoodsDone", usedGoodsDone);
+		model.addAttribute("existReview", rowCount);
 		model.addAttribute("viewName", "chat/chatMessage");
 		return "template/layout";
 	}
@@ -77,7 +84,7 @@ public class ChatMessageController {
 		}
 		
 		// DB select - 채팅방에 대한 전체 메세지 가져오기
-		List<ChatMessage> chatMessageList = chatMessageBO.getChatMessageByChatRoomId(chatRoomId);
+		List<ChatMessage> chatMessageList = chatMessageBO.getChatMessageListByChatRoomId(chatRoomId);
 		
 		// model에 리스트담아서 리턴
 		model.addAttribute("chatMessageList", chatMessageList);

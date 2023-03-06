@@ -20,6 +20,8 @@ public interface ChatRoomDAO {
 	
 	public List<ChatRoom> selectChatRoomListByUserId(int userId);
 	
+	public int selectChatRoomCountByUsedGoodsId(int usedGoodsId);
+	
 	public void insertChatRoom(Map<String, Object> map);
 	
 	public void updateChatRoomBySellerId(

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.carrotMarket.chatRoom.bo.ChatRoomBO;
 import com.carrotMarket.common.FileManagerService;
 import com.carrotMarket.like.bo.LikeBO;
 import com.carrotMarket.main.model.PostView;
@@ -41,6 +42,9 @@ public class UsedGoodsBO {
 
 	@Autowired
 	private LikeBO likeBO;
+	
+	@Autowired
+	private ChatRoomBO chatRoomBO;
 
 	// 글 작성(추가)
 	public void addUsedGoods(int userId, String userLoginId, String title, String category, Integer price,
@@ -115,6 +119,7 @@ public class UsedGoodsBO {
 		post.setUsedGoodsDone(usedGoodsDAO.selectUsedGoodsDoneByUsedGoodsId(usedGoodsId));
 
 		// 글에 대한 채팅 개수
+		post.setChatRoomCount(chatRoomBO.getChatRoomCountByUsedGoodsId(usedGoodsId));
 
 		return post;
 	}

@@ -50,9 +50,15 @@
 			</c:if>
 			<%-- 구매자일 때 --%>
 			<c:if test="${chatRoom.sellerId ne userId}">
-				<c:if test="${usedGoodsDone.buyerId eq userId}">
+				<%-- 해당 구매자에게만 후기작성 버튼 보이기 --%>
+				<c:if test="${usedGoodsDone.buyerId eq userId && existReview eq 0}">
 				<div class="pt-2">
 					<a href="/review/review_create_view?chatRoomId=${chatRoom.id}&usedGoodsId=${usedGoods.id}" id="reviewBtn" class="btn btn-outline-primary">후기작성</a>
+				</div>
+				</c:if>
+				<c:if test="${usedGoodsDone.buyerId eq userId && existReview eq 1}">
+				<div class="pt-2">
+					<a href="#" style="pointer-events: none;" id="reviewBtn" class="btn btn-primary">후기작성완료</a>
 				</div>
 				</c:if>
 			</c:if>

@@ -5,33 +5,34 @@
 
 <div class="d-flex justify-content-center pt-3 pb-5">
 	<div class="message-list-box col-5 p-0 box bg-light" style="height:600px">
-		<c:forEach var="chatRoom" items="${chatRoomList}">
-		<a href="/chat/chat_message_view/${chatRoom.id}" style="text-decoration:none; color:black">
+		<c:forEach var="chatRoomView" items="${chatRoomViewList}">
+		<a href="/chat/chat_message_view/${chatRoomView.chatRoom.id}" style="text-decoration:none; color:black">
 		<div class="d-flex justify-content-between m-3">
 			<div class="d-flex">
 				<div class="pr-3">
-					<c:if test="${chatRoom.sellerNickname eq userNickname}">
-					<img alt="상대방 프로필 이미지" src="${chatRoom.buyerProfileImageUrl}" onerror="this.src='/static/img/user.png'" width="50px" height="50px" style="border-radius:50%">
+					<c:if test="${chatRoomView.chatRoom.sellerNickname eq userNickname}">
+					<img alt="상대방 프로필 이미지" src="${chatRoomView.chatRoom.buyerProfileImageUrl}" onerror="this.src='/static/img/user.png'" width="50px" height="50px" style="border-radius:50%">
 					</c:if>
-					<c:if test="${chatRoom.buyerNickname eq userNickname}">
-					<img alt="상대방 프로필 이미지" src="${chatRoom.sellerProfileImageUrl}" onerror="this.src='/static/img/user.png'" width="50px" height="50px" style="border-radius:50%">
+					<c:if test="${chatRoomView.chatRoom.buyerNickname eq userNickname}">
+					<img alt="상대방 프로필 이미지" src="${chatRoomView.chatRoom.sellerProfileImageUrl}" onerror="this.src='/static/img/user.png'" width="50px" height="50px" style="border-radius:50%">
 					</c:if>
 				</div>
 				<div>
 					<div>
-						<c:if test="${chatRoom.sellerNickname eq userNickname}">
-						<span class="font-weight-bold">${chatRoom.buyerNickname}</span>
+						<c:if test="${chatRoomView.chatRoom.sellerNickname eq userNickname}">
+						<span class="font-weight-bold">${chatRoomView.chatRoom.buyerNickname}</span>
 						</c:if>
-						<c:if test="${chatRoom.buyerNickname eq userNickname}">
-						<span class="font-weight-bold">${chatRoom.sellerNickname}</span>
+						<c:if test="${chatRoomView.chatRoom.buyerNickname eq userNickname}">
+						<span class="font-weight-bold">${chatRoomView.chatRoom.sellerNickname}</span>
 						</c:if>
-						<span class="small text-dark">거래장소 ∙ 마지막채팅시간</span>
+						<fmt:formatDate var="createdAt" value="${chatRoomView.chatMessage.createdAt}" pattern="a h:mm"/>
+						<span class="small text-dark">${createdAt}</span>
 					</div>
-					<div>마지막으로 보낸 채팅메세지</div>
+					<div>${chatRoomView.chatMessage.chatContent}</div>
 				</div>
 			</div>
 			<div>
-				<img alt="상품 사진" src="${chatRoom.usedGoodsImageUrl}" onerror="this.src='/static/img/used_goods.jpg'" width="50px" height="50px" style="border-radius:10%">
+				<img alt="상품 사진" src="${chatRoomView.chatRoom.usedGoodsImageUrl}" onerror="this.src='/static/img/used_goods.jpg'" width="50px" height="50px" style="border-radius:10%">
 			</div>
 		</div>
 		</a>

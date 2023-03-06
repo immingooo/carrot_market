@@ -177,10 +177,13 @@ public class UserRestController {
 		
 		user = userBO.getUserByLoginId(userLoginId); // 업데이트된 user객체 새로 받아옴
 		
-		// chatRoom DB update - 아직 없을수도..(없으면 변경안해도 됨)
+		// 채팅방이 존재할 때만 update
+		// chatRoom DB update - 아직 없을수도..(채팅방이 존재할 때만 채팅방정보 update)
 		chatRoomBO.updateChatRoom(userId, user.getNickname(), user.getProfileImageUrl());
-		// chat DB update - 아직 없을수도..(없으면,,,) nickname에 새로 입력한 이름이 들어있음. 바뀌기 전 이름이 안들어있음
-		chatMessageBO.updateChatMessage(userId, oldUserNickname , user.getNickname(), user.getProfileImageUrl());
+		if (!chatRoomBO.getChatRoomListByUserId(userId).isEmpty()) {
+			// chat DB update - 아직 없을수도..(채팅방이 존재할 때 메세지정보 update)
+			chatMessageBO.updateChatMessage(userId, oldUserNickname , user.getNickname(), user.getProfileImageUrl());
+		}
 		
 		
 		session.setAttribute("userNickname", user.getNickname());

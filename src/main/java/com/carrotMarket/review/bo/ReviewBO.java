@@ -28,6 +28,10 @@ public class ReviewBO {
 		return id;
 	}
 	
+	public int getReviewByUsedGoodsId(int usedGoodsId) {
+		return reviewDAO.selectReviewByUsedGoodsId(usedGoodsId);
+	}
+	
 	public void addManner(int reviewId, List<String> mannerContentArray) {
 		reviewDAO.insertManner(reviewId, mannerContentArray);
 	}

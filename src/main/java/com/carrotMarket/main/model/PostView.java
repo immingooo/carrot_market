@@ -28,7 +28,7 @@ public class PostView {
 	private UsedGoodsDone usedGoodsDone;
 	
 	// 채팅 개수
-	
+	private int chatRoomCount;
 	
 	public User getUser() {
 		return user;
@@ -76,5 +76,13 @@ public class PostView {
 
 	public void setUsedGoodsDone(UsedGoodsDone usedGoodsDone) {
 		this.usedGoodsDone = usedGoodsDone;
+	}
+
+	public int getChatRoomCount() {
+		return chatRoomCount;
+	}
+
+	public void setChatRoomCount(int chatRoomCount) {
+		this.chatRoomCount = chatRoomCount;
 	}
 }

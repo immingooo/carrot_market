@@ -26,6 +26,15 @@
 		</selectKey>
 	</insert>
 	
+	<select id="selectReviewByUsedGoodsId" parameterType="int" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			`review`
+		WHERE
+			`usedGoodsId` = #{usedGoodsId}
+	</select>
+	
 	<insert id="insertManner" parameterType="map">
 		INSERT INTO `manner`
 		(
