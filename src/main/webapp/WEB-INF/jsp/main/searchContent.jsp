@@ -14,7 +14,8 @@
 <div class="hot-used-parent-box d-flex flex-wrap">
 	<%-- 중고매물 1개 --%>
 	<c:forEach var="postView" items="${postViewList}">
-	<div class="used-box">
+	<c:if test="${!empty postView.usedGoodsDone}">
+	<div class="used-box" style="opacity: 0.5;">
 		<a href="/used_goods/used_goods_detail_view?usedGoodsId=${postView.usedGoods.id}" style="text-decoration:none; color:black">
 			<%-- 상품 이미지 --%>
 			<c:if test="${postView.usedGoodsImageList.size() > 0}">
@@ -74,6 +75,70 @@
 			<div class="w-100 sold-out-box text-center text-light font-weight-bold">거래완료</div>
 		</a>
 	</div>
+	</c:if>
+	
+	<c:if test="${empty postView.usedGoodsDone}">
+	<div class="used-box">
+		<a href="/used_goods/used_goods_detail_view?usedGoodsId=${postView.usedGoods.id}" style="text-decoration:none; color:black">
+			<%-- 상품 이미지 --%>
+			<c:if test="${postView.usedGoodsImageList.size() > 0}">
+				<img alt="상품이미지" src="${postView.usedGoodsImageList[0].imageUrl}" width="200px" height="200px" style="border-radius:8%">
+			</c:if>
+			
+			<c:if test="${empty postView.usedGoodsImageList}">
+				<img alt="기본상품이미지" src="" onerror="this.src='/static/img/used_goods.jpg'" width="201px" height="201px" style="border: 2px solid gray; border-radius:8%">
+			</c:if>
+			
+			<%-- 글 제목 --%>
+			<div class="font-weight-bold pt-3">
+				<c:if test="${fn:length(postView.usedGoods.title) > 12}">
+				${fn:substring(postView.usedGoods.title, 0, 11)}...
+				</c:if>
+				<c:if test="${fn:length(postView.usedGoods.title) <= 12}">
+				${postView.usedGoods.title}
+				</c:if>
+			</div>
+			
+			<%-- 주소 --%>
+			<div class="text-secondary">
+				<c:if test="${empty postView.usedGoods.place}">
+				<div class="small" style="width:200px">
+					<c:if test="${fn:length(postView.user.address) > 18}">
+					${fn:substring(postView.user.address, 0, 17)}...
+					</c:if>
+					<c:if test="${fn:length(postView.user.address) <= 18}">
+					${postView.user.address}
+					</c:if>
+				</div>
+				</c:if>
+				<c:if test="${not empty postView.usedGoods.place}">
+				<div class="small">
+					<c:if test="${fn:length(postView.usedGoods.place) > 18}">
+					${fn:substring(postView.usedGoods.place, 0, 17)}...
+					</c:if>
+					<c:if test="${fn:length(postView.usedGoods.place) <= 18}">
+					${postView.usedGoods.place}
+					</c:if>
+				</div>
+				</c:if>
+			</div>
+			
+			<div class="d-flex justify-content-between">
+				<%-- 가격 --%>
+				<fmt:formatNumber var="price" value="${postView.usedGoods.price}" type="number" />
+				<div class="font-weight-bold pb-2 text-orange">${price}원</div>
+				
+				<%-- 좋아요 --%>
+				<div>
+					<img alt="관심항목 아이콘" src="/static/img/heart.png" width="15px" height="15px">
+					<span>${postView.likeCount}</span>
+				</div>
+			</div>
+			
+			<!-- <div class="w-100 sold-out-box text-center text-light font-weight-bold">거래완료</div> -->
+		</a>
+	</div>
+	</c:if>
 	</c:forEach>
 </div>
 </c:if>

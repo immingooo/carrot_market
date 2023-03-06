@@ -185,7 +185,6 @@ public class UserRestController {
 			chatMessageBO.updateChatMessage(userId, oldUserNickname , user.getNickname(), user.getProfileImageUrl());
 		}
 		
-		
 		session.setAttribute("userNickname", user.getNickname());
 		session.setAttribute("userProfileImageUrl", user.getProfileImageUrl());
 		result.put("code", 1);

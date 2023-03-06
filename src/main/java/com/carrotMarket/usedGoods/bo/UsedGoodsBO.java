@@ -218,9 +218,7 @@ public class UsedGoodsBO {
 		// 좋아요들 삭제
 		likeBO.deleteLikeByUsedGoodsId(usedGoodsId);
 
-		// 채팅들 삭제
-
-		// 리뷰 삭제(리뷰랑 연결된 매너들도 삭제.? -> X 매너로 회원에 대한 평가가 들어가야함, 리뷰는...)
+		// 채팅들 삭제는 글이랑 연관없고 채팅나가기로 따로 나가야함
 	}
 
 	// 조회수

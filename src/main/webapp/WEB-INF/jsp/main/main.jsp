@@ -40,8 +40,8 @@
 					<option>삽니다</option>
 				</select>
 				<select class="form-control col-2" id="area">
-					<option>지역을 선택하세요</option>
-					<option value="서울">서울특벌시</option>
+					<option value="지역">지역을 선택하세요</option>
+					<option value="서울">서울특별시</option>
 					<option value="부산">부산광역시</option>
 					<option value="대구">대구광역시</option>
 					<option value="인천">인천광역시</option>
@@ -179,6 +179,10 @@
 			let category = $(this).val();
 			//alert(category);
 			
+			if (category == "카테고리") {
+				location.reload();
+			}
+			
 			$.ajax({
 				url:"/main/category_view"
 				, data:{"category":category}
@@ -198,6 +202,10 @@
 		$('#area').on('change', function() {
 			let area = $(this).val();
 			//alert(area);
+			
+			if (area == "지역") {
+				location.reload();
+			}
 			
 			$.ajax({
 				url:"/main/area_view"

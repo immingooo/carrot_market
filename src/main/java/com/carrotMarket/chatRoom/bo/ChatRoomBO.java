@@ -81,6 +81,10 @@ public class ChatRoomBO {
 		}
 	}
 	
+	public void updateChatRoomUsedGoodsImageUrlByUsedGoodsId(int usedGoodsId, String usedGoodsImageUrl) {
+		chatRoomDAO.updateChatRoomUsedGoodsImageUrlByUsedGoodsId(usedGoodsId, usedGoodsImageUrl);
+	}
+	
 	public List<ChatRoomView> generateChatRoomView(int userId) {
 		List<ChatRoomView> chatRoomViewList = new ArrayList<>();
 		

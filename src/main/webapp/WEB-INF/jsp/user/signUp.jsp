@@ -25,7 +25,7 @@
 				<div class="d-flex">
 					<div class="col-3"></div>
 					<div id="idCheckLength" class="small text-danger pt-1 d-none">아이디를 4자 이상 입력해주세요.</div>
-					<div id="idCheckDuplicated" class="small text-danger pt-1 d-none">사용불가능한 아이디입니다.</div>
+					<div id="idCheckDuplicated" class="small text-danger pt-1 d-none">사용 불가능한 아이디입니다.</div>
 					<div id="idCheckOk" class="small text-success pt-1 d-none">사용 가능한 아이디입니다.</div>
 					<div id="idCheckType" class="small text-danger pt-1 d-none">4자 이상 8자 이하의 영문 혹은 영문과 숫자를 조합</div>
 				</div>

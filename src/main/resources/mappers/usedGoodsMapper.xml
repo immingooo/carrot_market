@@ -88,7 +88,6 @@
 			,`content`
 			,`place`
 			, `viewCount`
-			, `soldOut`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -134,7 +133,6 @@
 			,`content`
 			,`place`
 			, `viewCount`
-			, `soldOut`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -152,7 +150,6 @@
 			,`content`
 			,`place`
 			, `viewCount`
-			, `soldOut`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -172,7 +169,6 @@
 			,`content`
 			,`place`
 			, `viewCount`
-			, `soldOut`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -181,6 +177,7 @@
 			`title` LIKE CONCAT('%', #{keyword}, '%')
 			OR `content` LIKE CONCAT('%', #{keyword}, '%')
 			OR `place` LIKE CONCAT('%', #{keyword}, '%')
+		ORDER BY `id` DESC
 	</select>
 	
 	<select id="selectUsedGoodsListByCategory" parameterType="string" resultType="com.carrotMarket.usedGoods.model.UsedGoods">
@@ -193,13 +190,13 @@
 			,`content`
 			,`place`
 			, `viewCount`
-			, `soldOut`
 			,`createdAt`
 			,`updatedAt`
 		FROM
 			`used_goods`
 		WHERE
 			`category` = #{category}
+		ORDER BY `id` DESC
 	</select>
 	
 	<select id="selectUsedGoodsListByArea" parameterType="string" resultType="com.carrotMarket.usedGoods.model.UsedGoods">
@@ -212,13 +209,13 @@
 			,`content`
 			,`place`
 			, `viewCount`
-			, `soldOut`
 			,`createdAt`
 			,`updatedAt`
 		FROM
 			`used_goods`
 		WHERE
 			`place` LIKE CONCAT('%', #{area}, '%')
+		ORDER BY `id` DESC
 	</select>
 	
 	<update id="updateUsedGoodsByUserIdUsedGoodsId" parameterType="map">
@@ -243,14 +240,14 @@
 			`id` = #{usedGoodsId}
 	</update>
 	
-	<update id="updateSoldOut" parameterType="map">
+<!-- 	<update id="updateSoldOut" parameterType="map">
 		UPDATE `used_goods`
 		SET
 			`soldOut` = 'Y'
 		WHERE
 			`id` = #{usedGoodsId}
 			AND `userId` = #{userId}
-	</update>
+	</update> -->
 	
 	<delete id="deleteUsedGoodsImageByUsedGoodsId" parameterType="int">
 		DELETE

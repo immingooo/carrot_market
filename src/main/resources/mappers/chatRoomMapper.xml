@@ -125,4 +125,12 @@
  		WHERE
  			`buyerId` = #{userId}
  	</update>
+ 	
+ 	<update id="updateChatRoomUsedGoodsImageUrlByUsedGoodsId" parameterType="map">
+ 		UPDATE `chat_room`
+ 		SET
+ 			`usedGoodsImageUrl` = #{usedGoodsImageUrl}
+ 		WHERE
+ 			`usedGoodsId` = #{usedGoodsId}
+ 	</update>
  </mapper>

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.carrotMarket.chatRoom.bo.ChatRoomBO;
 import com.carrotMarket.usedGoods.bo.UsedGoodsBO;
+import com.carrotMarket.usedGoods.model.UsedGoodsImage;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -23,6 +25,9 @@ public class UsedGoodsRestController {
 	
 	@Autowired
 	private UsedGoodsBO usedGoodsBO;
+	
+	@Autowired
+	private ChatRoomBO chatRoomBO;
 
 	@PostMapping("/create")
 	public Map<String, Object> create(
@@ -74,7 +79,16 @@ public class UsedGoodsRestController {
 			return result;
 		}
 		
+		// DB update - usedGoods, usedGoodsImage DB update
 		usedGoodsBO.updateUsedGoods(userId, userLoginId, usedGoodsId, title, category, price, content, place, files);
+		
+		// update된 사진들 중 첫번째 사진 가져오기
+		UsedGoodsImage usedGoodsImage = usedGoodsBO.getUsedGoodsImageByUsedGoodsId(usedGoodsId);
+		// 채팅목록, 채팅 대화창에도 사진 update해야함 - chatRoom update(usedGoodsImageUrl를 update해야함)
+		if (usedGoodsImage != null) {
+			chatRoomBO.updateChatRoomUsedGoodsImageUrlByUsedGoodsId(usedGoodsId, usedGoodsImage.getImageUrl());
+		}
+		
 		result.put("code", 1);
 		result.put("result", "성공");
 		

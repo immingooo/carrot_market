@@ -29,6 +29,10 @@ public interface ChatRoomDAO {
 			@Param("nickname") String nickname, 
 			@Param("ImageUrl") String ImageUrl);
 	
+	public void updateChatRoomUsedGoodsImageUrlByUsedGoodsId(
+			@Param("usedGoodsId") int usedGoodsId, 
+			@Param("usedGoodsImageUrl") String usedGoodsImageUrl);
+	
 	public void updateChatRoomByBuyerId(
 			@Param("userId") int userId, 
 			@Param("nickname") String nickname, 
