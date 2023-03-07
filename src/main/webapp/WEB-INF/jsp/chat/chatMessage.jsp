@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div class="d-flex justify-content-center pt-3 pb-5">
+<%-- 글이 존재할 때 --%>
+<c:if test="${!empty usedGoods}">
 	<div class="message-box col-5 p-0" style="height:600px;">
 		<h5 class="m-3 font-weight-bold text-center">
 			<%-- 판매자일 때 --%>
@@ -29,9 +31,11 @@
 				</div>
 				</c:if>
 				<div class="pl-2">
+					
 					<div class="small font-weight-bold">${usedGoods.title}</div>
 					<fmt:formatNumber var="price" value="${usedGoods.price}" type="number" />
 					<div class="font-weight-bold">${price}원</div>
+					
 				</div>
 			</div>
 			
@@ -74,6 +78,81 @@
 			</div>
 		</div>
 	</div>
+</c:if>
+
+<%-- 글이 삭제됐을 때 --%>
+<c:if test="${empty usedGoods}">
+	<div class="message-box col-5 p-0" style="height:600px;">
+		<h5 class="m-3 font-weight-bold text-center">
+			<%-- 판매자일 때 --%>
+			<c:if test="${chatRoom.sellerId eq userId}">
+			${chatRoom.buyerNickname}
+			</c:if>
+			<%-- 구매자일 때 --%>
+			<c:if test="${chatRoom.buyerId eq userId}">
+			${chatRoom.sellerNickname}
+			</c:if>
+		</h5>
+		<hr>
+		<div class="d-flex justify-content-between m-3" style="filter: blur(5px); -webkit-filter: blur(5px);">
+			<div class="d-flex">
+				<c:if test="${!empty chatRoom.usedGoodsImageUrl}">
+				<div>
+					<img alt="상품사진" src="${chatRoom.usedGoodsImageUrl}" style="border-radius:5px" width="50px" height="50px">
+				</div>
+				</c:if>
+				<c:if test="${empty chatRoom.usedGoodsImageUrl}">
+				<div>
+					<img alt="상품사진" src="/static/img/used_goods.jpg" style="border: 2px solid #C2C2C2; border-radius:5px" width="50px" height="50px">
+				</div>
+				</c:if>
+				<div class="pl-2">
+					<div class="small font-weight-bold">${usedGoods.title}</div>
+					<fmt:formatNumber var="price" value="${usedGoods.price}" type="number" />
+					<div class="font-weight-bold">${price}원</div>
+				</div>
+			</div>
+			
+			<%-- 판매자일 때 --%>
+			<%-- <c:if test="${chatRoom.sellerId eq userId}">
+				<c:if test="${empty usedGoodsDone}">
+				<div class="pt-2">
+					<button type="button" id="doneBtn" class="btn btn-outline-success">거래완료</button>
+				</div>
+				</c:if>
+				<c:if test="${!empty usedGoodsDone}">
+				<div class="pt-2">
+					<button type="button" style="pointer-events: none;" class="btn btn-success">거래완료</button>
+				</div>
+				</c:if>
+			</c:if> --%>
+			<%-- 구매자일 때 --%>
+			<%-- <c:if test="${chatRoom.sellerId ne userId}">
+				해당 구매자에게만 후기작성 버튼 보이기
+				<c:if test="${usedGoodsDone.buyerId eq userId && existReview eq 0}">
+				<div class="pt-2">
+					<a href="/review/review_create_view?chatRoomId=${chatRoom.id}&usedGoodsId=${usedGoods.id}" id="reviewBtn" class="btn btn-outline-primary">후기작성</a>
+				</div>
+				</c:if>
+				<c:if test="${usedGoodsDone.buyerId eq userId && existReview eq 1}">
+				<div class="pt-2">
+					<a href="#" style="pointer-events: none;" id="reviewBtn" class="btn btn-primary">후기작성완료</a>
+				</div>
+				</c:if>
+			</c:if> --%>
+		</div>
+		<hr>
+		<div id="chatBox" style="height:400px filter: blur(5px); -webkit-filter: blur(5px);">
+			<%-- 대화내용 --%>
+		</div>
+		<!-- <div class="d-flex send-box" style="width:500px">
+			<div class="d-flex w-100">
+				<input type="text" class="form-control" id="chatContent">
+				<button type="button" id="chatSendBtn" class="btn btn-orange text-light">보내기</button>
+			</div>
+		</div> -->
+	</div>
+</c:if>
 </div>
 
 <script>
@@ -141,29 +220,31 @@
 		});
 		
 		// 판매자가 거래완료버튼을 클릭했을 때
-		$("#doneBtn").on('click', function() {
-			//alert("1111");
-			let usedGoodsId = ${usedGoods.id}
-			let buyerId = ${chatRoom.buyerId}
-			
-			$.ajax({
-				type:"post"
-				, url:"/used_goods/done"
-				, data:{"usedGoodsId":usedGoodsId, "buyerId":buyerId}
-			
-				, success:function(data) {
-					if(data.code == 1) {
-						// 거래완료버튼 사라졌나 확인하기
-						location.reload(); 
-						
-					} else {
-						alert(data.errorMessage);
+		if (document.getElementById('doneBtn')) {
+			$("#doneBtn").on('click', function() {
+				//alert("1111");
+				let usedGoodsId = ${usedGoods.id}
+				let buyerId = ${chatRoom.buyerId}
+				
+				$.ajax({
+					type:"post"
+					, url:"/used_goods/done"
+					, data:{"usedGoodsId":usedGoodsId, "buyerId":buyerId}
+				
+					, success:function(data) {
+						if(data.code == 1) {
+							// 거래완료버튼 사라졌나 확인하기
+							location.reload(); 
+							
+						} else {
+							alert(data.errorMessage);
+						}
 					}
-				}
-				, error:function(e) {
-					alert("거래완료버튼 클릭에 실패했습니다. 관리자에게 문의해주세요.");
-				}
+					, error:function(e) {
+						alert("거래완료버튼 클릭에 실패했습니다. 관리자에게 문의해주세요.");
+					}
+				});
 			});
-		});
+		}
 	});
 </script>

@@ -66,12 +66,9 @@
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<a class="dropdown-item font-weight-bold" href="/used_goods/used_goods_update_view?usedGoodsId=${postView.usedGoods.id}">글 수정</a>
-						<c:if test="${reviewRowCount < 1}">
+						<c:if test="${empty postView.usedGoodsDone}">
 						<a class="dropdown-item font-weight-bold" href="#" data-target="#modal" data-toggle="modal">글 삭제</a>
 						</c:if>
-						<%-- <c:if test="${reviewRowCount > 0}">
-						<a class="dropdown-item font-weight-bold" href="#" data-target="#modal" data-toggle="modal">글 삭제</a>
-						</c:if> --%>
 					</div>
 				</div>
 			</div>

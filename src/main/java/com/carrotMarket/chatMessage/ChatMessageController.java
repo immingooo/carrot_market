@@ -53,12 +53,12 @@ public class ChatMessageController {
 			return "redirect:/user/sign_in_view";
 		}
 		
-		// 채팅방에 해당하는 글 가져오기(대화창에서 글정보를 뿌려야돼서)
+		// 채팅방에 해당하는 글 가져오기(대화창에서 글정보를 뿌려야돼서) : 글 삭제하면 여기서 가져올 usedGoodsId에 해당하는 객체가 없음
 		UsedGoods usedGoods = usedGoodsBO.getUsedGoodsByUsedGoodsId(chatRoom.getUsedGoodsId());
 		// 거래완료된 게시물인지 아닌지
-		UsedGoodsDone usedGoodsDone = usedGoodsBO.getUsedGoodsDoneByUsedGoodsId(usedGoods.getId());
+		UsedGoodsDone usedGoodsDone = usedGoodsBO.getUsedGoodsDoneByUsedGoodsId(chatRoom.getUsedGoodsId());
 		// 후기작성된 게시물인지 아닌지
-		int rowCount = reviewBO.getReviewByUsedGoodsId(usedGoods.getId());
+		int rowCount = reviewBO.getReviewByUsedGoodsId(chatRoom.getUsedGoodsId());
 		
 		model.addAttribute("chatRoom", chatRoom);
 		model.addAttribute("usedGoods", usedGoods);

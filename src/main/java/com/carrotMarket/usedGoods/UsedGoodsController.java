@@ -13,6 +13,7 @@ import com.carrotMarket.main.model.PostView;
 import com.carrotMarket.review.bo.ReviewBO;
 import com.carrotMarket.usedGoods.bo.UsedGoodsBO;
 import com.carrotMarket.usedGoods.model.UsedGoods;
+import com.carrotMarket.usedGoods.model.UsedGoodsDone;
 import com.carrotMarket.usedGoods.model.UsedGoodsImage;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,11 +49,14 @@ public class UsedGoodsController {
 		
 		// 글 번호에 해당하는 postView객체를 가져와야 함(로그인/비로그인 모두 들어갈 수 있음)
 		PostView postView = usedGoodsBO.generatePostView(usedGoodsId, (Integer)session.getAttribute("userId"));
+		// 거래완료가 된 글인지 확인하기(거래완료버튼클릭 -> 글 삭제 숨기기)
+		//UsedGoodsDone usedGoodsDone = usedGoodsBO.getUsedGoodsDoneByUsedGoodsId(usedGoodsId);
 		// 후기가 작성된 글인지 확인하기(후기작성O -> 글 삭제 숨기기)
 		int reviewRowCount = reviewBO.getReviewByUsedGoodsId(usedGoodsId);
 		
 		
 		model.addAttribute("postView", postView);
+		//model.addAttribute("usedGoodsDone", usedGoodsDone);
 		model.addAttribute("reviewRowCount", reviewRowCount);
 		model.addAttribute("viewName", "usedGoods/usedGoodsDetail");
 		return "template/layout";
