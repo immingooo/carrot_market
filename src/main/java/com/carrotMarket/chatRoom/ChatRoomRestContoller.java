@@ -13,7 +13,7 @@ import com.carrotMarket.chatRoom.model.ChatRoom;
 import com.carrotMarket.usedGoods.bo.UsedGoodsBO;
 import com.carrotMarket.usedGoods.model.UsedGoodsImage;
 
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 
 @RestController
 public class ChatRoomRestContoller {

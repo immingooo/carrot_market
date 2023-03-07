@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.carrotMarket.chatRoom.bo.ChatRoomBO;
 import com.carrotMarket.chatRoom.model.ChatRoomView;
 
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ChatRoomController {

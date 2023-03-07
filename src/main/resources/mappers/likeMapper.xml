@@ -53,4 +53,15 @@
  		WHERE
  			`usedGoodsId` = #{usedGoodsId}
  	</delete>
+ 	
+ 	<select id="selectLikeByUserId" parameterType="int" resultType="com.carrotMarket.like.model.Like">
+ 		SELECT
+	 		`userId`
+			,`usedGoodsId`
+			,`createdAt`
+		FROM
+			`like`
+		WHERE
+			`userId` = #{userId}
+ 	</select>
  </mapper>

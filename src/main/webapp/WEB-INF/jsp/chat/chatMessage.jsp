@@ -7,16 +7,19 @@
 <%-- 글이 존재할 때 --%>
 <c:if test="${!empty usedGoods}">
 	<div class="message-box col-5 p-0" style="height:600px;">
-		<h5 class="m-3 font-weight-bold text-center">
-			<%-- 판매자일 때 --%>
-			<c:if test="${chatRoom.sellerId eq userId}">
-			${chatRoom.buyerNickname}
-			</c:if>
-			<%-- 구매자일 때 --%>
-			<c:if test="${chatRoom.buyerId eq userId}">
-			${chatRoom.sellerNickname}
-			</c:if>
-		</h5>
+		<div class="d-flex m-3">
+			<h5 class="font-weight-bold text-center col-11 p-0 m-0">
+				<%-- 판매자일 때 --%>
+				<c:if test="${chatRoom.sellerId eq userId}">
+				${chatRoom.buyerNickname}
+				</c:if>
+				<%-- 구매자일 때 --%>
+				<c:if test="${chatRoom.buyerId eq userId}">
+				${chatRoom.sellerNickname}
+				</c:if>
+			</h5>
+			<a href="#" class="col-1 p-0 m-0"><img alt="menu" src="https://cdn-icons-png.flaticon.com/512/2311/2311524.png" height="30px"></a>
+		</div>
 		<hr>
 		<div class="d-flex justify-content-between m-3">
 			<div class="d-flex">
@@ -83,18 +86,21 @@
 <%-- 글이 삭제됐을 때 --%>
 <c:if test="${empty usedGoods}">
 	<div class="message-box col-5 p-0" style="height:600px;">
-		<h5 class="m-3 font-weight-bold text-center">
-			<%-- 판매자일 때 --%>
-			<c:if test="${chatRoom.sellerId eq userId}">
-			${chatRoom.buyerNickname}
-			</c:if>
-			<%-- 구매자일 때 --%>
-			<c:if test="${chatRoom.buyerId eq userId}">
-			${chatRoom.sellerNickname}
-			</c:if>
-		</h5>
+		<div class="d-flex m-3">
+			<h5 class="font-weight-bold text-center col-11 p-0 m-0">
+				<%-- 판매자일 때 --%>
+				<c:if test="${chatRoom.sellerId eq userId}">
+				${chatRoom.buyerNickname}
+				</c:if>
+				<%-- 구매자일 때 --%>
+				<c:if test="${chatRoom.buyerId eq userId}">
+				${chatRoom.sellerNickname}
+				</c:if>
+			</h5>
+			<a href="#" class="col-1 p-0 m-0"><img alt="menu" src="https://cdn-icons-png.flaticon.com/512/2311/2311524.png" height="30px"></a>
+		</div>
 		<hr>
-		<div class="d-flex justify-content-between m-3" style="filter: blur(5px); -webkit-filter: blur(5px);">
+		<div class="d-flex justify-content-between m-3" style="pointer-events: none; filter: blur(5px); -webkit-filter: blur(5px);">
 			<div class="d-flex">
 				<c:if test="${!empty chatRoom.usedGoodsImageUrl}">
 				<div>
@@ -114,7 +120,7 @@
 			</div>
 			
 			<%-- 판매자일 때 --%>
-			<%-- <c:if test="${chatRoom.sellerId eq userId}">
+			<c:if test="${chatRoom.sellerId eq userId}">
 				<c:if test="${empty usedGoodsDone}">
 				<div class="pt-2">
 					<button type="button" id="doneBtn" class="btn btn-outline-success">거래완료</button>
@@ -125,10 +131,10 @@
 					<button type="button" style="pointer-events: none;" class="btn btn-success">거래완료</button>
 				</div>
 				</c:if>
-			</c:if> --%>
+			</c:if>
 			<%-- 구매자일 때 --%>
-			<%-- <c:if test="${chatRoom.sellerId ne userId}">
-				해당 구매자에게만 후기작성 버튼 보이기
+			<c:if test="${chatRoom.sellerId ne userId}">
+				<!-- 해당 구매자에게만 후기작성 버튼 보이기 -->
 				<c:if test="${usedGoodsDone.buyerId eq userId && existReview eq 0}">
 				<div class="pt-2">
 					<a href="/review/review_create_view?chatRoomId=${chatRoom.id}&usedGoodsId=${usedGoods.id}" id="reviewBtn" class="btn btn-outline-primary">후기작성</a>
@@ -139,18 +145,18 @@
 					<a href="#" style="pointer-events: none;" id="reviewBtn" class="btn btn-primary">후기작성완료</a>
 				</div>
 				</c:if>
-			</c:if> --%>
+			</c:if>
 		</div>
 		<hr>
-		<div id="chatBox" style="height:400px filter: blur(5px); -webkit-filter: blur(5px);">
+		<div id="chatBox" style="pointer-events: none; height:400px filter: blur(5px); -webkit-filter: blur(5px);">
 			<%-- 대화내용 --%>
 		</div>
-		<!-- <div class="d-flex send-box" style="width:500px">
+		<div class="d-flex send-box" style="width:500px; pointer-events: none; height:400px filter: blur(5px); -webkit-filter: blur(5px);">
 			<div class="d-flex w-100">
 				<input type="text" class="form-control" id="chatContent">
 				<button type="button" id="chatSendBtn" class="btn btn-orange text-light">보내기</button>
 			</div>
-		</div> -->
+		</div>
 	</div>
 </c:if>
 </div>
@@ -159,6 +165,12 @@
 	$(document).ready(function() {
 		// 처음 대화창에 들어오면 이전에 있던 메세지들이 보여야 함!!!!
 		// 그 이후에 새로고침하거나 자동으로 새로고침되도록해야함...
+		 /* function autoRefresh_div() {
+			$("#chatBox").load("load.html");
+		} setInterval('autoRefresh_div()', 5000); */
+		
+		/* setTimeout("location.reload()",6000); */
+		
 		let chatRoomId = ${chatRoom.id}
 		
 		$.ajax({
@@ -220,31 +232,28 @@
 		});
 		
 		// 판매자가 거래완료버튼을 클릭했을 때
-		if (document.getElementById('doneBtn')) {
-			$("#doneBtn").on('click', function() {
-				//alert("1111");
-				let usedGoodsId = ${usedGoods.id}
-				let buyerId = ${chatRoom.buyerId}
-				
-				$.ajax({
-					type:"post"
-					, url:"/used_goods/done"
-					, data:{"usedGoodsId":usedGoodsId, "buyerId":buyerId}
-				
-					, success:function(data) {
-						if(data.code == 1) {
-							// 거래완료버튼 사라졌나 확인하기
-							location.reload(); 
-							
-						} else {
-							alert(data.errorMessage);
-						}
+		$("#doneBtn").on('click', function() {
+			//alert("1111");
+			let usedGoodsId = ${chatRoom.usedGoodsId} // usedGoods.id
+			let buyerId = ${chatRoom.buyerId}
+			
+			$.ajax({
+				type:"post"
+				, url:"/used_goods/done"
+				, data:{"usedGoodsId":usedGoodsId, "buyerId":buyerId}
+			
+				, success:function(data) {
+					if(data.code == 1) {
+						// 거래완료버튼 사라졌나 확인하기
+						location.reload(); 
+					} else {
+						alert(data.errorMessage);
 					}
-					, error:function(e) {
-						alert("거래완료버튼 클릭에 실패했습니다. 관리자에게 문의해주세요.");
-					}
-				});
+				}
+				, error:function(e) {
+					alert("거래완료버튼 클릭에 실패했습니다. 관리자에게 문의해주세요.");
+				}
 			});
-		}
+		});
 	});
 </script>

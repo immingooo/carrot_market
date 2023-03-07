@@ -20,7 +20,7 @@ import com.carrotMarket.usedGoods.bo.UsedGoodsBO;
 import com.carrotMarket.usedGoods.model.UsedGoods;
 import com.carrotMarket.usedGoods.model.UsedGoodsDone;
 
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/chat")

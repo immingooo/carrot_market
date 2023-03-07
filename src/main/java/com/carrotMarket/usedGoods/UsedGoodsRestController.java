@@ -17,7 +17,7 @@ import com.carrotMarket.chatRoom.bo.ChatRoomBO;
 import com.carrotMarket.usedGoods.bo.UsedGoodsBO;
 import com.carrotMarket.usedGoods.model.UsedGoodsImage;
 
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/used_goods")

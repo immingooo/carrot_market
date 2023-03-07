@@ -1,9 +1,14 @@
 package com.carrotMarket.like.bo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.carrotMarket.like.dao.LikeDAO;
+import com.carrotMarket.like.model.Like;
+import com.carrotMarket.like.model.LikeView;
 
 @Service
 public class LikeBO {
@@ -34,4 +39,24 @@ public class LikeBO {
 	public void deleteLikeByUsedGoodsId(int usedGoodsId) {
 		likeDAO.deleteLikeByUsedGoodsId(usedGoodsId);
 	}
+	
+	public List<Like> getLikeByUserId(int userId) {
+		return likeDAO.selectLikeByUserId(userId);
+	}
+	
+//	public List<LikeView> generateLikeView(int userId) {
+//		List<LikeView> LikeViewList = new ArrayList<>();
+//		
+//		// userId가 좋아요누른 좋아요객체리스트
+//		List<Like> likeList = likeDAO.selectLikeByUserId(userId);
+//		for (Like like : likeList) {
+//			LikeView likeView = new LikeView();
+//			
+//			likeView.setUsedGoods(null);
+//			
+//			likeView.setLikeCount(getLikeCountByUsedGoodsId(like.getUsedGoodsId()));
+//			
+//			likeView.setChatRoomCount();
+//		}
+//	}
 }

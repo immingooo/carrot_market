@@ -16,9 +16,9 @@ import com.carrotMarket.usedGoods.model.UsedGoods;
 import com.carrotMarket.usedGoods.model.UsedGoodsDone;
 import com.carrotMarket.usedGoods.model.UsedGoodsImage;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/used_goods")

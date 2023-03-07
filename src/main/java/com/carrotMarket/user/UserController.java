@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.carrotMarket.user.bo.UserBO;
 import com.carrotMarket.user.model.User;
 
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user")

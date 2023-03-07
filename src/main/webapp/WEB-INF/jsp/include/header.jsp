@@ -25,7 +25,7 @@
 	</div>
 	</div>
     
-	<a href="#"><img alt="관심목록 아이콘" src="https://cdn-icons-png.flaticon.com/512/2589/2589197.png" width="30px" class="mr-2"></a>
+	<a href="/like_view"><img alt="관심목록 아이콘" src="https://cdn-icons-png.flaticon.com/512/2589/2589197.png" width="30px" class="mr-2"></a>
 	<a href="/chat_room_view"><img alt="채팅목록 아이콘" src="https://cdn-icons-png.flaticon.com/512/2076/2076218.png" width="30px" class="mr-2"></a>
 	<a href="#"><img alt="알림 아이콘" src="https://cdn-icons-png.flaticon.com/512/709/709846.png" width="30px"></a>
 </div>

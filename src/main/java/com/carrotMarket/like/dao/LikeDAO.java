@@ -1,7 +1,11 @@
 package com.carrotMarket.like.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import com.carrotMarket.like.model.Like;
 
 @Repository
 public interface LikeDAO {
@@ -21,4 +25,6 @@ public interface LikeDAO {
 	public int selectLikeCountByUsedGoodsId(int usedGoodsId);
 	
 	public void deleteLikeByUsedGoodsId(int usedGoodsId);
+	
+	public List<Like> selectLikeByUserId(int userId);
 }
