@@ -24,7 +24,15 @@ public class ChatRoomRestContoller {
 	@Autowired
 	private UsedGoodsBO usedGoodsBO;
 
-	// 채팅방 생성하는 로직
+	/**
+	 * 채팅방 생성 API
+	 * @param usedGoodsId
+	 * @param sellerId
+	 * @param sellerNickname
+	 * @param sellerProfileImageUrl
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/chat_room/create") 
 	public Map<String, Object> chatRoomCreate (
 			@RequestParam("usedGoodsId") int usedGoodsId,

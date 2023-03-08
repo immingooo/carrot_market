@@ -283,3 +283,12 @@ li {list-style:none;}
   -ms-transform: rotate(3deg);
   transform: rotate(3deg);
 }
+
+
+.scrollbar {
+	 overflow-y: scroll; 
+	 overflow-x:hidden; 
+}
+::-webkit-scrollbar {
+  display: none;
+}

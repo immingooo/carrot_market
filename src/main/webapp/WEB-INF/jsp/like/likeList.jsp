@@ -19,11 +19,25 @@
 					<div class="font-weight-bold">${price}원</div>
 				</div>
 			</div>
-			<div class="d-flex small align-items-end">
-				<img alt="채팅" src="https://cdn-icons-png.flaticon.com/512/2076/2076218.png" width="20px">
-				<span class="ml-2">${postView.chatRoomCount}</span>
-				<img alt="좋아요" src="https://cdn-icons-png.flaticon.com/512/2589/2589197.png" width="20px" class="ml-1">
-				<span class="ml-1">${postView.likeCount}</span>
+			<div>
+				<div class="d-flex justify-content-end pb-3">
+					<c:if test="${postView.filledLike eq false}">
+					<a href="#" id="likeBtn" data-user-id="${userId}" data-used-goods-id="${postView.usedGoods.id}">
+						<img alt="빈 하트" src="/static/img/heart.png" width="30px">
+					</a>
+					</c:if>
+					<c:if test="${postView.filledLike eq true}">
+					<a href="#" id="likeBtn" data-user-id="${userId}" data-used-goods-id="${postView.usedGoods.id}">
+						<img alt="빈 하트" src="/static/img/heart-shape.png" width="30px">
+					</a>
+					</c:if>
+				</div>
+				<div class="d-flex small align-items-end pt-4">
+					<img alt="채팅" src="https://cdn-icons-png.flaticon.com/512/2076/2076218.png" width="20px">
+					<span class="ml-2">${postView.chatRoomCount}</span>
+					<img alt="좋아요" src="https://cdn-icons-png.flaticon.com/512/2589/2589197.png" width="20px" class="ml-1">
+					<span class="ml-1">${postView.likeCount}</span>
+				</div>
 			</div>
 		</div>
 		</a>
@@ -31,3 +45,39 @@
 		</c:forEach>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function() {
+		// 좋아요 클릭/해제 버튼 클릭
+		$("#likeBtn").on('click', function(e) {
+			e.preventDefault();
+			//alert('111');
+			
+			let userId = $(this).data('user-id');
+			console.log("userId: " + userId);
+			if(userId == null) {
+				alert("로그인 해주세요");
+				return;
+			}
+			
+			let usedGoodsId = $(this).data('used-goods-id');
+			console.log("usedGoodsId: " + usedGoodsId);
+			
+			$.ajax({
+				type:"get"
+				, url:"/like/" + usedGoodsId
+				
+				, success:function(data) {
+					if (data.code == 1) {
+						location.reload(true);
+					} else {
+						alert(data.errorMessage);
+					}
+				}
+				, error:function(e) {
+					alert("좋아요/해제 하는데 실패했습니다.");
+				}
+			});
+		});
+	});
+</script>

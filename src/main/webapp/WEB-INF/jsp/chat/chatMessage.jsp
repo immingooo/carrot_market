@@ -71,7 +71,7 @@
 			</c:if>
 		</div>
 		<hr>
-		<div id="chatBox" style="height:400px">
+		<div id="chatBox" style="height:400px;" class="scrollbar">
 			<%-- 대화내용 --%>
 		</div>
 		<div class="d-flex send-box" style="width:500px">
@@ -148,7 +148,7 @@
 			</c:if>
 		</div>
 		<hr>
-		<div id="chatBox" style="pointer-events: none; height:400px filter: blur(5px); -webkit-filter: blur(5px);">
+		<div id="chatBox" style="pointer-events: none; height:400px; filter: blur(5px); -webkit-filter: blur(5px);" class="scrollbar">
 			<%-- 대화내용 --%>
 		</div>
 		<div class="d-flex send-box" style="width:500px; pointer-events: none; height:400px filter: blur(5px); -webkit-filter: blur(5px);">
@@ -165,11 +165,10 @@
 	$(document).ready(function() {
 		// 처음 대화창에 들어오면 이전에 있던 메세지들이 보여야 함!!!!
 		// 그 이후에 새로고침하거나 자동으로 새로고침되도록해야함...
-		 /* function autoRefresh_div() {
-			$("#chatBox").load("load.html");
-		} setInterval('autoRefresh_div()', 5000); */
-		
-		/* setTimeout("location.reload()",6000); */
+		/* function autoRefresh_div() {
+			$("#chatBox").load(window.location.href + ' #chatBox');
+		}setInterval('autoRefresh_div()', 3000); */
+/* 		$("#chatBox").load(window.location.href + ' #chatBox'); */
 		
 		let chatRoomId = ${chatRoom.id}
 		
@@ -189,6 +188,28 @@
 				alert("채팅내역을 불러올 수 없습니다. 관리자에게 문의해주세요.");
 			}
 		});
+		
+		setInterval(function() {
+			let chatRoomId = ${chatRoom.id}
+			
+			$.ajax({
+				type:"post"
+				, url:"/chat/chat_list_result_view"
+				, data:{"chatRoomId":chatRoomId}
+			
+				, success:function(data) { // data에 html 통째로 들어가는지 확인하기
+					// ajax 바꿔끼기 - 채팅내용 리스트
+					//console.log(data);
+					$("#chatBox").html(data);
+					
+					// 스크롤을 맨아래로 가게하기
+				}
+				, error:function(e) {
+					alert("채팅내역을 불러올 수 없습니다. 관리자에게 문의해주세요.");
+				}
+			});
+		}, 3000);
+		
 		
 		$('#chatSendBtn').on('click', function() {
 			//alert("1111");

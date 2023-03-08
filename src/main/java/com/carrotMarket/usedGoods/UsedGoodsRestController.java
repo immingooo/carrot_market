@@ -29,6 +29,17 @@ public class UsedGoodsRestController {
 	@Autowired
 	private ChatRoomBO chatRoomBO;
 
+	/**
+	 * 글 생성 API
+	 * @param title
+	 * @param category
+	 * @param price
+	 * @param content
+	 * @param place
+	 * @param files
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/create")
 	public Map<String, Object> create(
 			@RequestParam("title") String title,
@@ -58,6 +69,18 @@ public class UsedGoodsRestController {
 		return result;
 	}
 	
+	/**
+	 * 글 수정 API
+	 * @param usedGoodsId
+	 * @param title
+	 * @param category
+	 * @param price
+	 * @param content
+	 * @param place
+	 * @param files
+	 * @param session
+	 * @return
+	 */
 	@PutMapping("/update")
 	public Map<String, Object> update(
 			@RequestParam("usedGoodsId") int usedGoodsId,
@@ -95,6 +118,13 @@ public class UsedGoodsRestController {
 		return result;
 	}
 	
+	/**
+	 * 거래완료 API
+	 * @param usedGoodsId
+	 * @param buyerId
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/done")
 	public Map<String, Object> done(
 			@RequestParam("usedGoodsId") int usedGoodsId,
@@ -110,8 +140,6 @@ public class UsedGoodsRestController {
 			return result;
 		}
 		
-		// DB update
-		//usedGoodsBO.updateSoldOut(usedGoodsId, userId);
 		// DB insert
 		usedGoodsBO.addUsedGoodsDone(usedGoodsId, buyerId);
 		result.put("code", 1);
@@ -120,6 +148,12 @@ public class UsedGoodsRestController {
 		return result;
 	}
 	
+	/**
+	 * 글 삭제 API
+	 * @param usedGoodsId
+	 * @param session
+	 * @return
+	 */
 	@DeleteMapping("/delete")
 	public Map<String, Object> delete(
 			@RequestParam("usedGoodsId") int usedGoodsId,

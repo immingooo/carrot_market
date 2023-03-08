@@ -59,7 +59,7 @@ public class UserRestController {
 	}
 	
 	/**
-	 * 닉네임 API 중복확인
+	 * 닉네임 중복확인 API
 	 * @param nickname
 	 * @return
 	 */
@@ -115,6 +115,13 @@ public class UserRestController {
 		return result;
 	}
 	
+	/**
+	 * 로그인 API
+	 * @param loginId
+	 * @param password
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/sign_in")
 	public Map<String, Object> signIn(
 			@RequestParam("loginId") String loginId,
@@ -141,6 +148,13 @@ public class UserRestController {
 		return result;
 	}
 	
+	/**
+	 * 회원정보(닉네임, 프로필이미지) 수정 API
+	 * @param nickname
+	 * @param file
+	 * @param session
+	 * @return
+	 */
 	@PutMapping("/update")
 	public Map<String, Object> update(
 			@RequestParam("nickname") String nickname,

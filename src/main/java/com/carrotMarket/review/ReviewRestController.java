@@ -19,6 +19,15 @@ public class ReviewRestController {
 	@Autowired
 	private ReviewBO reviewBO;
 
+	/**
+	 * 후기작성 API
+	 * @param usedGoodsId
+	 * @param rating
+	 * @param mannerContentArray
+	 * @param reviewContent
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/review/create")
 	public Map<String, Object> create(
 			@RequestParam("usedGoodsId") int usedGoodsId,

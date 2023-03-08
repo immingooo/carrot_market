@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div class="d-flex justify-content-center pt-3 pb-5">
-	<div class="message-list-box col-5 p-0 box bg-light" style="height:600px">
+	<div class="message-list-box col-5 p-0 box bg-light" style="height:600px;">
 		<c:forEach var="chatRoomView" items="${chatRoomViewList}">
 		<a href="/chat/chat_message_view/${chatRoomView.chatRoom.id}" style="text-decoration:none; color:black">
 		<div class="d-flex justify-content-between m-3">
