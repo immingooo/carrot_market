@@ -173,6 +173,12 @@ public class UsedGoodsBO {
 				MultipartFile file = files.get(i);
 				String imagePath = fileManagerService.saveFile(userLoginId, file);
 				imagePathList.add(imagePath);
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 			// 수정할 새로운 이미지 업로드 성공했으면 기존이미지 삭제(노트북에 기존 이미지 삭제)
