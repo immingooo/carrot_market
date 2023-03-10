@@ -78,6 +78,12 @@ public class UsedGoodsBO {
 				MultipartFile file = files.get(i);
 				String imagePath = fileManagerService.saveFile(userLoginId, file);
 				imagePathList.add(imagePath);
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 
