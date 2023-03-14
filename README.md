@@ -29,6 +29,13 @@
 > ERD 다이어그램 링크: https://www.erdcloud.com/p/835uCxuzwJpBzrS4C
 
 ## URL 설계
+
+### 화면 URL설계
+노션테이블
+
+### API 설계
+
+
 노션캡처사진
 
 ## 핵심기능
