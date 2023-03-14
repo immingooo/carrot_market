@@ -1,5 +1,5 @@
-# 당근마켓🥕
-<img src="https://user-images.githubusercontent.com/101551707/225052201-fdba5ae7-bb95-4b97-b20e-1838bb58d607.JPG"  width="500" height="370">
+# 🥕당근마켓🥕
+<img src="https://user-images.githubusercontent.com/101551707/225053683-b416c84a-0c2f-4366-853d-2063462e36dd.png"  width="700" height="370">
 
 ##  💻 프로젝트 소개
 당근마켓을 클론코딩하여 만든 사이트
@@ -24,7 +24,8 @@
 > 기획서 링크: https://ovenapp.io/view/paAvCs2fGN8lyUNYgZKIVfX5VNExbgcT/h0bBY
 
 ## ERD 다이어그램
-캡처사진
+<img src="https://user-images.githubusercontent.com/101551707/225052519-13f2b97d-2000-4a27-a53e-e16babeac704.png"  width="900" height="500">
+
 > ERD 다이어그램 링크: https://www.erdcloud.com/p/835uCxuzwJpBzrS4C
 
 ## URL 설계
