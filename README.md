@@ -1,5 +1,6 @@
-# 당근마켓
-메인화면사진
+# 당근마켓🥕
+<img src="https://user-images.githubusercontent.com/101551707/225052201-fdba5ae7-bb95-4b97-b20e-1838bb58d607.JPG"  width="500" height="370">
+
 ##  💻 프로젝트 소개
 당근마켓을 클론코딩하여 만든 사이트
 
