@@ -10,7 +10,7 @@
 * 시연 영상: https://youtu.be/2Ez4Rb7c_F0
 
 * 노션: https://innate-rugby-85f.notion.site/87944d15005d4cc69160eeabfa016f40
- (PDF파일: [당근마켓_클론코딩.pdf](https://github.com/immingooo/carrot_market/files/10975293/_.pdf) )
+ (PDF파일: [당근마켓_클론코딩.pdf](https://github.com/immingooo/carrot_market/files/10976006/_.pdf) )
  
 
 ## ⏱ 개발 기간
