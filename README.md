@@ -89,6 +89,9 @@
 * [다중 이미지처리](https://github.com/immingooo/carrot_market/blob/bc060a6922724ca4994da85ebda0a3bf8b606136/src/main/resources/mappers/usedGoodsMapper.xml#L35)
 * [조회수](https://github.com/immingooo/carrot_market/blob/bc060a6922724ca4994da85ebda0a3bf8b606136/src/main/java/com/carrotMarket/usedGoods/bo/UsedGoodsBO.java#L224)
 * 검색화면<br>
+[header](src/main/webapp/WEB-INF/jsp/include/header.jsp)
+[search](src/main/webapp/WEB-INF/jsp/main/search.jsp)
+[searchContent](src/main/webapp/WEB-INF/jsp/main/searchContent.jsp)
 
 ## 💡 느낀점
 프로젝트를 시작하고 구체적인 구현을 하기 시작하면서 내가 할 수 있을까라는 생각이 들고 두려웠지만 하루하루 기능들을 구현해내고 오류를 해결해가면서 어느순간 제가 직접 만든 사이트가 만들어져 있어져 신기했습니다. 
