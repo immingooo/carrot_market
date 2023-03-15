@@ -1,5 +1,4 @@
 # 🥕당근마켓🥕
-<img src="https://user-images.githubusercontent.com/101551707/225053683-b416c84a-0c2f-4366-853d-2063462e36dd.png"  width="700" height="370">
 
 ##  💻 프로젝트 소개
 당근마켓을 클론코딩하여 만든 사이트입니다.
@@ -16,20 +15,16 @@
 ## ⏱ 개발 기간
 * 2023.01.30 ~ 2023.03.07
 
-* 일정표 링크: https://docs.google.com/spreadsheets/d/1xpb50cubg17faKI1HsoI77gZlOBvnJhO/edit?usp=sharing&ouid=107593773136340825445&rtpof=true&sd=true
+> 일정표 링크: https://docs.google.com/spreadsheets/d/1xpb50cubg17faKI1HsoI77gZlOBvnJhO/edit?usp=sharing&ouid=107593773136340825445&rtpof=true&sd=true
 
 ## ⚔ 기술 스택
 **[Front-End]**
 
-<img src="https://img.shields.io/badge/CSS Modules-000000?style=for-the-badge&logo=CSS Modules&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"> 
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"> <img src="https://img.shields.io/badge/Bootstrap4-7952B3?style=for-the-badge&logo=Bootstrap&logoColor=white"/>
 
-* Html, CSS, javascript, Bootstrap4
+**[Back-End]** 
 
-**Back-End**: 
-
-<img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"> <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white">  <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"> 
-
-* Java11, SpringBoot2.7.9, Mysql, Mybatis, AWS EC2, Gradle
+<img src="https://img.shields.io/badge/Spring Boot 2.7.9-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"> <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL EC2&logoColor=white"> <img src="https://img.shields.io/badge/MyBatis-4479A1?style=for-the-badge&logo=MyBatis EC2&logoColor=white"> <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white"> <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"> 
 
 ## 📝 화면 기획
 |![메인화면](https://user-images.githubusercontent.com/101551707/225053683-b416c84a-0c2f-4366-853d-2063462e36dd.png)| ![로그인](https://user-images.githubusercontent.com/101551707/225171201-1be722d8-2158-41f8-b030-eed0ef01fe6b.png) | ![회원가입](https://user-images.githubusercontent.com/101551707/225171244-0a489636-8e05-4a89-8070-2431a2779093.png) |
@@ -40,12 +35,12 @@
 | :-----------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: |
 |                                                      글작성                                                      |                                                       글 상세                                                        |                                                      채팅                                                        |                                                     후기작성                                                      |
 
-* 기획서 링크: https://ovenapp.io/view/paAvCs2fGN8lyUNYgZKIVfX5VNExbgcT/h0bBY
+> 기획서 링크: https://ovenapp.io/view/paAvCs2fGN8lyUNYgZKIVfX5VNExbgcT/h0bBY
 
 ## 🛢 ERD 다이어그램
 <img src="https://user-images.githubusercontent.com/101551707/225052519-13f2b97d-2000-4a27-a53e-e16babeac704.png"  width="900" height="500">
 
-* ERD 다이어그램 링크: https://www.erdcloud.com/p/835uCxuzwJpBzrS4C
+> ERD 다이어그램 링크: https://www.erdcloud.com/p/835uCxuzwJpBzrS4C
 
 ## 🔗 URL 설계
 
@@ -63,8 +58,10 @@
 <img src="https://user-images.githubusercontent.com/101551707/225056028-d40c0b19-2aa4-4cf0-bf8a-ce1013dee047.jpg"  width="700" height="450">
 <img src="https://user-images.githubusercontent.com/101551707/225056101-4fa32f48-7bdb-44d4-b9d9-4cfe6f99d4a7.jpg"  width="700" height="200">
 
-## 📌 핵심기능
+## 📌 주요기능
 ### 글 작성
+
+### 글 상세화면
 
 ### 채팅하기
 
