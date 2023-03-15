@@ -2,15 +2,16 @@
 
 ##  💻 프로젝트 소개
 당근마켓을 클론코딩하여 만든 사이트입니다.
-
-* 포트폴리오(Notion PDF): 
-
-* 시연 영상: https://youtu.be/2Ez4Rb7c_F0
  
 * 당근마켓 클론코딩 홈페이지: http://13.125.150.98:8080/main/main_view
 ```
 아이디: aaa123  비밀번호: aaa123
 ```
+* 시연 영상: https://youtu.be/2Ez4Rb7c_F0
+
+* 노션: https://innate-rugby-85f.notion.site/87944d15005d4cc69160eeabfa016f40
+ (PDF파일: [당근마켓_클론코딩.pdf](https://github.com/immingooo/carrot_market/files/10975293/_.pdf) )
+ 
 
 ## ⏱ 개발 기간
 * 2023.01.30 ~ 2023.03.07
@@ -69,7 +70,16 @@
 ### 글 상세화면
 <img src="https://user-images.githubusercontent.com/101551707/225171292-47a1d542-0f91-430d-b833-6d63fa9785c3.png"  width="800" height="600">
 
+```
+글 상세화면 입니다.
+```
+
 ### 채팅하기
 <img src="https://user-images.githubusercontent.com/101551707/225171322-e95a4eaa-fede-4ce0-9048-76e1dcdf7682.png"  width="800" height="500">
 
+```
+채팅화면 입니다.
+```
+
 ## 💡 느낀점
+
