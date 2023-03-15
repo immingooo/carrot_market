@@ -61,7 +61,7 @@
 
 ## 📌 주요기능
 ### 글 작성
-<img src="https://user-images.githubusercontent.com/101551707/225171266-59c4eaf1-114e-4bcf-a40e-6441ced555e8.png"  width="800" height="500">
+<img src="https://user-images.githubusercontent.com/101551707/225205251-fed8b65d-9bf5-4e5f-8a56-2e7850ddf718.gif"  width="800" height="500">
 
 ```
 글을 작성하는 화면입니다.
@@ -75,7 +75,7 @@
 ```
 
 ### 채팅하기
-<img src="https://user-images.githubusercontent.com/101551707/225171322-e95a4eaa-fede-4ce0-9048-76e1dcdf7682.png"  width="800" height="500">
+<img src="https://user-images.githubusercontent.com/101551707/225205256-409d4d47-7c80-4e5c-9a83-d2172e0aa168.gif"  width="800" height="500">
 
 ```
 채팅화면 입니다.
