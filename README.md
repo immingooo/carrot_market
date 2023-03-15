@@ -5,7 +5,7 @@
  
 * 당근마켓 클론코딩 홈페이지: http://13.125.150.98:8080/main/main_view
 ```
-아이디: aaa123  비밀번호: aaa123
+아이디: aaaa123  비밀번호: aaaa123
 ```
 * 시연 영상: https://youtu.be/2Ez4Rb7c_F0
 
