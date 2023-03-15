@@ -68,7 +68,7 @@
 ```
 
 ### 글 상세화면
-<img src="https://user-images.githubusercontent.com/101551707/225171292-47a1d542-0f91-430d-b833-6d63fa9785c3.png"  width="800" height="600">
+<img src="https://user-images.githubusercontent.com/101551707/225205639-130b2427-59bb-4e0d-bea3-bd0725cc7a1d.gif"  width="800" height="600">
 
 ```
 글 상세화면 입니다.
